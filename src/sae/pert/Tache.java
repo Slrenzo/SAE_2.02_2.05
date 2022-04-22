@@ -27,8 +27,22 @@ public class Tache {
     private double duree;
     
     public Tache(String nom, String description, double duree) {
-        if (nom.isBlank() || nom == null) {
-            throw new IllegalArgumentException("Le nom est vide ou null");
+        if (nom.isBlank()) {
+            throw new IllegalArgumentException("Le nom est vide");
+        }
+        if (nom == null) {
+            throw new NullPointerException("Le nom entrée est null");
+        }
+        if (description.isBlank()) {
+            throw new IllegalArgumentException("Le description est "
+                                               + "vide ou null");
+        }
+        if (description == null) {
+            throw new NullPointerException("La description est null");
+        }
+        if (duree <= 0.0) {
+            throw new IllegalArgumentException("La durée est nulle "
+                                               + "ou négative");
         }
     }
 }
