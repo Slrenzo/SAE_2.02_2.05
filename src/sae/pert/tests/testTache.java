@@ -2,7 +2,9 @@
  * testTache.java                                  22 avr. 2022
  * IUT de Rodez, Info1 2021-2022 Groupe 4, pas de copyright 
  */
-package info1;
+package sae.pert.tests;
+
+import sae.pert.Tache;
 
 /** TODO commenter la responsabilité de cette classe
  * @author emilien.restoueix
@@ -26,6 +28,10 @@ public class testTache {
         }
     }
     
+    /**
+     * Test du constructeur de la class Tache
+     * @return testOK
+     */
     private static boolean testConstructeurStringStringDouble() {
         
         boolean testOK;
@@ -33,7 +39,7 @@ public class testTache {
         try {
             new Tache(null, "testDescription", 30.5);
             testOK = false;
-        } catch (IllegalArgumentException nomNul) {
+        } catch (NullPointerException nomNul) {
             testOK = true;
         }
         
@@ -47,7 +53,7 @@ public class testTache {
         try {
             new Tache("testNom", null, 30.5);
             testOK = false;
-        } catch (IllegalArgumentException descriptionNul) {
+        } catch (NullPointerException descriptionNul) {
             testOK = true;
         }
         
@@ -59,14 +65,14 @@ public class testTache {
         }
         
         try {
-            new Tache("testNom", "testDescription", 0);
+            new Tache("testNom", "testDescription", 0.0);
             testOK = false;
         } catch (IllegalArgumentException dureeNul) {
             testOK = true;
         }
         
         try {
-            new Tache("testNom", "testDescription", -5);
+            new Tache("testNom", "testDescription", -5.0);
             testOK = false;
         } catch (IllegalArgumentException dureeNégative) {
             testOK = true;
@@ -74,9 +80,9 @@ public class testTache {
         
         try {
             new Tache("testNom", "testDescription", 35.5);
-            testOK = false;
-        } catch (IllegalArgumentException dureeNul) {
             testOK = true;
+        } catch (IllegalArgumentException TacheIncorrect) {
+            testOK = false;
         }
         
         return testOK;
