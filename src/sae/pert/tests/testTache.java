@@ -79,7 +79,7 @@ public class testTache {
         }
         
         try {
-            new Tache("testNom", "testDescription", 35.5);
+            new Tache("testNoM", "testDescription", 35.5);
             testOK = true;
         } catch (IllegalArgumentException TacheIncorrect) {
             testOK = false;
