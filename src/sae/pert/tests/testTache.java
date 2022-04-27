@@ -5,12 +5,23 @@
 package sae.pert.tests;
 
 import sae.pert.Tache;
+import testOutillage.assertionTest;
 
 /** TODO commenter la responsabilité de cette classe
  * @author emilien.restoueix
  *
  */
 public class testTache {
+    
+    /**
+     * Jeux de tests unitaires qui servira a tester des méthodes
+     */
+    private static Tache[] aTester = {
+        new Tache("Tache A", "Cette tache consiste à analyser le besoin", 2.0),
+        new Tache("Tache B", "Mise en place des méthodes de travail", 5.0),
+        new Tache("Tache C", "Répartition du travail", 2.0),
+        new Tache("Tache D", "Réalisation de l'application", 30.0)
+    };
     
     /** TODO commenter le rôle de cette méthode (SRP)
      * @param args
@@ -20,6 +31,9 @@ public class testTache {
         boolean ok;
         
         ok = testConstructeurStringStringDouble();
+        //ok &= testSetNom();
+        ok &= testGetNom();
+        
         
         if(ok) {
             System.out.println("Test réussis");
@@ -44,7 +58,7 @@ public class testTache {
         }
         
         try {
-            new Tache("", "testDescription", 30.5);
+            new Tache("  ", "testDescription", 30.5);
             testOK = false;
         } catch (IllegalArgumentException nomVide) {
             testOK = true;
@@ -86,6 +100,53 @@ public class testTache {
         }
         
         return testOK;
+    }
+    
+    private static boolean testGetNom() {
+        
+        String[] nomAttendus = {
+            "Tache A", "Tache B", "Tache C", "Tache D"
+        };
+        
+        boolean ok;
+        
+        ok = true;
+        for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
+            ok &= assurerEgalite(nomAttendus[noJeu],aTester[noJeu].getNom());
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    private static boolean testSetNom() {
+        
+        String[] nomModifié = {
+            "TacheA", "", null, "Tache D"
+        };
+        
+        boolean ok;
+        
+        ok = true;
+        for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
+            Tache noJeu = aTester[noJeu];
+            noJeu.setNom(nomModifié[noJeu]);
+            
+            ok &= estValide(noJeu.setNom());
+        }
     }
 
 }
