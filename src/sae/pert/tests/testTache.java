@@ -19,7 +19,7 @@ public class testTache {
     private static Tache[] aTester = {
         new Tache("Tache A", "Cette tache consiste à analyser le besoin", 2.0),
         new Tache("Tache B", "Mise en place des méthodes de travail", 5.0),
-        new Tache("Tache C", "Répartition du travail", 2.0),
+        new Tache("Tache C", "Répartition du travail", 3.5),
         new Tache("Tache D", "Réalisation de l'application", 30.0)
     };
     
@@ -33,6 +33,8 @@ public class testTache {
         ok = testConstructeurStringStringDouble();
         //ok &= testSetNom();
         ok &= testGetNom();
+        ok &= testGetDescription();
+        ok &= testGetDuree();
         
         
         if(ok) {
@@ -102,6 +104,10 @@ public class testTache {
         return testOK;
     }
     
+    /**
+     * Test unitaires de getNom
+     * @return true si test reussis sinon false
+     */
     private static boolean testGetNom() {
         
         String[] nomAttendus = {
@@ -112,41 +118,53 @@ public class testTache {
         
         ok = true;
         for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
-            ok &= assurerEgalite(nomAttendus[noJeu],aTester[noJeu].getNom());
+            ok &= assertionTest.assurerEgalite(nomAttendus[noJeu],aTester[noJeu].getNom());
         }
+        return ok;
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    private static boolean testSetNom() {
+    /**
+     * Test unitaires de getDescription
+     * @return true si test reussis sinon false
+     */
+    private static boolean testGetDescription() {
         
-        String[] nomModifié = {
-            "TacheA", "", null, "Tache D"
+        String[] descriptionAttendus = {
+            "Cette tache consiste à analyser le besoin",
+            "Mise en place des méthodes de travail",
+            "Répartition du travail",
+            "Réalisation de l'application"
         };
         
         boolean ok;
         
         ok = true;
         for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
-            Tache noJeu = aTester[noJeu];
-            noJeu.setNom(nomModifié[noJeu]);
-            
-            ok &= estValide(noJeu.setNom());
+            ok &= assertionTest.assurerEgalite(descriptionAttendus[noJeu],
+                                               aTester[noJeu].getDescription());
         }
+        return ok;
     }
-
+    
+    
+    /**
+     * Test unitaires de getDescription
+     * @return true si test reussis sinon false
+     */
+    private static boolean testGetDuree() {
+        
+        double[] dureeAttendus = {
+            2.0, 5.0, 3.5, 30.0
+        };
+        
+        boolean ok;
+        
+        ok = true;
+        for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
+            ok &= assertionTest.assurerEgaliteDouble(dureeAttendus[noJeu],
+                                               aTester[noJeu].getDuree());
+        }
+        return ok;
+    }
 }

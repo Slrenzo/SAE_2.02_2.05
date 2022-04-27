@@ -23,4 +23,17 @@ public class assertionTest {
             throw new IllegalArgumentException();
         }
     }
+    
+    /** TODO commenter le rôle de cette méthode (SRP)
+     * @param attendu
+     * @param obtenu
+     * @return test d'égalité
+     */
+    public static boolean assurerEgaliteDouble(double attendu, double obtenu) {
+        if(attendu == obtenu) {
+            return true;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
 }
