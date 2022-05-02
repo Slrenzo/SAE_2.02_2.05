@@ -35,6 +35,7 @@ public class testTache {
         ok &= testGetNom();
         ok &= testGetDescription();
         ok &= testGetDuree();
+        ok &= testToString();
         
         
         if(ok) {
@@ -149,7 +150,7 @@ public class testTache {
     
     
     /**
-     * Test unitaires de getDescription
+     * Tests unitaires de getDescription
      * @return true si test reussis sinon false
      */
     private static boolean testGetDuree() {
@@ -167,4 +168,39 @@ public class testTache {
         }
         return ok;
     }
+    /**
+     * Test unitaires de toString
+     * @return true si test réussi, sinon false
+     */
+    private static boolean testToString() {
+    	
+    	
+    	String[] attendus = {"Cette tache est défini par :\n  nom : Tache A"
+				            + "\n  description : Répartition du travail"
+				            + "\n  duree : 30.5"
+				            + "\n  tachesPrealables : Cette tache n'a pas de "
+				            + "taches préalables",
+				            "Cette tache est défini par :\n  nom : Tache B"
+				            + "\n  description : Création d'une base de donnée"
+				            + "\n  duree : 10.0"
+				            + "\n  tachesPrealables : Cette tache n'a pas de "
+				            + "taches préalables"
+    						};
+    	
+    	Tache[] jeuTests = {
+    				new Tache("Tache A", "Répartition du travail", 30.5),
+    				new Tache("Tache B", "Création d'une base de donnée", 10),
+    						};
+    	boolean ok;
+    	
+    	ok = true;
+        for (int noJeu = 0; ok && noJeu < jeuTests.length; noJeu++) {
+            ok &= assertionTest.assurerEgalite(attendus[noJeu],
+            		jeuTests[noJeu].toString());
+        }
+
+        return ok;
+        //TODO Faire des tests avec des etapes préalables
+    }
+
 }

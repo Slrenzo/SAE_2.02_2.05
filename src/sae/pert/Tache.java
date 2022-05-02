@@ -35,9 +35,9 @@ public class Tache {
     
     /**
      * Définition d'une tache ayant une durée de réalisation
-     * @param nom nom ni vide ni null de la tache
-     * @param description description ni vide ni null de la tache
-     * @param duree durée de la tache supérieur à 0.0
+     * @param nom ni vide ni null de la tache
+     * @param description ni vide ni null de la tache
+     * @param duree de la tache supérieur à 0.0
      * @throws IllegalArgumentException nom est vide
      * @throws IllegalArgumentException description est vide
      * @throws IllegalArgumentException duree inférieur ou égal à 0.0

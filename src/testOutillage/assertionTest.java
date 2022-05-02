@@ -17,11 +17,7 @@ public class assertionTest {
      * @return test d'égalité
      */
     public static boolean assurerEgalite(String attendu, String obtenu) {
-        if(attendu == obtenu) {
-            return true;
-        } else {
-            throw new IllegalArgumentException();
-        }
+        return attendu.equals(obtenu);
     }
     
     /** TODO commenter le rôle de cette méthode (SRP)
