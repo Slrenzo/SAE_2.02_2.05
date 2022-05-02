@@ -31,11 +31,11 @@ public class testTache {
         boolean ok;
         
         ok = testConstructeurStringStringDouble();
-        //ok &= testSetNom();
         ok &= testGetNom();
         ok &= testGetDescription();
         ok &= testGetDuree();
         ok &= testToString();
+        ok &= testSetNom();
         
         
         if(ok) {
@@ -44,7 +44,7 @@ public class testTache {
             System.out.println("Test échoué");
         }
     }
-    
+
     /**
      * Test du constructeur de la class Tache
      * @return testOK
@@ -168,6 +168,41 @@ public class testTache {
         }
         return ok;
     }
+    
+    /** Test unitaires de setNom
+     * @return true si test reussis sinon false 
+     */
+    private static boolean testSetNom() {
+        
+        boolean ok;
+        
+        /** Tache de test */
+        Tache test = new Tache("testNom", "testDescription", 30.5);
+        String[] testNom = {
+            "A",
+            "ABC",
+            "    "
+        };
+        
+        String[] nomAttendus = {
+            "A",
+            "ABC",
+            "testNom"
+        };
+        
+        ok = true;
+        for (int noTest = 0; ok && noTest < testNom.length; noTest++) {
+            try {
+                test.setNom(testNom[noTest]);
+                ok &= test.getNom().equals(nomAttendus[noTest]);
+            } catch (IllegalArgumentException NomVide) {
+                ok = true;
+            }
+        }
+        
+        return ok;
+    }
+    
     /**
      * Test unitaires de toString
      * @return true si test réussi, sinon false
