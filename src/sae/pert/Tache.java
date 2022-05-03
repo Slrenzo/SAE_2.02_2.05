@@ -92,8 +92,7 @@ public class Tache {
      */
     public void setDescription(String description) {
         if (description.isBlank()) {
-            throw new IllegalArgumentException("Le description est "
-                                               + "vide ou null");
+            throw new IllegalArgumentException("Le description est vide");
         }
         this.description = description;
     }
