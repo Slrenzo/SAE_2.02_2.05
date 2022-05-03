@@ -47,8 +47,7 @@ public class Tache {
             throw new IllegalArgumentException("Le nom est vide");
         }
         if (description.isBlank()) {
-            throw new IllegalArgumentException("Le description est "
-                                               + "vide ou null");
+            throw new IllegalArgumentException("Le description est vide");
         }
         if (duree <= 0.0) {
             throw new IllegalArgumentException("La durée est nulle "
