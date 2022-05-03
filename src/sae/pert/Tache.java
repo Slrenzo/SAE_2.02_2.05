@@ -35,9 +35,9 @@ public class Tache {
     
     /**
      * Définition d'une tache ayant une durée de réalisation
-     * @param nom ni vide ni null de la tache
-     * @param description ni vide ni null de la tache
-     * @param duree de la tache supérieur à 0.0
+     * @param nom nom ni vide ni null de la tache
+     * @param description description ni vide ni null de la tache
+     * @param duree durée de la tache supérieur à 0.0
      * @throws IllegalArgumentException nom est vide
      * @throws IllegalArgumentException description est vide
      * @throws IllegalArgumentException duree inférieur ou égal à 0.0
@@ -154,14 +154,15 @@ public class Tache {
     @Override
     public String toString() {
         String tachesPrealables = this.tachesPrealables.size() != 0 
-                                  ? "Taches préalables : "
-                                  : "Cette tache n'a pas de taches préalables";
+                                  ? "\n  Taches préalables : "
+                                  : "\n  Cette tache n'a pas de taches "
+                                  + "préalables";
         for (int i = 0; i < this.tachesPrealables.size(); i++) {
-            tachesPrealables += this.tachesPrealables.get(i) + " | ";
+            tachesPrealables += this.tachesPrealables.get(i).nom + " | ";
         }
-        return "Cette tache est défini par :\n  nom : " + this.nom 
-               + "\n  description : " + this.description
-               + "\n  duree : " + this.duree
-               + "\n  tachesPrealables : " + tachesPrealables;
+        return "Cette tache est défini par :\n  Nom : " + this.nom 
+               + "\n  Description : " + this.description
+               + "\n  Duree : " + this.duree
+               + tachesPrealables;
     }
 }
