@@ -7,9 +7,12 @@ package sae.pert.tests;
 import sae.pert.Tache;
 import testOutillage.assertionTest;
 
-/** TODO commenter la responsabilité de cette classe
- * @author emilien.restoueix
- *
+/** 
+ * Serie de test de la classe tache permettant de faire avancer un projet.
+ * @author Thomas Nalix
+ * @author Lorentin Nicolas
+ * @author Emilien Restoueix
+ * @author Enzo Soulier
  */
 public class testTache {
     
@@ -23,7 +26,8 @@ public class testTache {
         new Tache("Tache D", "Réalisation de l'application", 30.0)
     };
     
-    /** TODO commenter le rôle de cette méthode (SRP)
+    /**
+	 * Lance les différents jeux de tests
      * @param args
      */
     public static void main(String[] args) {
@@ -36,7 +40,8 @@ public class testTache {
         ok &= testGetDuree();
         ok &= testToString();
         ok &= testSetNom();
-        
+        ok &= testSetDescription();
+        ok &= testSetDuree();
         
         if(ok) {
             System.out.println("Test réussis");
@@ -111,9 +116,7 @@ public class testTache {
      */
     private static boolean testGetNom() {
         
-        String[] nomAttendus = {
-            "Tache A", "Tache B", "Tache C", "Tache D"
-        };
+        String[] nomAttendus = {"Tache A", "Tache B", "Tache C", "Tache D"};
         
         boolean ok;
         
@@ -123,7 +126,6 @@ public class testTache {
         }
         return ok;
     }
-    
     
     /**
      * Test unitaires de getDescription
@@ -155,10 +157,7 @@ public class testTache {
      */
     private static boolean testGetDuree() {
         
-        double[] dureeAttendus = {
-            2.0, 5.0, 3.5, 30.0
-        };
-        
+        double[] dureeAttendus = {2.0, 5.0, 3.5, 30.0};
         boolean ok;
         
         ok = true;
@@ -178,17 +177,9 @@ public class testTache {
         
         /** Tache de test */
         Tache test = new Tache("testNom", "testDescription", 30.5);
-        String[] testNom = {
-            "A",
-            "ABC",
-            "    "
-        };
+        String[] testNom = {"A", "ABC", "    "};
         
-        String[] nomAttendus = {
-            "A",
-            "ABC",
-            "testNom"
-        };
+        String[] nomAttendus = {"A", "ABC", "testNom"};
         
         ok = true;
         for (int noTest = 0; ok && noTest < testNom.length; noTest++) {
@@ -199,7 +190,56 @@ public class testTache {
                 ok = true;
             }
         }
+        return ok;
+    }
+    
+    /** Test unitaires de setDescription
+     * @return true si test reussis sinon false 
+     */
+    private static boolean testSetDescription() {
         
+        boolean ok;
+        
+        /** Tache de test */
+        Tache test = new Tache("testNom", "testDescription", 30.5);
+        String[] testDescription = {"A", "ABC", "    "};
+        
+        String[] descriptionAttendus = {"A", "ABC", "testDescription"};
+        
+        ok = true;
+        for (int noTest = 0; ok && noTest < testDescription.length; noTest++) {
+            try {
+                test.setDescription(testDescription[noTest]);
+                ok &= test.getDescription().equals(descriptionAttendus[noTest]);
+            } catch (IllegalArgumentException DescriptionIncorrect) {
+                ok = true;
+            }
+        }
+        return ok;
+    }
+    
+    /** Test unitaires de setDuree
+     * @return true si test reussis sinon false 
+     */
+    private static boolean testSetDuree() {
+        
+        boolean ok;
+        
+        /** Tache de test */
+        Tache test = new Tache("testNom", "testDescription", 30.5);
+        double[] testDuree = {78, 0.0, -5};
+        
+        double[] DureeAttendus = {78, 30.5, 30.5};
+        
+        ok = true;
+        for (int noTest = 0; ok && noTest < testDuree.length; noTest++) {
+            try {
+                test.setDuree(testDuree[noTest]);
+                ok &= test.getDuree() == DureeAttendus[noTest];
+            } catch (IllegalArgumentException DescriptionIncorrect) {
+                ok = true;
+            }
+        }
         return ok;
     }
     
