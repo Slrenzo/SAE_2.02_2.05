@@ -209,30 +209,35 @@ public class testTache {
      */
     private static boolean testToString() {
     	
+    	String attenduA = "Cette tache est défini par :\n  Nom : Tache A"
+				            + "\n  Description : Répartition du travail"
+				            + "\n  Duree : 29.0"
+				            + "\n  Cette tache n'a pas de taches préalables";
     	
-    	String attenduA = "Cette tache est défini par :\n  nom : Tache A"
-				            + "\n  description : Répartition du travail"
-				            + "\n  duree : 30.5"
-				            + "\n  tachesPrealables : Cette tache n'a pas de "
-				            + "taches préalables";
+    	String attenduB =  "Cette tache est défini par :\n  Nom : Tache B"
+				            + "\n  Description : Création d'une base de donnée"
+				            + "\n  Duree : 10.0"
+				            + "\n  Taches préalables : Tache A | ";
     	
-    	String attenduB =  "Cette tache est défini par :\n  nom : Tache B"
-				            + "\n  description : Création d'une base de donnée"
-				            + "\n  duree : 10.0"
-				            + "\n  tachesPrealables : Tache A";
-    					
+    	String attenduD =  "Cette tache est défini par :\n  Nom : Tache D"
+				            + "\n  Description : Developpement"
+				            + "\n  Duree : 60.0"
+				            + "\n  Taches préalables : Tache A | Tache C | ";
+    	boolean ok;
     	
     	Tache tacheA = new Tache("Tache A", "Répartition du travail", 29);
     	Tache tacheB = new Tache("Tache B", "Création d'une base de donnée", 10);
-    	Tache tacheC = new Tache("Tache C", "Diagramme objet", 30);
-    	tacheB.ajouterTachePrealable(tacheA);
-    	tacheC.ajouterTachePrealable(tacheB);
-    	System.out.println(tacheC.toString());
+    	Tache tacheC = new Tache("Tache C", "Création d'un diagramme objet", 20);
+    	Tache tacheD = new Tache("Tache D", "Developpement", 60);
     	
-    	boolean ok;
+    	tacheB.ajouterTachePrealable(tacheA);
+    	tacheC.ajouterTachePrealable(tacheA);
+    	tacheD.ajouterTachePrealable(tacheA);
+    	tacheD.ajouterTachePrealable(tacheC);
     	
         ok = assertionTest.assurerEgalite(attenduA, tacheA.toString());
         ok &= assertionTest.assurerEgalite(attenduB, tacheB.toString());
+        ok &= assertionTest.assurerEgalite(attenduD, tacheD.toString());        
         
         return ok;
     }
