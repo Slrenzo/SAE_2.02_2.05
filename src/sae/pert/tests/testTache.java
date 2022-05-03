@@ -4,12 +4,17 @@
  */
 package sae.pert.tests;
 
+import java.util.ArrayList;
+
 import sae.pert.Tache;
 import testOutillage.assertionTest;
 
-/** TODO commenter la responsabilité de cette classe
- * @author emilien.restoueix
- *
+/** 
+ * Serie de test de la classe tache permettant de faire avancer un projet.
+ * @author Thomas Nalix
+ * @author Lorentin Nicolas
+ * @author Emilien Restoueix
+ * @author Enzo Soulier
  */
 public class testTache {
     
@@ -23,7 +28,8 @@ public class testTache {
         new Tache("Tache D", "Réalisation de l'application", 30.0)
     };
     
-    /** TODO commenter le rôle de cette méthode (SRP)
+    /**
+	 * Lance les différents jeux de tests
      * @param args
      */
     public static void main(String[] args) {
@@ -36,7 +42,10 @@ public class testTache {
         ok &= testGetDuree();
         ok &= testToString();
         ok &= testSetNom();
-        
+        ok &= testSetDescription();
+        ok &= testSetDuree();
+        ok &= testAjouterTachePrealable();
+        ok &= testEnleverTachePrealable();
         
         if(ok) {
             System.out.println("Test réussis");
@@ -111,9 +120,7 @@ public class testTache {
      */
     private static boolean testGetNom() {
         
-        String[] nomAttendus = {
-            "Tache A", "Tache B", "Tache C", "Tache D"
-        };
+        String[] nomAttendus = {"Tache A", "Tache B", "Tache C", "Tache D"};
         
         boolean ok;
         
@@ -123,7 +130,6 @@ public class testTache {
         }
         return ok;
     }
-    
     
     /**
      * Test unitaires de getDescription
@@ -155,10 +161,7 @@ public class testTache {
      */
     private static boolean testGetDuree() {
         
-        double[] dureeAttendus = {
-            2.0, 5.0, 3.5, 30.0
-        };
-        
+        double[] dureeAttendus = {2.0, 5.0, 3.5, 30.0};
         boolean ok;
         
         ok = true;
@@ -178,17 +181,9 @@ public class testTache {
         
         /** Tache de test */
         Tache test = new Tache("testNom", "testDescription", 30.5);
-        String[] testNom = {
-            "A",
-            "ABC",
-            "    "
-        };
+        String[] testNom = {"A", "ABC", "    "};
         
-        String[] nomAttendus = {
-            "A",
-            "ABC",
-            "testNom"
-        };
+        String[] nomAttendus = {"A", "ABC", "testNom"};
         
         ok = true;
         for (int noTest = 0; ok && noTest < testNom.length; noTest++) {
@@ -198,6 +193,126 @@ public class testTache {
             } catch (IllegalArgumentException NomVide) {
                 ok = true;
             }
+        }
+        return ok;
+    }
+    
+    /** Test unitaires de setDescription
+     * @return true si test reussis sinon false 
+     */
+    private static boolean testSetDescription() {
+        
+        boolean ok;
+        
+        /** Tache de test */
+        Tache test = new Tache("testNom", "testDescription", 30.5);
+        String[] testDescription = {"A", "ABC", "    "};
+        
+        String[] descriptionAttendus = {"A", "ABC", "testDescription"};
+        
+        ok = true;
+        for (int noTest = 0; ok && noTest < testDescription.length; noTest++) {
+            try {
+                test.setDescription(testDescription[noTest]);
+                ok &= test.getDescription().equals(descriptionAttendus[noTest]);
+            } catch (IllegalArgumentException DescriptionIncorrect) {
+                ok = true;
+            }
+        }
+        return ok;
+    }
+    
+    /** Test unitaires de setDuree
+     * @return true si test reussis sinon false 
+     */
+    private static boolean testSetDuree() {
+        
+        boolean ok;
+        
+        /** Tache de test */
+        Tache test = new Tache("testNom", "testDescription", 30.5);
+        double[] testDuree = {78, 0.0, -5};
+        
+        double[] DureeAttendus = {78, 30.5, 30.5};
+        
+        ok = true;
+        for (int noTest = 0; ok && noTest < testDuree.length; noTest++) {
+            try {
+                test.setDuree(testDuree[noTest]);
+                ok &= test.getDuree() == DureeAttendus[noTest];
+            } catch (IllegalArgumentException DescriptionIncorrect) {
+                ok = true;
+            }
+        }
+        return ok;
+    }
+
+
+    /** 
+     * Test unitaires de ajouterTachePrealable
+     * @return true si test réussi, sinon false
+     */
+    private static boolean testAjouterTachePrealable() {
+        boolean ok = true;
+        
+        Tache tacheAAjouter = new Tache("tache à ajouter", "description de la "
+                                        + "tache à ajouter", 20.0);
+        Tache tacheDeTest = new Tache("tache de test", "description de test"
+                                      , 10.0);
+        ArrayList<Tache> tachesPrealablesAttendues = new ArrayList<Tache>();
+        tachesPrealablesAttendues.add(tacheAAjouter);
+        
+        tacheDeTest.ajouterTachePrealable(tacheAAjouter);
+        ok &= tacheDeTest.getTachesPrealables()
+                        .equals(tachesPrealablesAttendues);
+        try {
+            tacheDeTest.ajouterTachePrealable(tacheAAjouter);
+            ok = false;
+        } catch (IllegalArgumentException doitSePropager) {
+            ok = true;
+        }
+        
+        try {
+            tacheDeTest.ajouterTachePrealable(tacheDeTest);
+            ok = false;
+        } catch (IllegalArgumentException doitSePropager) {
+            ok = true;
+        }
+        return ok;
+    }
+    
+    /** 
+     * Test unitaires de enleverTachePrealable
+     * @return true si test réussi, sinon false
+     */
+    private static boolean testEnleverTachePrealable() {
+        boolean ok = true;
+        
+        Tache tacheAAjouter1 = new Tache("tache à ajouter 1", "description de "
+                                         + "la tache à ajouter", 20.0);
+        Tache tacheAAjouter2 = new Tache("tache à ajouter 2", "description de "
+                                         + "la tache à ajouter", 20.0);
+        Tache tacheAAjouter3 = new Tache("tache à ajouter 3", "description de "
+                                         + "la tache à ajouter", 20.0);
+        Tache tacheDeTest = new Tache("tache de test", "description de test"
+                                      , 10.0);
+        tacheDeTest.ajouterTachePrealable(tacheAAjouter1);
+        tacheDeTest.ajouterTachePrealable(tacheAAjouter2);
+        tacheDeTest.ajouterTachePrealable(tacheAAjouter3);
+        
+        ArrayList<Tache> tachesPrealablesAttendues = new ArrayList<Tache>();
+        tachesPrealablesAttendues.add(tacheAAjouter1);
+        tachesPrealablesAttendues.add(tacheAAjouter2);
+        
+        tacheDeTest.enleverTachePrealable(tacheAAjouter3);
+        ok &= tacheDeTest.getTachesPrealables()
+                        .equals(tachesPrealablesAttendues);
+        
+        try {
+            tacheDeTest.enleverTachePrealable(tacheAAjouter3);
+            ok = false;
+        } catch (IllegalArgumentException doitSePropager) {
+            ok = true;
         }
         
         return ok;

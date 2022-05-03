@@ -118,15 +118,33 @@ public class Tache {
     }
     
     /**
+     * @return tachesPrealables les taches préalables de cette tache
+     */
+    public ArrayList<Tache> getTachesPrealables() {
+        return tachesPrealables;
+    }
+
+    /**
      * Ajoute une tache à aux taches préalables de cette tache
      * @param tache tache que l'on souhaite ajouter aux taches préalables
      * @throws IllegalArgumentException tache est déja une tache préalable 
      *         de cette tache
+     * @throws IllegalArgumentException la tache que l'on ajoute est la même
+     *         que cette tache
      */
     public void ajouterTachePrealable(Tache tache) {
-        if (this.nom == tache.nom) {
+        boolean estPresent = false;
+        for (int i = 0; !estPresent && i < this.tachesPrealables.size(); i++) {
+            estPresent = this.tachesPrealables.get(i).nom == tache.nom;
+        }
+        if (estPresent) {
             throw new IllegalArgumentException("Cette tache est déja une "
                                                + "tache préalable");
+        }
+        if (this.nom == tache.nom) {
+            throw new IllegalArgumentException("Cette tache et la tache que"
+                                               + " vous souhaitez ajouter"
+                                               + " sont les même");
         }
         this.tachesPrealables.add(tache);
     }
@@ -138,11 +156,11 @@ public class Tache {
      *         préalables de cette tache
      */
     public void enleverTachePrealable(Tache tache) {
-        boolean ok = false;
-        for (int i = 0; !ok && i < this.tachesPrealables.size(); i++) {
-            ok = this.nom == tache.nom;
+        boolean estPresent = false;
+        for (int i = 0; !estPresent && i < this.tachesPrealables.size(); i++) {
+            estPresent = this.tachesPrealables.get(i).nom == tache.nom;
         }
-        if (!ok) {
+        if (!estPresent) {
             throw new IllegalArgumentException("Cette tache n'est pas une "
                                                + "tache préalable");
         }
