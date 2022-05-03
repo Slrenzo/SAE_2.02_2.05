@@ -210,32 +210,31 @@ public class testTache {
     private static boolean testToString() {
     	
     	
-    	String[] attendus = {"Cette tache est défini par :\n  nom : Tache A"
+    	String attenduA = "Cette tache est défini par :\n  nom : Tache A"
 				            + "\n  description : Répartition du travail"
 				            + "\n  duree : 30.5"
 				            + "\n  tachesPrealables : Cette tache n'a pas de "
-				            + "taches préalables",
-				            "Cette tache est défini par :\n  nom : Tache B"
+				            + "taches préalables";
+    	
+    	String attenduB =  "Cette tache est défini par :\n  nom : Tache B"
 				            + "\n  description : Création d'une base de donnée"
 				            + "\n  duree : 10.0"
-				            + "\n  tachesPrealables : Cette tache n'a pas de "
-				            + "taches préalables"
-    						};
+				            + "\n  tachesPrealables : Tache A";
+    					
     	
-    	Tache[] jeuTests = {
-    				new Tache("Tache A", "Répartition du travail", 30.5),
-    				new Tache("Tache B", "Création d'une base de donnée", 10),
-    						};
+    	Tache tacheA = new Tache("Tache A", "Répartition du travail", 29);
+    	Tache tacheB = new Tache("Tache B", "Création d'une base de donnée", 10);
+    	Tache tacheC = new Tache("Tache C", "Diagramme objet", 30);
+    	tacheB.ajouterTachePrealable(tacheA);
+    	tacheC.ajouterTachePrealable(tacheB);
+    	System.out.println(tacheC.toString());
+    	
     	boolean ok;
     	
-    	ok = true;
-        for (int noJeu = 0; ok && noJeu < jeuTests.length; noJeu++) {
-            ok &= assertionTest.assurerEgalite(attendus[noJeu],
-            		jeuTests[noJeu].toString());
-        }
-
+        ok = assertionTest.assurerEgalite(attenduA, tacheA.toString());
+        ok &= assertionTest.assurerEgalite(attenduB, tacheB.toString());
+        
         return ok;
-        //TODO Faire des tests avec des etapes préalables
     }
 
 }
