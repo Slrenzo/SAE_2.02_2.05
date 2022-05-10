@@ -25,8 +25,17 @@ public class Projet {
     /* Unité de temps utilisé pour parler des durées des taches */
     private String uniteTemps;
     
-    /* Matrice d'adjacence du graphe d'ordonnancement */
-    private ArrayList<ArrayList<Double>> ordonnancement;
+    /* Dates au plus tôt des différentes taches du projet */
+    private ArrayList<Double> datesAuPlusTot;
+    
+    /* Dates au plus tard des différentes taches du projet */
+    private ArrayList<Double> datesAuPlusTard;
+    
+    /* Date au plus tôt du projet */
+    private double dateAuPlusTotFinDeProjet;
+    
+    /* Date au plus tard du projet */
+    private double dateAuPlusTardFinDeProjet;    
     
     
     /** TODO commenter le rôle de ce champ (attribut, rôle associatif) */
@@ -50,7 +59,10 @@ public class Projet {
         this.nom = nom;
         this.uniteTemps = uniteTemps;
         this.taches = new ArrayList<Tache>();
-        this.ordonnancement = new ArrayList<ArrayList<Double>>();
+        this.datesAuPlusTard = new ArrayList<Double>();
+        this.datesAuPlusTot = new ArrayList<Double>();
+        this.dateAuPlusTardFinDeProjet = 0.0;
+        this.dateAuPlusTotFinDeProjet = 0.0;
     }
 
     /**
@@ -103,18 +115,9 @@ public class Projet {
         for (int i = 0; i < this.taches.size(); i++) {
             taches += this.taches.get(i) + "\n";
         }
-        String ordonnancement = "";
-        for (int i = 0; i < this.ordonnancement.size(); i++) {
-            for (int j = 0; i < this.ordonnancement.get(i).size(); i++) {
-                ordonnancement += this.ordonnancement.get(i).get(j) + " ";
-            }
-            ordonnancement += "\n";
-        }
         return "Ce projet est nommé : " + this.nom + "\n" 
                + "Son unité de temps est : " + this.uniteTemps + "\n" 
-               + "Ses tâches sont : \n" + taches
-               + "La matrice d'adjacence de son graphe d'ordonnancement est :\n"
-               + ordonnancement;
+               + "Ses tâches sont : \n" + taches;
     }
     
 }
