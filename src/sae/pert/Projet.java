@@ -93,6 +93,41 @@ public class Projet {
         this.uniteTemps = uniteTemps;
     }
     
+    /**
+     * @return taches du projet
+     */
+    public ArrayList<Tache> getTaches() {
+        return taches;
+    }
+
+    /**
+     * @return datesAuPlusTot de chaque tache du projet
+     */
+    public ArrayList<Double> getDatesAuPlusTot() {
+        return datesAuPlusTot;
+    }
+
+    /**
+     * @return datesAuPlusTard de chaque tache du projet
+     */
+    public ArrayList<Double> getDatesAuPlusTard() {
+        return datesAuPlusTard;
+    }
+
+    /**
+     * @return dateAuPlusTotFinDeProjet
+     */
+    public double getDateAuPlusTotFinDeProjet() {
+        return dateAuPlusTotFinDeProjet;
+    }
+
+    /**
+     * @return dateAuPlusTardFinDeProjet
+     */
+    public double getDateAuPlusTardFinDeProjet() {
+        return dateAuPlusTardFinDeProjet;
+    }
+
     /** 
      * Ajoute une tache à ce projet
      * @param tacheAAjouter la tache à ajouter au projet
