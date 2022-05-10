@@ -63,49 +63,49 @@ public class testTache {
         boolean testOK;
         
         try {
-            new Tache(null, "testDescription", 30.5);
+            new Tache(null, "Répartition du travail", 30.5);
             testOK = false;
         } catch (NullPointerException nomNul) {
             testOK = true;
         }
         
         try {
-            new Tache("  ", "testDescription", 30.5);
+            new Tache("  ", "Répartition du travail", 30.5);
             testOK = false;
         } catch (IllegalArgumentException nomVide) {
             testOK = true;
         }
         
         try {
-            new Tache("testNom", null, 30.5);
+            new Tache("Tache A", null, 30.5);
             testOK = false;
         } catch (NullPointerException descriptionNul) {
             testOK = true;
         }
         
         try {
-            new Tache("testNom", "", 30.5);
+            new Tache("Tache A", "", 30.5);
             testOK = false;
         } catch (IllegalArgumentException descriptionVide) {
             testOK = true;
         }
         
         try {
-            new Tache("testNom", "testDescription", 0.0);
+            new Tache("Tache A", "Répartition du travail", 0.0);
             testOK = false;
         } catch (IllegalArgumentException dureeNul) {
             testOK = true;
         }
         
         try {
-            new Tache("testNom", "testDescription", -5.0);
+            new Tache("Tache A", "Répartition du travail", -5.0);
             testOK = false;
         } catch (IllegalArgumentException dureeNégative) {
             testOK = true;
         }
         
         try {
-            new Tache("testNoM", "testDescription", 35.5);
+            new Tache("Tache A", "Répartition du travail", 35.5);
             testOK = true;
         } catch (IllegalArgumentException TacheIncorrect) {
             testOK = false;
@@ -180,17 +180,17 @@ public class testTache {
         boolean ok;
         
         /** Tache de test */
-        Tache test = new Tache("testNom", "testDescription", 30.5);
-        String[] testNom = {"A", "ABC", "    "};
+        Tache test = new Tache("Tache A", "Répartition du travail", 30.5);
+        String[] testNom = {"Tache 1", "Tache_A","Tache-1", "    "};
         
-        String[] nomAttendus = {"A", "ABC", "testNom"};
+        String[] nomAttendus = {"Tache 1", "Tache_A","Tache-1", "Tache A"};
         
         ok = true;
         for (int noTest = 0; ok && noTest < testNom.length; noTest++) {
             try {
                 test.setNom(testNom[noTest]);
                 ok &= test.getNom().equals(nomAttendus[noTest]);
-            } catch (IllegalArgumentException NomVide) {
+            } catch (IllegalArgumentException nomIncorrect) {
                 ok = true;
             }
         }
@@ -205,10 +205,10 @@ public class testTache {
         boolean ok;
         
         /** Tache de test */
-        Tache test = new Tache("testNom", "testDescription", 30.5);
-        String[] testDescription = {"A", "ABC", "    "};
+        Tache test = new Tache("Tache A", "Répartition du travail", 30.5);
+        String[] testDescription = {"Fin de projet","Réalisation-de-l'application", "Fin_de_projet", "    "};
         
-        String[] descriptionAttendus = {"A", "ABC", "testDescription"};
+        String[] descriptionAttendus = {"Fin de projet", "Réalisation-de-l'application", "Fin_de_projet", "Répartition du travail"};
         
         ok = true;
         for (int noTest = 0; ok && noTest < testDescription.length; noTest++) {
