@@ -20,22 +20,33 @@ public class testProjet {
      * Jeux de tests unitaires qui servira a tester des méthodes
      */
     private static Projet[] aTester = {
-        new Projet("Projet A", "Minutes(s)"),
-        new Projet("Projet B", "Heures(s)"),
-        new Projet("Projet C", "Seconde(s)")
+        new Projet("Projet A", "Minute(s)"),
+        new Projet("Projet B", "Heure(s)"),
+        new Projet("Projet C", "Jour(s)")
     };
     
-    public static void main(String[] args);
-    
-    boolean ok;
-    
-    if (ok) {
-        System.out.println("Test réussis");
-    } else {
-        System.out.println("Test échoué");
+    /**
+     * Lance les différents jeux de tests
+     * @param args
+     */
+    public static void main(String[] args) {
+        
+        boolean ok;
+        
+        ok = testConstructeurStringString();
+        ok = testGetNom();
+        ok = testSetNom();
+        ok = testGetUniteTemps();
+        
+        if (ok) {
+            System.out.println("Test réussis");
+        } else {
+            System.out.println("Test échoué");
+        }
+        
     }
     
-    
+
     /**
      * Test du constructeur de la class Tache
      * @return testOK
@@ -108,10 +119,10 @@ public class testProjet {
         boolean ok;
         
         /** Tache de test */
-        Tache test = new Projet("Projet A", "Heure(s)");
-        String[] testNom = {"Projet 1", "Projet_A","Projet-1", "    "};
+        Projet test = new Projet("Projet A", "Heure(s)");
+        String[] testNom = {"Projet 1", "Projet_A", "Projet-1", "    "};
         
-        String[] nomAttendus = {"Projet1", "Projet_A", "Projet-1", "Projet A"};
+        String[] nomAttendus = {"Projet 1", "Projet_A", "Projet-1", "Projet A"};
         
         ok = true;
         for (int noTest = 0; ok && noTest < testNom.length; noTest++) {
@@ -124,4 +135,26 @@ public class testProjet {
         }
         return ok;
     }
+    
+    /**
+     * Test unitaires de getUniteTemps
+     * @return true si test reussis sinon false
+     */
+    private static boolean testGetUniteTemps() {
+        
+        String[] nomAttendus = {"Minute(s)", "Heure(s)", "Jour(s)"};
+        
+        boolean ok;
+        
+        ok = true;
+        for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
+            ok &= assertionTest.assurerEgalite(nomAttendus[noJeu],aTester[noJeu].getUniteTemps());
+        }
+        return ok;
+    }
+    
+    
+    
+    
+    
 }

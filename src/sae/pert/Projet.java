@@ -28,18 +28,17 @@ public class Projet {
     /* Matrice d'adjacence du graphe d'ordonnancement */
     private ArrayList<ArrayList<Double>> ordonnancement;
     
-    /** Unite de temps : minute */
-    public final static String UNITE_TEMPS_MINUTE = "Minute(s)";
-    /** Unite de temps : heure */
-    public final static String UNITE_TEMPS_HEURE = "Heure(s)";
-    /** Unite de temps : jour */
-    public final static String UNITE_TEMPS_JOURS = "Jour(s)";
-    /** Unite de temps : semaine */
-    public final static String UNITE_TEMPS_SEMAINE= "Semaine(s)";
-    /** Unite de temps : mois */
-    public final static String UNITE_TEMPS_MOIS = "Mois";
-    /** Unite de temps : année */
-    public final static String UNITE_TEMPS_ANNEE = "Année(s)";
+    
+    /** TODO commenter le rôle de ce champ (attribut, rôle associatif) */
+    public final static String[] UNITE_TEMPS = { 
+        "Minute(s)",
+        "Heure(s)",
+        "Jour(s)",
+        "Semaine(s)",
+        "Mois",
+        "Année(s)"
+    };
+    
     
     /**
      * Définition d'un projet qui possède un nom 

@@ -181,9 +181,9 @@ public class testTache {
         
         /** Tache de test */
         Tache test = new Tache("Tache A", "Répartition du travail", 30.5);
-        String[] testNom = {"Tache 1", "Tache_A","Tache-1", "    "};
+        String[] testNom = {"Tache 1", "Tache_A", "Tache-1", "    "};
         
-        String[] nomAttendus = {"Tache 1", "Tache_A","Tache-1", "Tache A"};
+        String[] nomAttendus = {"Tache 1", "Tache_A", "Tache-1", "Tache A"};
         
         ok = true;
         for (int noTest = 0; ok && noTest < testNom.length; noTest++) {
