@@ -4,32 +4,34 @@
  */
 package testOutillage;
 
-/** TODO commenter la responsabilité de cette classe
- * @author resto
- *
+/** Assertions permettant de tester différentes méthodes
+ * @author Thomas Nalix
+ * @author Lorentin Nicolas
+ * @author Emilien Restoueix
+ * @author Enzo Soulier
  */
 public class assertionTest {
     
     
-    /** TODO commenter le rôle de cette méthode (SRP)
+    /** méthodes qui va tester si les arguments de type String sont égaux
      * @param attendu
      * @param obtenu
-     * @return test d'égalité
+     * @return true si obtenu équivalent à attendu, false sinon.
      */
     public static boolean assurerEgalite(String attendu, String obtenu) {
         return attendu.equals(obtenu);
     }
     
-    /** TODO commenter le rôle de cette méthode (SRP)
+    /** méthodes qui va tester si les arguments de type double sont égaux
      * @param attendu
      * @param obtenu
-     * @return test d'égalité
+     * @return true si obtenu équivalent à attendu, false sinon.
      */
     public static boolean assurerEgaliteDouble(double attendu, double obtenu) {
         if(attendu == obtenu) {
             return true;
         } else {
-            throw new IllegalArgumentException();
+            return false;
         }
     }
 }

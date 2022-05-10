@@ -29,7 +29,7 @@ public class testTache {
     };
     
     /**
-	 * Lance les différents jeux de tests
+     * Lance les différents jeux de tests
      * @param args
      */
     public static void main(String[] args) {
