@@ -91,6 +91,7 @@ public class Tache {
     /**
      * Modifie la description de la tache
      * @param description description à modifier
+     * @throws IllegalArgumentException description est vide
      */
     public void setDescription(String description) {
         if (description.isBlank()) {
@@ -110,6 +111,7 @@ public class Tache {
     /**
      * Modifie la durée de la tache
      * @param duree durée à modifier
+     * @throws IllegalArgumentException duree inférieur ou égal à 0.0
      */
     public void setDuree(double duree) {
         if (duree <= 0.0) {
@@ -128,9 +130,10 @@ public class Tache {
 
     /**
      * @param dateAuPlusTot modifie la date au plus tot de cette tache
+     * @throws IllegalArgumentException si la date au plus tot est négative
      */
     public void setDateAuPlusTot(double dateAuPlusTot) {
-        if (duree < 0.0) {
+        if (dateAuPlusTot < 0.0) {
             throw new IllegalArgumentException("La date est négative");
         }
         this.dateAuPlusTot = dateAuPlusTot;
@@ -145,9 +148,10 @@ public class Tache {
 
     /**
      * @param dateAuPlusTard modifie la date au plus tard de cette tache
+     * @throws IllegalArgumentException si la date au plus t est négative
      */
     public void setDateAuPlusTard(double dateAuPlusTard) {
-        if (duree < 0.0) {
+        if (dateAuPlusTard < 0.0) {
             throw new IllegalArgumentException("La date est négative");
         }
         this.dateAuPlusTard = dateAuPlusTard;
