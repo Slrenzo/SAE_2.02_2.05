@@ -29,6 +29,17 @@ public class Tache {
     private double duree;
     
     /*
+     * Date au plus tot de cette tache défini par un projet
+     */
+    private double dateAuPlusTot;
+    
+    
+    /*
+     * Date au plus tard de cette tache défini par un projet
+     */
+    private double dateAuPlusTard;
+    
+    /*
      * Liste des taches à réaliser avant de réalisé cette tache
      */
     private ArrayList<Tache> tachesPrealables;
@@ -56,6 +67,8 @@ public class Tache {
         this.nom = nom;
         this.description = description;
         this.duree = duree;
+        this.dateAuPlusTard = 0.0;
+        this.dateAuPlusTot = 0.0;
         this.tachesPrealables = new ArrayList<Tache>(0);
     }
 
@@ -65,17 +78,6 @@ public class Tache {
      */
     public String getNom() {
         return nom;
-    }
-
-    /**
-     * Modifie le nom de la tache
-     * @param nom nom à modifier
-     */
-    public void setNom(String nom) {
-        if (nom.isBlank()) {
-            throw new IllegalArgumentException("Le nom est vide");
-        }
-        this.nom = nom;
     }
 
     /**
@@ -118,10 +120,48 @@ public class Tache {
     }
     
     /**
+     * @return dateAuPlusTot de cette tache
+     */
+    public double getDateAuPlusTot() {
+        return dateAuPlusTot;
+    }
+
+    /**
+     * @param dateAuPlusTot modifie la date au plus tot de cette tache
+     */
+    public void setDateAuPlusTot(double dateAuPlusTot) {
+        if (duree < 0.0) {
+            throw new IllegalArgumentException("La date est négative");
+        }
+        this.dateAuPlusTot = dateAuPlusTot;
+    }
+
+    /**
+     * @return dateAuPlusTard de cette tache
+     */
+    public double getDateAuPlusTard() {
+        return dateAuPlusTard;
+    }
+
+    /**
+     * @param dateAuPlusTard modifie la date au plus tard de cette tache
+     */
+    public void setDateAuPlusTard(double dateAuPlusTard) {
+        if (duree < 0.0) {
+            throw new IllegalArgumentException("La date est négative");
+        }
+        this.dateAuPlusTard = dateAuPlusTard;
+    }
+
+    /**
      * @return tachesPrealables les taches préalables de cette tache
      */
     public ArrayList<Tache> getTachesPrealables() {
-        return tachesPrealables;
+        ArrayList<Tache> cloneTachesPrealables = new ArrayList<Tache>(0);
+        for (int i = 0; i < this.tachesPrealables.size(); i++) {
+            cloneTachesPrealables.add(this.tachesPrealables.get(i));
+        }
+        return cloneTachesPrealables;
     }
 
     /**
@@ -179,6 +219,8 @@ public class Tache {
         return "Cette tache est défini par :\n  Nom : " + this.nom 
                + "\n  Description : " + this.description
                + "\n  Duree : " + this.duree
+               + "\n  Date au plus tot : " + this.dateAuPlusTot
+               + "\n  Date au plus tard : " + this.dateAuPlusTard
                + tachesPrealables;
     }
 }
