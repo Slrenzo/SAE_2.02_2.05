@@ -5,6 +5,7 @@
 package sae.pert;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /** 
  * Un projet est un ensemble de taches que l'on doit ordonné pour arriver à
@@ -47,6 +48,12 @@ public class Projet {
         "Année(s)"
     };
     
+    /** TODO commenter le rôle de cette méthode (SRP)
+     * @param args
+     */
+    public static void main(String[] args) {
+        //TODO faire un menu permettant de creer un projet et de l'afficher
+    }
     
     /**
      * Définition d'un projet qui possède un nom 
@@ -159,8 +166,64 @@ public class Projet {
         this.taches.remove(tacheAEnlever);
     }
     
+    /** 
+     * Permet en interrogeant l'utilisateur de créer un projet
+     * @return projet Projet que l'on créer
+     */
+    public static Projet creer() {
+        Scanner entree = new Scanner(System.in);
+        String nom;
+        String description;
+        String uniteTemps;
+        int uniteTempsChoisie;
+        boolean uniteTempsChoisieFaux;
+        boolean saisieOk = false;
+        Projet projet = null;
+        while (!saisieOk) {
+            System.out.print("Veuillez entrer le nom de votre projet : ");
+            nom = entree.nextLine();
+            System.out.print("Veuillez décrire votre projet : ");
+            description = entree.nextLine();
+            System.out.println("Veuillez saisir un chiffre pour choisir une unité"
+                             + " de temps pour votre projet : ");
+            System.out.println("1. Minute(s)");
+            System.out.println("2. Heure(s)");
+            System.out.println("3. Jours(s)");
+            System.out.println("4. Semaine(s)");
+            System.out.println("5. Mois");
+            System.out.println("6. Année(s)");
+            System.out.print("Votre choix : ");
+            uniteTempsChoisie = 0;
+            uniteTempsChoisieFaux = true;
+            while (uniteTempsChoisieFaux) {
+                if (entree.hasNextInt()) {
+                    uniteTempsChoisie = entree.nextInt();
+                    uniteTempsChoisieFaux = uniteTempsChoisie <= 0 
+                                            || uniteTempsChoisie >= 7;
+                    if (uniteTempsChoisieFaux) {
+                        System.out.println("Veuillez entrer un nombre "
+                                           + "entre un 1 et 6 : ");                        
+                    }
+                } else {
+                    System.out.println("Veuillez entrer un nombre "
+                                       + "entre un 1 et 6 : ");
+                }
+            }
+            uniteTemps = UNITE_TEMPS[uniteTempsChoisie - 1];
+            try {
+                projet = new Projet(nom, description, uniteTemps);
+                saisieOk = true;
+            } catch (IllegalArgumentException erreurConstructeur) {
+                System.out.println(erreurConstructeur.getMessage());
+                System.out.println("Veuillez recommencer");
+            }
+        }
+        return projet;
+    }
+    
     @Override
     public String toString() {
+        //TODO Modifier cette méthode pour date plus tot et aucune tache
         String taches = "";
         for (int i = 0; i < this.taches.size(); i++) {
             taches += this.taches.get(i) + "\n";
