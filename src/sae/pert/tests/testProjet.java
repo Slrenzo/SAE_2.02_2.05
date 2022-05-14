@@ -4,6 +4,8 @@
  */
 package sae.pert.tests;
 
+import java.util.ArrayList;
+
 import sae.pert.Projet;
 import sae.pert.Tache;
 import testOutillage.assertionTest;
@@ -17,31 +19,33 @@ import testOutillage.assertionTest;
  */
 public class testProjet {
     /**
-     * Jeux de tests unitaires qui servira a tester des méthodes
+     * Jeux de tests unitaires qui servira a tester des mï¿½thodes
      */
     private static Projet[] aTester = {
-        new Projet("Projet A", "Minute(s)"),
-        new Projet("Projet B", "Heure(s)"),
-        new Projet("Projet C", "Jour(s)")
+        new Projet("Projet A", "Projet realisant une expertise", Projet.UNITE_TEMPS[0]),
+        new Projet("Projet B", "Projet calculant un cout", Projet.UNITE_TEMPS[1]),
+        new Projet("Projet C", "Projet automatique", Projet.UNITE_TEMPS[2])
     };
     
     /**
-     * Lance les différents jeux de tests
+     * Lance les diffï¿½rents jeux de tests
      * @param args
      */
     public static void main(String[] args) {
         
         boolean ok;
         
-        ok = testConstructeurStringString();
-        ok = testGetNom();
-        ok = testSetNom();
-        ok = testGetUniteTemps();
+        ok = testConstructeurStringStringString();
+        ok &= testGetNom();
+        ok &= testGetDescription();
+        ok &= testGetUniteTemps();
+        ok &= testSetDescription();
+        
         
         if (ok) {
-            System.out.println("Test réussis");
+            System.out.println("Test reussis");
         } else {
-            System.out.println("Test échoué");
+            System.out.println("Test echoue");
         }
         
     }
@@ -51,40 +55,40 @@ public class testProjet {
      * Test du constructeur de la class Tache
      * @return testOK
      */
-    private static boolean testConstructeurStringString() {
+    private static boolean testConstructeurStringStringString() {
         
         boolean testOK;
         
         try {
-            new Projet(null, "Minute(s)");
+            new Projet(null, "Projet realisant une expertise", Projet.UNITE_TEMPS[0]);
             testOK = false;
         } catch (NullPointerException nomNul) {
             testOK = true;
         }
         
         try {
-            new Projet("  ", "Minute(s)");
+            new Projet("  ", "Projet realisant une expertise", Projet.UNITE_TEMPS[0]);
             testOK = false;
         } catch (IllegalArgumentException nomVide) {
             testOK = true;
         }
         
         try {
-            new Projet("Projet A", null);
+            new Projet("Projet A", null, Projet.UNITE_TEMPS[0]);
             testOK = false;
         } catch (NullPointerException nomNul) {
             testOK = true;
         }
         
         try {
-            new Projet("Projet A", "  ");
+            new Projet("Projet A", "  ", Projet.UNITE_TEMPS[0]);
             testOK = false;
         } catch (IllegalArgumentException nomVide) {
             testOK = true;
         }
         
         try {
-            new Projet("Projet A", "Minute(s)");
+            new Projet("Projet A", "Projet realisant une expertise", Projet.UNITE_TEMPS[0]);
             testOK = true;
         } catch (IllegalArgumentException ProjetIncorrect) {
             testOK = false;
@@ -110,31 +114,50 @@ public class testProjet {
         return ok;
     }
     
+    /**
+     * Test unitaires de getDescription
+     * @return true si test reussis sinon false
+     */
+    private static boolean testGetDescription() {
+        
+        String[] nomAttendus = {"Projet realisant une expertise",
+                        "Projet calculant un cout",
+                        "Projet automatique"};
+        
+        boolean ok;
+        
+        ok = true;
+        for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
+            ok &= assertionTest.assurerEgalite(nomAttendus[noJeu],aTester[noJeu].getDescription());
+        }
+        return ok;
+    }
     
-    /** Test unitaires de setNom
+    /** Test unitaires de setDescription
      * @return true si test reussis sinon false 
      */
-    private static boolean testSetNom() {
+    private static boolean testSetDescription() {
         
         boolean ok;
         
         /** Tache de test */
-        Projet test = new Projet("Projet A", "Heure(s)");
-        String[] testNom = {"Projet 1", "Projet_A", "Projet-1", "    "};
+        Projet test = new Projet("Projet C", "Projet automatique", Projet.UNITE_TEMPS[2]);
+        String[] testDescription = {"Projet realisant une expertise","RÃ©alisation-du_projet", "Fin_de_projet", "    "};
         
-        String[] nomAttendus = {"Projet 1", "Projet_A", "Projet-1", "Projet A"};
+        String[] descriptionAttendus = {"Projet realisant une expertise", "RÃ©alisation-du_projet", "Fin_de_projet", "Projet automatique"};
         
         ok = true;
-        for (int noTest = 0; ok && noTest < testNom.length; noTest++) {
+        for (int noTest = 0; ok && noTest < testDescription.length; noTest++) {
             try {
-                test.setNom(testNom[noTest]);
-                ok &= test.getNom().equals(nomAttendus[noTest]);
-            } catch (IllegalArgumentException nomIncorrect) {
+                test.setDescription(testDescription[noTest]);
+                ok &= test.getDescription().equals(descriptionAttendus[noTest]);
+            } catch (IllegalArgumentException DescriptionIncorrect) {
                 ok = true;
             }
         }
         return ok;
     }
+    
     
     /**
      * Test unitaires de getUniteTemps
@@ -152,9 +175,6 @@ public class testProjet {
         }
         return ok;
     }
-    
-    
-    
     
     
 }
