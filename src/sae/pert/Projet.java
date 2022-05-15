@@ -223,7 +223,6 @@ public class Projet {
     
     @Override
     public String toString() {
-        //TODO Modifier cette méthode pour date plus tot et aucune tache
         String taches = this.taches.size() == 0 ? "Ce projet ne contient pas "
                         + "encore de tache" : "Ses tâches sont : \n";
         for (int i = 0; i < this.taches.size(); i++) {
