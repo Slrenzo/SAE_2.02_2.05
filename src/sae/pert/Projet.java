@@ -48,11 +48,15 @@ public class Projet {
         "Année(s)"
     };
     
-    /** TODO commenter le rôle de cette méthode (SRP)
-     * @param args
+    /** 
+     * Un menu pour créer et gérer des projets et qui permet de calculer
+     * les dates au plus tot et date au plus tard de chaque tache
+     * ainsi que la date au plus tot et la date au plus tard de chaque projet
+     * @param args non utlisée
      */
     public static void main(String[] args) {
         //TODO faire un menu permettant de creer un projet et de l'afficher
+        
     }
     
     /**
