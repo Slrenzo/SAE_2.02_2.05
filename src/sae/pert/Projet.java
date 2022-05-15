@@ -224,13 +224,17 @@ public class Projet {
     @Override
     public String toString() {
         //TODO Modifier cette méthode pour date plus tot et aucune tache
-        String taches = "";
+        String taches = this.taches.size() == 0 ? "Ce projet ne contient pas "
+                        + "encore de tache" : "Ses tâches sont : \n";
         for (int i = 0; i < this.taches.size(); i++) {
             taches += this.taches.get(i) + "\n";
         }
         return "Ce projet est nommé : " + this.nom + "\n" 
+               + "Sa description est : " + this.description + "\n"
                + "Son unité de temps est : " + this.uniteTemps + "\n" 
-               + "Ses tâches sont : \n" + taches;
+               + taches
+               + "Sa date au plus tot est : " + this.dateAuPlusTotProjet
+               + "Sa date au plus tard est : " + this.dateAuPlusTardProjet;
     }
     
 }
