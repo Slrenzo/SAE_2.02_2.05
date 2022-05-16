@@ -75,7 +75,7 @@ public class Projet {
                 entree.nextLine();
                 switch (choix) {
                 case 1: 
-                    projet = creer();
+                    projet = creerProjet();
                     break;
                 case 2:
                     //TODO coder la methode charger()
@@ -86,7 +86,7 @@ public class Projet {
                     break;
                 default:
                     System.out.println("\nVeuillez choisir un nombre entre "
-                                       + "1 et 5");
+                                       + "1 et 3");
                     choix = 0;
                     break;
                 }
@@ -112,7 +112,7 @@ public class Projet {
                     System.out.println();
                     break;
                 case 2:
-                    //TODO ajouter une tache
+                    projet.ajouterTache(creerTache());
                     break;
                 case 3:
                     //TODO enlever une tache
@@ -213,6 +213,40 @@ public class Projet {
     }
 
     /** 
+     * Permet de créer une tache en interrogeant l'utilisateur
+     * @return tache que l'on créer
+     */
+    public static Tache creerTache() {
+        Scanner entree = new Scanner(System.in);
+        String nom;
+        String description;
+        double duree;
+        Tache tache = null;
+        boolean saisieOk= false;
+        while (!saisieOk) {
+            System.out.print("Veuillez entrer le nom de la tache : ");
+            nom = entree.nextLine();
+            System.out.print("Veuillez entrer la description de la tache : ");
+            description = entree.nextLine();
+            System.out.print("Veuillez entrer la durée de la tache : ");
+            if (entree.hasNextDouble()) {
+                duree = entree.nextDouble();
+            } else {
+                duree = -1.0;
+            }
+            entree.nextLine();
+            try {
+                tache = new Tache(nom, description, duree);
+                saisieOk = true;
+            } catch (IllegalArgumentException erreurConstructeur) {
+                System.out.println(erreurConstructeur.getMessage());
+                System.out.println("Veuillez recommencer");
+            }
+        }
+        return tache;
+    }
+    
+    /** 
      * Ajoute une tache à ce projet
      * @param tacheAAjouter la tache à ajouter au projet
      * @throws IllegalArgumentException si la tache est déja dans le projet
@@ -249,7 +283,7 @@ public class Projet {
      * Permet en interrogeant l'utilisateur de créer un projet
      * @return projet Projet que l'on créer
      */
-    public static Projet creer() {
+    public static Projet creerProjet() {
         Scanner entree = new Scanner(System.in);
         String nom;
         String description;
