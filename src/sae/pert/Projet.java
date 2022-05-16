@@ -56,7 +56,82 @@ public class Projet {
      */
     public static void main(String[] args) {
         //TODO faire un menu permettant de creer un projet et de l'afficher
-        
+        Scanner entree = new Scanner(System.in);
+        int choix = 0;
+        Projet projet = null;
+        while (choix != -1) {
+            if (projet == null) {
+                System.out.println("\n---------- Nom du logiciel ----------\n");
+                System.out.println("Menu principale : \n");
+                System.out.println("1 - Créer un projet\n"
+                                   + "2 - Importer un projet\n"
+                                   + "3 - Quitter le logiciel\n");
+                System.out.print("Entrez le chiffre de votre choix : ");
+                if (entree.hasNextInt()) {
+                    choix = entree.nextInt();
+                } else {
+                    choix = 0;
+                }
+                entree.nextLine();
+                switch (choix) {
+                case 1: 
+                    projet = creer();
+                    break;
+                case 2:
+                    //TODO coder la methode charger()
+                    break;
+                case 3:
+                    System.out.println("\nBye");
+                    choix = -1;
+                    break;
+                default:
+                    System.out.println("\nVeuillez choisir un nombre entre "
+                                       + "1 et 5");
+                    choix = 0;
+                    break;
+                }
+            } else {
+                System.out.println("\n---------- " + projet.getNom() 
+                                   + " ----------\n");
+                System.out.println("1 - Afficher le projet\n"
+                                   + "2 - Ajouter une tache\n"
+                                   + "3 - Enlever une tache\n"
+                                   + "4 - Configurer les taches préalables\n"
+                                   + "5 - Sauvegarder et rerourner au menu\n");
+                System.out.print("Entrez le chiffre de votre choix : ");
+                if (entree.hasNextInt()) {
+                    choix = entree.nextInt();
+                } else {
+                    choix = 0;
+                }
+                entree.nextLine();
+                switch (choix) {
+                case 1: 
+                    System.out.println();
+                    System.out.println(projet.toString());
+                    System.out.println();
+                    break;
+                case 2:
+                    //TODO ajouter une tache
+                    break;
+                case 3:
+                    //TODO enlever une tache
+                    break;
+                case 4:
+                    //TODO Configurer les taches préalables
+                    break;
+                case 5:
+                    //TODO sauvegarder
+                    projet = null;
+                    break;
+                default:
+                    System.out.println("\nVeuillez choisir un nombre entre "
+                                       + "1 et 5");
+                    choix = 0;
+                    break;
+                }
+            }
+        }
     }
     
     /**
@@ -212,6 +287,7 @@ public class Projet {
                     System.out.println("Veuillez entrer un nombre "
                                        + "entre un 1 et 6 : ");
                 }
+                entree.nextLine();
             }
             uniteTemps = UNITE_TEMPS[uniteTempsChoisie - 1];
             try {
@@ -235,8 +311,8 @@ public class Projet {
         return "Ce projet est nommé : " + this.nom + "\n" 
                + "Sa description est : " + this.description + "\n"
                + "Son unité de temps est : " + this.uniteTemps + "\n" 
-               + taches
-               + "Sa date au plus tot est : " + this.dateAuPlusTotProjet
+               + taches + "\n"
+               + "Sa date au plus tot est : " + this.dateAuPlusTotProjet + "\n" 
                + "Sa date au plus tard est : " + this.dateAuPlusTardProjet;
     }
     
