@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /** 
- * Un projet est un ensemble de taches que l'on doit ordonné pour arriver à
+ * Un projet est un ensemble de taches que l'on doit ordonnee pour arriver a
  * un objectif.
  * @author Thomas Nalix
  * @author Lorentin Nicolas
@@ -23,13 +23,13 @@ public class Projet {
     /* Description du projet */
     private String description;
     
-    /* Listes des taches à effectuer dans pour ce projet */
+    /* Listes des taches a effectuer dans pour ce projet */
     private ArrayList<Tache> taches;
     
-    /* Unité de temps utilisé pour parler des durées des taches */
+    /* Unite de temps utilise pour parler des durees des taches */
     private String uniteTemps;
     
-    /* Date au plus tôt du projet */
+    /* Date au plus tï¿½t du projet */
     private double dateAuPlusTotProjet;
     
     /* Date au plus tard du projet */
@@ -45,17 +45,16 @@ public class Projet {
         "Jour(s)",
         "Semaine(s)",
         "Mois",
-        "Année(s)"
+        "Annee(s)"
     };
     
     /** 
-     * Un menu pour créer et gérer des projets et qui permet de calculer
+     * Un menu pour creer et gerer des projets et qui permet de calculer
      * les dates au plus tot et date au plus tard de chaque tache
      * ainsi que la date au plus tot et la date au plus tard de chaque projet
-     * @param args non utlisée
+     * @param args non utlisee
      */
     public static void main(String[] args) {
-        //TODO faire un menu permettant de creer un projet et de l'afficher
         Scanner entree = new Scanner(System.in);
         int choix = 0;
         Projet projet = null;
@@ -63,7 +62,7 @@ public class Projet {
             if (projet == null) {
                 System.out.println("\n---------- Nom du logiciel ----------\n");
                 System.out.println("Menu principale : \n");
-                System.out.println("1 - Créer un projet\n"
+                System.out.println("1 - Creer un projet\n"
                                    + "2 - Importer un projet\n"
                                    + "3 - Quitter le logiciel\n");
                 System.out.print("Entrez le chiffre de votre choix : ");
@@ -96,7 +95,7 @@ public class Projet {
                 System.out.println("1 - Afficher le projet\n"
                                    + "2 - Ajouter une tache\n"
                                    + "3 - Enlever une tache\n"
-                                   + "4 - Configurer les taches préalables\n"
+                                   + "4 - Configurer les taches prealables\n"
                                    + "5 - Sauvegarder et rerourner au menu\n");
                 System.out.print("Entrez le chiffre de votre choix : ");
                 if (entree.hasNextInt()) {
@@ -118,7 +117,7 @@ public class Projet {
                     //TODO enlever une tache
                     break;
                 case 4:
-                    //TODO Configurer les taches préalables
+                    //TODO Configurer les taches prealables
                     break;
                 case 5:
                     //TODO sauvegarder
@@ -135,11 +134,11 @@ public class Projet {
     }
     
     /**
-     * Définition d'un projet qui possède un nom 
-     * et qui possède une unité de temps
+     * Dï¿½finition d'un projet qui possede un nom 
+     * et qui possede une unite de temps
      * @param nom le nom du projet
      * @param description description du projet
-     * @param uniteTemps l'unite de temps défini pour ce projet
+     * @param uniteTemps l'unite de temps dï¿½fini pour ce projet
      * @throws IllegalArgumentException si le nom est vide
      * @throws IllegalArgumentException si la description est vide
      * @throws IllegalArgumentException si l'unite de temps est invalide
@@ -156,7 +155,7 @@ public class Projet {
             uniteTempsOk = uniteTemps == UNITE_TEMPS[i];
         }
         if (!uniteTempsOk) {
-            throw new IllegalArgumentException("L'unité de temps est invalide");
+            throw new IllegalArgumentException("L'unite de temps est invalide");
         }
         this.nom = nom;
         this.description = description;
@@ -213,8 +212,8 @@ public class Projet {
     }
 
     /** 
-     * Permet de créer une tache en interrogeant l'utilisateur
-     * @return tache que l'on créer
+     * Permet de creer une tache en interrogeant l'utilisateur
+     * @return tache que l'on creer
      */
     public static Tache creerTache() {
         Scanner entree = new Scanner(System.in);
@@ -228,7 +227,7 @@ public class Projet {
             nom = entree.nextLine();
             System.out.print("Veuillez entrer la description de la tache : ");
             description = entree.nextLine();
-            System.out.print("Veuillez entrer la durée de la tache : ");
+            System.out.print("Veuillez entrer la duree de la tache : ");
             if (entree.hasNextDouble()) {
                 duree = entree.nextDouble();
             } else {
@@ -247,9 +246,9 @@ public class Projet {
     }
     
     /** 
-     * Ajoute une tache à ce projet
-     * @param tacheAAjouter la tache à ajouter au projet
-     * @throws IllegalArgumentException si la tache est déja dans le projet
+     * Ajoute une tache a ce projet
+     * @param tacheAAjouter la tache a ajouter au projet
+     * @throws IllegalArgumentException si la tache est deja dans le projet
      */
     public void ajouterTache(Tache tacheAAjouter) {
         boolean estPresent = false;
@@ -257,14 +256,14 @@ public class Projet {
             estPresent = tacheAAjouter.equals(this.taches.get(i));
         }
         if (estPresent) {
-            throw new IllegalArgumentException("Cette tache est déja présente");
+            throw new IllegalArgumentException("Cette tache est deja presente");
         }
         this.taches.add(tacheAAjouter);
     }
     
     /** 
-     * Enlève une tache à ce projet
-     * @param tacheAEnlever la tache à enlever au projet
+     * Enleve une tache a ce projet
+     * @param tacheAEnlever la tache a enlever au projet
      * @throws IllegalArgumentException si la tache n'est pas dans le projet
      */
     public void enleverTache(Tache tacheAEnlever) {
@@ -280,8 +279,8 @@ public class Projet {
     }
     
     /** 
-     * Permet en interrogeant l'utilisateur de créer un projet
-     * @return projet Projet que l'on créer
+     * Permet en interrogeant l'utilisateur de creer un projet
+     * @return projet Projet que l'on creer
      */
     public static Projet creerProjet() {
         Scanner entree = new Scanner(System.in);
@@ -295,16 +294,16 @@ public class Projet {
         while (!saisieOk) {
             System.out.print("Veuillez entrer le nom de votre projet : ");
             nom = entree.nextLine();
-            System.out.print("Veuillez décrire votre projet : ");
+            System.out.print("Veuillez decrire votre projet : ");
             description = entree.nextLine();
-            System.out.println("Veuillez saisir un chiffre pour choisir une unité"
+            System.out.println("Veuillez saisir un chiffre pour choisir une unite"
                              + " de temps pour votre projet : ");
             System.out.println("1. Minute(s)");
             System.out.println("2. Heure(s)");
             System.out.println("3. Jours(s)");
             System.out.println("4. Semaine(s)");
             System.out.println("5. Mois");
-            System.out.println("6. Année(s)");
+            System.out.println("6. Annee(s)");
             System.out.print("Votre choix : ");
             uniteTempsChoisie = 0;
             uniteTempsChoisieFaux = true;
@@ -338,13 +337,13 @@ public class Projet {
     @Override
     public String toString() {
         String taches = this.taches.size() == 0 ? "Ce projet ne contient pas "
-                        + "encore de tache" : "Ses tâches sont : \n";
+                        + "encore de tache" : "Ses taches sont : \n";
         for (int i = 0; i < this.taches.size(); i++) {
             taches += this.taches.get(i) + "\n";
         }
-        return "Ce projet est nommé : " + this.nom + "\n" 
+        return "Ce projet est nomme : " + this.nom + "\n" 
                + "Sa description est : " + this.description + "\n"
-               + "Son unité de temps est : " + this.uniteTemps + "\n" 
+               + "Son unite de temps est : " + this.uniteTemps + "\n" 
                + taches + "\n"
                + "Sa date au plus tot est : " + this.dateAuPlusTotProjet + "\n" 
                + "Sa date au plus tard est : " + this.dateAuPlusTardProjet;
