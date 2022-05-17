@@ -58,8 +58,9 @@ public class Projet {
         Scanner entree = new Scanner(System.in);
         int choix = 0;
         Projet projet = null;
+        boolean projetCharge = false;
         while (choix != -1) {
-            if (projet == null) {
+            if (projetCharge) {
                 System.out.println("\n---------- Nom du logiciel ----------\n");
                 System.out.println("Menu principale : \n");
                 System.out.println("1 - Creer un projet\n"
@@ -75,9 +76,11 @@ public class Projet {
                 switch (choix) {
                 case 1: 
                     projet = creerProjet();
+                    projetCharge = true;
                     break;
                 case 2:
                     //TODO coder la methode charger()
+                    projetCharge = true;
                     break;
                 case 3:
                     System.out.println("\nBye");
@@ -111,6 +114,7 @@ public class Projet {
                     System.out.println();
                     break;
                 case 2:
+                    //TODO la tache que l'on ajoute est deja dans le projet
                     projet.ajouterTache(creerTache());
                     break;
                 case 3:
@@ -121,7 +125,7 @@ public class Projet {
                     break;
                 case 5:
                     //TODO sauvegarder
-                    projet = null;
+                    projetCharge = true;
                     break;
                 default:
                     System.out.println("\nVeuillez choisir un nombre entre "
@@ -309,12 +313,9 @@ public class Projet {
             description = entree.nextLine();
             System.out.println("Veuillez saisir un chiffre pour choisir une unite"
                              + " de temps pour votre projet : ");
-            System.out.println("1. Minute(s)");
-            System.out.println("2. Heure(s)");
-            System.out.println("3. Jours(s)");
-            System.out.println("4. Semaine(s)");
-            System.out.println("5. Mois");
-            System.out.println("6. Annee(s)");
+            for (int i = 0; i < UNITE_TEMPS.length; i++) {
+            System.out.println((i + 1) + ". " + UNITE_TEMPS[i]);
+            }
             System.out.print("Votre choix : ");
             uniteTempsChoisie = 0;
             uniteTempsChoisieFaux = true;
