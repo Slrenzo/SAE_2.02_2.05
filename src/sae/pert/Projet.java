@@ -270,12 +270,11 @@ public class Projet {
      * @throws IllegalArgumentException si la tache est deja dans le projet
      */
     public void ajouterTache(Tache tacheAAjouter) {
-        boolean estPresent = false;
-        for (int i = 0; !estPresent && i < this.taches.size(); i++) {
-            estPresent = tacheAAjouter.getNom() == this.nom;
-        }
-        if (estPresent) {
-            throw new IllegalArgumentException("Cette tache est deja presente");
+        for (int i = 0; i < this.taches.size(); i++) {
+            if (tacheAAjouter.getNom() == this.nom) {
+                throw new IllegalArgumentException("Cette tache est deja "
+                                                   + "presente");
+            }
         }
         this.taches.add(tacheAAjouter);
     }
