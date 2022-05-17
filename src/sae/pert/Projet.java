@@ -57,10 +57,11 @@ public class Projet {
     public static void main(String[] args) {
         Scanner entree = new Scanner(System.in);
         int choix = 0;
-        Projet projet = null;
+        Projet projet = new Projet("initialisation", "initialisation pour la "
+                                   + "compilation", UNITE_TEMPS[0]);
         boolean projetCharge = false;
         while (choix != -1) {
-            if (projetCharge) {
+            if (!projetCharge) {
                 System.out.println("\n---------- Nom du logiciel ----------\n");
                 System.out.println("Menu principale : \n");
                 System.out.println("1 - Creer un projet\n"
@@ -114,8 +115,11 @@ public class Projet {
                     System.out.println();
                     break;
                 case 2:
-                    //TODO la tache que l'on ajoute est deja dans le projet
-                    projet.ajouterTache(creerTache());
+                    try {
+                        projet.ajouterTache(creerTache());
+                    } catch (IllegalArgumentException erreurDeSaisie) {
+                        System.out.println(erreurDeSaisie.getMessage());
+                    }
                     break;
                 case 3:
                     //TODO enlever une tache
@@ -268,7 +272,7 @@ public class Projet {
     public void ajouterTache(Tache tacheAAjouter) {
         boolean estPresent = false;
         for (int i = 0; !estPresent && i < this.taches.size(); i++) {
-            estPresent = tacheAAjouter.equals(this.taches.get(i));
+            estPresent = tacheAAjouter.getNom() == this.nom;
         }
         if (estPresent) {
             throw new IllegalArgumentException("Cette tache est deja presente");
@@ -284,7 +288,7 @@ public class Projet {
     public void enleverTache(Tache tacheAEnlever) {
         boolean estPresent = false;
         for (int i = 0; !estPresent && i < this.taches.size(); i++) {
-            estPresent = tacheAEnlever.equals(this.taches.get(i));
+            estPresent = tacheAEnlever.getNom() == this.nom;
         }
         if (!estPresent) {
             throw new IllegalArgumentException("Cette tache n'est pas dans "
