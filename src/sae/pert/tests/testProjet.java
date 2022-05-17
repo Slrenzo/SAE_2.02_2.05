@@ -28,7 +28,7 @@ public class testProjet {
     };
     
     /**
-     * Lance les diff�rents jeux de tests
+     * Lance les différents jeux de tests
      * @param args
      */
     public static void main(String[] args) {
@@ -38,8 +38,11 @@ public class testProjet {
         ok = testConstructeurStringStringString();
         ok &= testGetNom();
         ok &= testGetDescription();
-        ok &= testGetUniteTemps();
         ok &= testSetDescription();
+        ok &= testGetUniteTemps();
+        ok &= testAjouterTacheProjet();
+        ok &= testEnleverTacheProjet();
+        
         
         
         if (ok) {
@@ -175,6 +178,71 @@ public class testProjet {
         }
         return ok;
     }
+    
+    
+    /**
+     * Test unitaires de ajouterTache
+     * @return true si test reussis sinon false
+     */
+    private static boolean testAjouterTacheProjet() {
+        boolean ok = true;
+        
+        Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TEMPS[2]);
+        
+        Tache tacheAAjouter = new Tache("Tache A", "Répartition du travail", 30.5);
+        
+        ArrayList<Tache> tacheProjetAttendues = new ArrayList<Tache>();
+        tacheProjetAttendues.add(tacheAAjouter);
+        
+        ProjetTest.ajouterTache(tacheAAjouter);
+        ok &= ProjetTest.getTaches().equals(tacheProjetAttendues);
+        
+        try {
+            ProjetTest.ajouterTache(tacheAAjouter);
+            ok = false;
+        } catch (IllegalArgumentException tacheDejaPrésente) {
+            ok = true;
+        }
+        
+            
+        return ok;
+    }
+    
+    private static boolean testEnleverTacheProjet() {
+        boolean ok = true;
+        
+        Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TEMPS[2]);
+        
+        Tache tacheAAjouter = new Tache("Tache A", "Répartition du travail", 30.5);
+        
+        Tache tacheAAjouter1 = new Tache("Tache B", "Réalisation de l'application", 3.5);
+        
+        Tache tacheAAjouter2 = new Tache("Tache B", "Réalisation des tests", 20.0);
+        
+        ProjetTest.ajouterTache(tacheAAjouter);
+        ProjetTest.ajouterTache(tacheAAjouter1);
+        ProjetTest.ajouterTache(tacheAAjouter2);
+        
+        ArrayList<Tache> tacheProjetAttendues = new ArrayList<Tache>();
+        tacheProjetAttendues.add(tacheAAjouter);
+        tacheProjetAttendues.add(tacheAAjouter1);
+        
+        ProjetTest.enleverTache(tacheAAjouter2);
+        ok &= ProjetTest.getTaches().equals(tacheProjetAttendues);
+        
+        
+        try {
+            ProjetTest.enleverTache(tacheAAjouter2);
+            ok = false;
+        } catch (IllegalArgumentException tacheNonPrésente) {
+            ok = true;
+        }
+        
+            
+        return ok;
+    }
+    
+    
     
     
 }

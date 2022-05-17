@@ -412,7 +412,7 @@ public class testTache {
         boolean ok;
         
         /** Tache de test */
-        Tache test = new Tache("Tache D", "Réalisation de l'application", 30.0, 12.0, 42.0)
+        Tache test = new Tache("Tache D", "Réalisation de l'application", 30.0);
         double[] testDateAuPlusTot = {78, 0.0, -5};
         
         double[] DateAuPlusTotAttendus = {78, 12, 30.5};
@@ -437,7 +437,7 @@ public class testTache {
         boolean ok;
         
         /** Tache de test */
-        Tache test = new Tache("Tache D", "Réalisation de l'application", 30.0, 12.0, 42.0)
+        Tache test = new Tache("Tache D", "Réalisation de l'application", 30.0);
         double[] testDateAuPlusTard = {78, 0.0, -5};
         
         double[] DateAuPlusTardAttendus = {78, 12, 30.5};
