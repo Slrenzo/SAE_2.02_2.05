@@ -210,6 +210,17 @@ public class Projet {
     public double getDateAuPlusTardProjet() {
         return dateAuPlusTardProjet;
     }
+    
+    /**
+     * @return taches les taches de ce projet
+     */
+    public ArrayList<Tache> getTaches() {
+        ArrayList<Tache> cloneTaches = new ArrayList<Tache>(0);
+        for (int i = 0; i < this.taches.size(); i++) {
+            cloneTaches.add(this.taches.get(i));
+        }
+        return cloneTaches;
+    }
 
     /** 
      * Permet de creer une tache en interrogeant l'utilisateur
