@@ -16,42 +16,42 @@ import java.util.ArrayList;
  */
 public class Tache {
     
-    /* Nom attribué à la tache */
+    /* Nom attribue a la tache */
     private String nom;
     
-    /* Description synthétique de la tache */
+    /* Description synthetique de la tache */
     private String description;
     
     /* 
-     * Durée que la tache prendra a être réalisée
-     * (L'unité de temps sera défini dans le projet ou est utilisé la tache)
+     * Duree que la tache prendra a etre realisee
+     * (L'unite de temps sera defini dans le projet ou est utilise la tache)
      */
     private double duree;
     
     /*
-     * Date au plus tot de cette tache défini par un projet
+     * Date au plus tot de cette tache defini par un projet
      */
     private double dateAuPlusTot;
     
     
     /*
-     * Date au plus tard de cette tache défini par un projet
+     * Date au plus tard de cette tache defini par un projet
      */
     private double dateAuPlusTard;
     
     /*
-     * Liste des taches à réaliser avant de réalisé cette tache
+     * Liste des taches a realiser avant de realiser cette tache
      */
     private ArrayList<Tache> tachesPrealables;
     
     /**
-     * Définition d'une tache ayant une durée de réalisation
+     * Definition d'une tache ayant une duree de realisation
      * @param nom nom ni vide ni null de la tache
      * @param description description ni vide ni null de la tache
-     * @param duree durée de la tache supérieur à 0.0
+     * @param duree duree de la tache superieur a 0.0
      * @throws IllegalArgumentException nom est vide
      * @throws IllegalArgumentException description est vide
-     * @throws IllegalArgumentException duree inférieur ou égal à 0.0
+     * @throws IllegalArgumentException duree inferieur ou egal a 0.0
      */
     public Tache(String nom, String description, double duree) {
         if (nom.isBlank()) {
@@ -61,8 +61,8 @@ public class Tache {
             throw new IllegalArgumentException("Le description est vide");
         }
         if (duree <= 0.0) {
-            throw new IllegalArgumentException("La durée est nulle "
-                                               + "ou négative");
+            throw new IllegalArgumentException("La duree est nulle "
+                                               + "ou negative");
         }
         this.nom = nom;
         this.description = description;
@@ -90,7 +90,7 @@ public class Tache {
 
     /**
      * Modifie la description de la tache
-     * @param description description à modifier
+     * @param description description a modifier
      * @throws IllegalArgumentException description est vide
      */
     public void setDescription(String description) {
@@ -101,7 +101,7 @@ public class Tache {
     }
 
     /**
-     * Affiche la durée de la tache
+     * Affiche la duree de la tache
      * @return duree
      */
     public double getDuree() {
@@ -109,14 +109,14 @@ public class Tache {
     }
 
     /**
-     * Modifie la durée de la tache
-     * @param duree durée à modifier
-     * @throws IllegalArgumentException duree inférieur ou égal à 0.0
+     * Modifie la duree de la tache
+     * @param duree duree a modifier
+     * @throws IllegalArgumentException duree inferieur ou egal a 0.0
      */
     public void setDuree(double duree) {
         if (duree <= 0.0) {
-            throw new IllegalArgumentException("La durée est nulle "
-                                               + "ou négative");
+            throw new IllegalArgumentException("La durï¿½e est nulle "
+                                               + "ou nï¿½gative");
         }
         this.duree = duree;
     }
@@ -130,11 +130,11 @@ public class Tache {
 
     /**
      * @param dateAuPlusTot modifie la date au plus tot de cette tache
-     * @throws IllegalArgumentException si la date au plus tot est négative
+     * @throws IllegalArgumentException si la date au plus tot est negative
      */
     public void setDateAuPlusTot(double dateAuPlusTot) {
         if (dateAuPlusTot < 0.0) {
-            throw new IllegalArgumentException("La date est négative");
+            throw new IllegalArgumentException("La date est negative");
         }
         this.dateAuPlusTot = dateAuPlusTot;
     }
@@ -148,17 +148,17 @@ public class Tache {
 
     /**
      * @param dateAuPlusTard modifie la date au plus tard de cette tache
-     * @throws IllegalArgumentException si la date au plus t est négative
+     * @throws IllegalArgumentException si la date au plus tard est negative
      */
     public void setDateAuPlusTard(double dateAuPlusTard) {
         if (dateAuPlusTard < 0.0) {
-            throw new IllegalArgumentException("La date est négative");
+            throw new IllegalArgumentException("La date est negative");
         }
         this.dateAuPlusTard = dateAuPlusTard;
     }
 
     /**
-     * @return tachesPrealables les taches préalables de cette tache
+     * @return tachesPrealables les taches prealables de cette tache
      */
     public ArrayList<Tache> getTachesPrealables() {
         ArrayList<Tache> cloneTachesPrealables = new ArrayList<Tache>(0);
@@ -169,11 +169,11 @@ public class Tache {
     }
 
     /**
-     * Ajoute une tache à aux taches préalables de cette tache
-     * @param tache tache que l'on souhaite ajouter aux taches préalables
-     * @throws IllegalArgumentException tache est déja une tache préalable 
+     * Ajoute une tache aux taches prealables de cette tache
+     * @param tache tache que l'on souhaite ajouter aux taches prealables
+     * @throws IllegalArgumentException tache est deja une tache prealable 
      *         de cette tache
-     * @throws IllegalArgumentException la tache que l'on ajoute est la même
+     * @throws IllegalArgumentException la tache que l'on ajoute est la meme
      *         que cette tache
      */
     public void ajouterTachePrealable(Tache tache) {
@@ -182,22 +182,22 @@ public class Tache {
             estPresent = this.tachesPrealables.get(i).nom == tache.nom;
         }
         if (estPresent) {
-            throw new IllegalArgumentException("Cette tache est déja une "
-                                               + "tache préalable");
+            throw new IllegalArgumentException("Cette tache est deja une "
+                                               + "tache prealable");
         }
         if (this.nom == tache.nom) {
             throw new IllegalArgumentException("Cette tache et la tache que"
                                                + " vous souhaitez ajouter"
-                                               + " sont les même");
+                                               + " sont les meme");
         }
         this.tachesPrealables.add(tache);
     }
     
     /**
-     * Enlève une tache à aux taches préalables de cette tache
-     * @param tache tache que l'on souhaite ajouter aux taches préalables
+     * Enleve une tache aux taches prealables de cette tache
+     * @param tache tache que l'on souhaite ajouter aux taches prealables
      * @throws IllegalArgumentException tache ne fait pas partie des taches 
-     *         préalables de cette tache
+     *         prealables de cette tache
      */
     public void enleverTachePrealable(Tache tache) {
         boolean estPresent = false;
@@ -206,7 +206,7 @@ public class Tache {
         }
         if (!estPresent) {
             throw new IllegalArgumentException("Cette tache n'est pas une "
-                                               + "tache préalable");
+                                               + "tache prealable");
         }
         this.tachesPrealables.remove(tache);
     }
@@ -214,13 +214,13 @@ public class Tache {
     @Override
     public String toString() {
         String tachesPrealables = this.tachesPrealables.size() != 0 
-                                  ? "\n  Taches préalables : "
+                                  ? "\n  Taches prealables : "
                                   : "\n  Cette tache n'a pas de taches "
-                                  + "préalables";
+                                  + "prealables";
         for (int i = 0; i < this.tachesPrealables.size(); i++) {
             tachesPrealables += this.tachesPrealables.get(i).nom + " | ";
         }
-        return "Cette tache est défini par :\n  Nom : " + this.nom 
+        return "Cette tache est defini par :\n  Nom : " + this.nom 
                + "\n  Description : " + this.description
                + "\n  Duree : " + this.duree
                + "\n  Date au plus tot : " + this.dateAuPlusTot
