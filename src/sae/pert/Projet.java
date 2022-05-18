@@ -4,6 +4,9 @@
  */
 package sae.pert;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -128,7 +131,7 @@ public class Projet {
                     //TODO Configurer les taches prealables
                     break;
                 case 5:
-                    //TODO sauvegarder
+                	projet.sauvegarder();
                     projetCharge = true;
                     break;
                 default:
@@ -348,6 +351,26 @@ public class Projet {
         }
         return projet;
     }
+    
+    /**
+     * Sauvegarde dans un fichier les informations du fichier
+     */
+    public void sauvegarder() {
+    	// TODO continuer l'algorithme
+        File file = new File("sauv.txt");
+        FileWriter fichier;
+		try {
+			fichier = new FileWriter(file);
+	        
+	        fichier.write(this.nom + "\n" + this.description + "\n" + this.uniteTemps + "\n" 
+					+ this.dateAuPlusTotProjet + "\n" + this.dateAuPlusTardProjet + "\n" + taches);
+	       
+	        fichier.close();
+		} catch (IOException erreur) {
+			System.out.println("erreur");
+		}
+    }
+
     
     @Override
     public String toString() {
