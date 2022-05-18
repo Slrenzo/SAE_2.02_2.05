@@ -271,7 +271,7 @@ public class Projet {
      */
     public void ajouterTache(Tache tacheAAjouter) {
         for (int i = 0; i < this.taches.size(); i++) {
-            if (tacheAAjouter.getNom() == this.nom) {
+            if (tacheAAjouter.getNom().equals(this.nom)) {
                 throw new IllegalArgumentException("Cette tache est deja "
                                                    + "presente");
             }
