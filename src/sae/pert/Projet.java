@@ -103,7 +103,7 @@ public class Projet {
                                    + "2 - Ajouter une tache\n"
                                    + "3 - Enlever une tache\n"
                                    + "4 - Configurer les taches prealables\n"
-                                   + "5 - Sauvegarder et rerourner au menu\n");
+                                   + "5 - Sauvegarder et retourner au menu\n");
                 System.out.print("Entrez le chiffre de votre choix : ");
                 if (entree.hasNextInt()) {
                     choix = entree.nextInt();
@@ -132,7 +132,7 @@ public class Projet {
                     break;
                 case 5:
                 	projet.sauvegarder();
-                    projetCharge = true;
+                    projetCharge = false;
                     break;
                 default:
                     System.out.println("\nVeuillez choisir un nombre entre "
