@@ -125,7 +125,26 @@ public class Projet {
                     }
                     break;
                 case 3:
-                    //TODO enlever une tache
+                    String nomDeTache;
+                    boolean ok = false;
+                    System.out.println("Voici les taches de ce projet :");
+                    for (int i = 0; i < projet.taches.size(); i++) {
+                        System.out.println(projet.taches.get(i).getNom());
+                    }
+                    System.out.print("Veuillez entrer le nom de la tache que"
+                                     + " vous souhaitez enlever : ");
+                    nomDeTache = entree.nextLine();
+                    for (int i = 0; !ok && i < projet.taches.size(); i++) {
+                        ok = projet.taches.get(i).getNom().equals(nomDeTache);
+                        if (ok) {
+                            projet.enleverTache(projet.taches.get(i));
+                            System.out.println("Cette tache a ete supprimer");
+                        }
+                    }
+                    if (!ok) {
+                        System.out.println("Cette tache n'est pas dans "
+                                           + "le projet");
+                    }
                     break;
                 case 4:
                     //TODO Configurer les taches prealables
@@ -290,7 +309,7 @@ public class Projet {
     public void enleverTache(Tache tacheAEnlever) {
         boolean estPresent = false;
         for (int i = 0; !estPresent && i < this.taches.size(); i++) {
-            estPresent = tacheAEnlever.getNom() == this.nom;
+            estPresent = this.taches.get(i).equals(tacheAEnlever);
         }
         if (!estPresent) {
             throw new IllegalArgumentException("Cette tache n'est pas dans "
@@ -320,7 +339,7 @@ public class Projet {
             System.out.println("Veuillez saisir un chiffre pour choisir une unite"
                              + " de temps pour votre projet : ");
             for (int i = 0; i < UNITE_TEMPS.length; i++) {
-            System.out.println((i + 1) + ". " + UNITE_TEMPS[i]);
+                System.out.println((i + 1) + ". " + UNITE_TEMPS[i]);
             }
             System.out.print("Votre choix : ");
             uniteTempsChoisie = 0;
