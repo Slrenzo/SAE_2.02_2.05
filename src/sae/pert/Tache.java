@@ -161,8 +161,18 @@ public class Tache {
      */
     public ArrayList<Tache> getTachesPrealables() {
         ArrayList<Tache> cloneTachesPrealables = new ArrayList<Tache>(0);
+        Tache cloneTache;
         for (int i = 0; i < this.tachesPrealables.size(); i++) {
-            cloneTachesPrealables.add(this.tachesPrealables.get(i));
+            cloneTache = new Tache(this.tachesPrealables.get(i).getNom(),
+                                   this.tachesPrealables.get(i).getDescription(),
+                                   this.duree);
+            cloneTache.setDateAuPlusTot(
+                            this.tachesPrealables.get(i).getDateAuPlusTot()
+            );
+            cloneTache.setDateAuPlusTard(
+                            this.tachesPrealables.get(i).getDateAuPlusTard()
+            );
+            cloneTachesPrealables.add(cloneTache);
         }
         return cloneTachesPrealables;
     }

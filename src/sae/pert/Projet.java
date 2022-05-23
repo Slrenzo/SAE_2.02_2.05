@@ -265,8 +265,20 @@ public class Projet {
      */
     public ArrayList<Tache> getTaches() {
         ArrayList<Tache> cloneTaches = new ArrayList<Tache>(0);
+        Tache cloneTache;
+        ArrayList<Tache> cloneTachesPrealables;
         for (int i = 0; i < this.taches.size(); i++) {
-            cloneTaches.add(this.taches.get(i));
+            cloneTache = new Tache(this.taches.get(i).getNom(),
+                                   this.taches.get(i).getDescription(),
+                                   this.taches.get(i).getDuree());
+            cloneTache.setDateAuPlusTot(this.taches.get(i).getDateAuPlusTot());
+            cloneTache.setDateAuPlusTard(this.taches.get(i)
+                                         .getDateAuPlusTard());
+            cloneTachesPrealables = this.taches.get(i).getTachesPrealables();
+            for (int j = 0; j < cloneTachesPrealables.size(); j++) {
+                cloneTache.ajouterTachePrealable(cloneTachesPrealables.get(j));
+            }
+            cloneTaches.add(cloneTache);
         }
         return cloneTaches;
     }
