@@ -32,7 +32,7 @@ public class Projet {
     /* Unite de temps utilise pour parler des durees des taches */
     private String uniteTemps;
     
-    /* Date au plus t�t du projet */
+    /* Date au plus tot du projet */
     private double dateAuPlusTotProjet;
     
     /* Date au plus tard du projet */
@@ -182,7 +182,7 @@ public class Projet {
         }
         boolean uniteTempsOk = false;
         for (int i = 0; !uniteTempsOk && i < UNITE_TEMPS.length; i++) {
-            uniteTempsOk = uniteTemps == UNITE_TEMPS[i];
+            uniteTempsOk = uniteTemps.equals(UNITE_TEMPS[i]);
         }
         if (!uniteTempsOk) {
             throw new IllegalArgumentException("L'unite de temps est invalide");
@@ -390,7 +390,76 @@ public class Projet {
 		}
     }
 
+    /** 
+     * Permet de configurer les taches prealables du projet
+     */
+    public void ajouterTachesPrealables() {
+        int choix = 1;
+        boolean ok = false;
+        String nomTache;
+        String nomTacheAAjouter;
+        Tache tache = new Tache("nom", "description", 0.0);
+        Tache tacheAAjouter = new Tache("nom", "description", 0.0);
+        Scanner entree = new Scanner(System.in);
+        while (choix != 0) {
+            System.out.println("\nTapez 0 pour revenir au menu du projet,"
+                               + " ou choisissez une tache a configurer :");
+            for (int i = 0; i < this.taches.size(); i++) {
+                System.out.println(this.taches.get(i).getNom());
+            }
+            System.out.print("Choisissez une tache : ");
+            nomTache = entree.nextLine();
+            for (int i = 0; !ok && i < this.taches.size(); i++) {
+                ok = nomTache.equals(this.taches.get(i).getNom());
+                if (ok) {
+                    tache = this.taches.get(i);
+                }
+            }
+            if (!ok) {
+                System.out.println("Cette tache n'est pas dans le projet");
+            } else {
+                System.out.println("Choisissez la tache a ajouter au tache "
+                                   + "prealable de " + tache.getNom());
+                for (int i = 0; i < this.taches.size(); i++) {
+                    if (!nomTache.equals(this.taches.get(i).getNom())
+                        || !tache.getTachesPrealables()
+                        .contains(this.taches.get(i))) {
+                        System.out.println(this.taches.get(i).getNom());
+                    }
+                }
+                System.out.print("Choisissez une tache : ");
+                nomTacheAAjouter = entree.nextLine();
+                ok = false;
+                for (int i = 0; !ok && i < this.taches.size(); i++) {
+                    ok = !nomTache.equals(this.taches.get(i).getNom())
+                         || !tache.getTachesPrealables()
+                         .contains(this.taches.get(i));
+                    if (ok) {
+                        tacheAAjouter = this.taches.get(i);
+                        tache.ajouterTachePrealable(tacheAAjouter);
+                    }
+                }
+                if (!ok && this.aUnCircuit()) {
+                    System.out.println("Cette tache ne peut pas etre ajouter "
+                                       + "aux taches prealables de " 
+                                       + nomTache);
+                    tache.enleverTachePrealable(tacheAAjouter);
+                } else {
+                    System.out.println("Cette tache a ete ajouter");
+                }
+            }
+        }
+    }
     
+    /** 
+     * teste si le projet possede un circuit
+     * @return true s'il y a un circuit
+     */
+    private boolean aUnCircuit() {
+        // TODO coder l'algo qui teste s'il y a un circuit
+        return false; //stub
+    }
+
     @Override
     public String toString() {
         String taches = this.taches.size() == 0 ? "Ce projet ne contient pas "
