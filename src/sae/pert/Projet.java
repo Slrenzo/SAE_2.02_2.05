@@ -4,8 +4,10 @@
  */
 package sae.pert;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -425,38 +427,49 @@ public class Projet {
      * importer dans un fichier les informations du fichier
      */
     public static Projet importer() {
+    	String[] projetInfo = new String[6];
+    	Projet projet = new Projet("nom","desc","Mois");
+    	Tache tache;
+    	String nomAChercher ="";
+    	int indexTache = 0;
+    	boolean trouve;
     	
-    	String[] projetInfo = new String[5];
-    	Projet projet = null;
-    	
-		String contenu = "";
-		
-        File myObj = new File("sauv.txt");
-        Scanner myReader;
+    	BufferedReader reader;
 		try {
-			myReader = new Scanner(myObj);
-			for (int index = 0; index < projetInfo.length; index++) {
-				projetInfo[index] = myReader.nextLine();
+			reader = new BufferedReader(new FileReader("sauv.txt"));
+			String line = reader.readLine();
+			// Information du projet
+			for (int index = 0; index < 6; index++) {
+				projetInfo[index] = line;
+				line = reader.readLine();
 			}
-			System.out.println(projetInfo[2]);
-			projet = new Projet (projetInfo[0],
-					projetInfo[1],
-					projetInfo[2]
-					);
-//	        while (myReader.hasNextLine()) {
-//	            contenu += myReader.nextLine() + "\n";
-//	        }
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			projet = new Projet (projetInfo[1], projetInfo[2], projetInfo[3]);
+			projet.dateAuPlusTotProjet=Double.parseDouble(projetInfo[4]);
+			projet.dateAuPlusTardProjet=Double.parseDouble(projetInfo[5]);
+			// Taches du projets
+			for (int i = 0; i < Integer.parseInt(projetInfo[0]); i++) {
+				tache = new Tache(reader.readLine(),reader.readLine(),
+						Double.parseDouble(reader.readLine()));
+				tache.setDateAuPlusTot(Double.parseDouble(reader.readLine()));
+				tache.setDateAuPlusTard(Double.parseDouble(reader.readLine()));
+				projet.ajouterTache(tache);
+
+				nomAChercher = reader.readLine();
+				trouve = false;
+				for (indexTache = 0; !trouve && indexTache < projet.taches.size(); indexTache++) {
+					trouve = projet.taches.get(indexTache).getNom().equals(nomAChercher);
+				}
+				if (trouve) {
+					tache.ajouterTachePrealable(projet.taches.get(indexTache - 1));
+				}
+			}
+			reader.close();
+		} catch (IOException e) {
+			System.out.println("erreur");
 		}
-
-		System.out.println(projet.toString());
-        
- 
-        System.out.println(contenu);
-        return null;
+		
+		return projet;
     }
-
     /** 
      * Permet d'ajouter les taches prealables du projet
      */
