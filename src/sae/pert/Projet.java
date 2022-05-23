@@ -25,35 +25,35 @@ public class Projet {
 
     /* Nom du projet */
     private String nom;
-    
+
     /* Description du projet */
     private String description;
-    
+
     /* Listes des taches a effectuer dans pour ce projet */
     private ArrayList<Tache> taches;
-    
+
     /* Unite de temps utilise pour parler des durees des taches */
     private String uniteTemps;
-    
+
     /* Date au plus tot du projet */
     private double dateAuPlusTotProjet;
-    
+
     /* Date au plus tard du projet */
     private double dateAuPlusTardProjet;    
-    
-    
+
+
     /**
      * Tableau d'unite de temps possible 
      */
     public final static String[] UNITE_TEMPS = { 
-        "Minute(s)",
-        "Heure(s)",
-        "Jour(s)",
-        "Semaine(s)",
-        "Mois",
-        "Annee(s)"
+                    "Minute(s)",
+                    "Heure(s)",
+                    "Jour(s)",
+                    "Semaine(s)",
+                    "Mois",
+                    "Annee(s)"
     };
-    
+
     /** 
      * Un menu pour creer et gerer des projets et qui permet de calculer
      * les dates au plus tot et date au plus tard de chaque tache
@@ -64,15 +64,15 @@ public class Projet {
         Scanner entree = new Scanner(System.in);
         int choix = 0;
         Projet projet = new Projet("initialisation", "initialisation pour la "
-                                   + "compilation", UNITE_TEMPS[0]);
+                        + "compilation", UNITE_TEMPS[0]);
         boolean projetCharge = false;
         while (choix != -1) {
             if (!projetCharge) {
                 System.out.println("\n---------- Nom du logiciel ----------\n");
                 System.out.println("Menu principale : \n");
                 System.out.println("1 - Creer un projet\n"
-                                   + "2 - Importer un projet\n"
-                                   + "3 - Quitter le logiciel\n");
+                                + "2 - Importer un projet\n"
+                                + "3 - Quitter le logiciel\n");
                 System.out.print("Entrez le chiffre de votre choix : ");
                 if (entree.hasNextInt()) {
                     choix = entree.nextInt();
@@ -86,7 +86,7 @@ public class Projet {
                     projetCharge = true;
                     break;
                 case 2:
-                	projet = importer();
+                    projet = importer();
                     projetCharge = true;
                     break;
                 case 3:
@@ -95,18 +95,18 @@ public class Projet {
                     break;
                 default:
                     System.out.println("\nVeuillez choisir un nombre entre "
-                                       + "1 et 3");
+                                    + "1 et 3");
                     choix = 0;
                     break;
                 }
             } else {
                 System.out.println("\n---------- " + projet.getNom() 
-                                   + " ----------\n");
+                + " ----------\n");
                 System.out.println("1 - Afficher le projet\n"
-                                   + "2 - Ajouter une tache\n"
-                                   + "3 - Enlever une tache\n"
-                                   + "4 - Configurer les taches prealables\n"
-                                   + "5 - Sauvegarder et retourner au menu\n");
+                                + "2 - Ajouter une tache\n"
+                                + "3 - Enlever une tache\n"
+                                + "4 - Configurer les taches prealables\n"
+                                + "5 - Sauvegarder et retourner au menu\n");
                 System.out.print("Entrez le chiffre de votre choix : ");
                 if (entree.hasNextInt()) {
                     choix = entree.nextInt();
@@ -135,7 +135,7 @@ public class Projet {
                         System.out.println(projet.taches.get(i).getNom());
                     }
                     System.out.print("Veuillez entrer le nom de la tache que"
-                                     + " vous souhaitez enlever : ");
+                                    + " vous souhaitez enlever : ");
                     nomDeTache = entree.nextLine();
                     for (int i = 0; !ok && i < projet.taches.size(); i++) {
                         ok = projet.taches.get(i).getNom().equals(nomDeTache);
@@ -146,12 +146,12 @@ public class Projet {
                     }
                     if (!ok) {
                         System.out.println("Cette tache n'est pas dans "
-                                           + "le projet");
+                                        + "le projet");
                     }
                     break;
                 case 4:
                     System.out.println("\n1. Ajouter une tache"
-                                       + "\n2. Enlever une tache");
+                                    + "\n2. Enlever une tache");
                     System.out.print("Votre choix : ");
                     if (entree.hasNextInt()) {
                         choix = entree.nextInt();
@@ -161,28 +161,28 @@ public class Projet {
                             projet.enleverTachePrealable();
                         } else {
                             System.out.println("Vous n'avez pas saisie une "
-                                               + "valeur corect");
+                                            + "valeur corect");
                         }
                     } else {
                         System.out.println("Vous n'avez pas saisie une valeur "
-                                           + "corect");
+                                        + "corect");
                     }
                     entree.nextLine();
                     break;
                 case 5:
-                	projet.sauvegarder();
+                    projet.sauvegarder();
                     projetCharge = false;
                     break;
                 default:
                     System.out.println("\nVeuillez choisir un nombre entre "
-                                       + "1 et 5");
+                                    + "1 et 5");
                     choix = 0;
                     break;
                 }
             }
         }
     }
-    
+
     /**
      * D�finition d'un projet qui possede un nom 
      * et qui possede une unite de temps
@@ -260,7 +260,7 @@ public class Projet {
     public double getDateAuPlusTardProjet() {
         return dateAuPlusTardProjet;
     }
-    
+
     /**
      * @return taches les taches de ce projet
      */
@@ -305,7 +305,7 @@ public class Projet {
         }
         return tache;
     }
-    
+
     /** 
      * Ajoute une tache a ce projet
      * @param tacheAAjouter la tache a ajouter au projet
@@ -315,12 +315,12 @@ public class Projet {
         for (int i = 0; i < this.taches.size(); i++) {
             if (tacheAAjouter.getNom().equals(this.taches.get(i).getNom())) {
                 throw new IllegalArgumentException("Cette tache est deja "
-                                                   + "presente");
+                                + "presente");
             }
         }
         this.taches.add(tacheAAjouter);
     }
-    
+
     /** 
      * Enleve une tache a ce projet
      * @param tacheAEnlever la tache a enlever au projet
@@ -333,11 +333,11 @@ public class Projet {
         }
         if (!estPresent) {
             throw new IllegalArgumentException("Cette tache n'est pas dans "
-                                               + "le projet");
+                            + "le projet");
         }
         this.taches.remove(tacheAEnlever);
     }
-    
+
     /** 
      * Permet en interrogeant l'utilisateur de creer un projet
      * @return projet Projet que l'on creer
@@ -357,7 +357,7 @@ public class Projet {
             System.out.print("Veuillez decrire votre projet : ");
             description = entree.nextLine();
             System.out.println("Veuillez saisir un chiffre pour choisir une unite"
-                             + " de temps pour votre projet : ");
+                            + " de temps pour votre projet : ");
             for (int i = 0; i < UNITE_TEMPS.length; i++) {
                 System.out.println((i + 1) + ". " + UNITE_TEMPS[i]);
             }
@@ -368,14 +368,14 @@ public class Projet {
                 if (entree.hasNextInt()) {
                     uniteTempsChoisie = entree.nextInt();
                     uniteTempsChoisieFaux = uniteTempsChoisie <= 0 
-                                            || uniteTempsChoisie >= 7;
-                    if (uniteTempsChoisieFaux) {
-                        System.out.println("Veuillez entrer un nombre "
-                                           + "entre un 1 et 6 : ");                        
-                    }
+                                    || uniteTempsChoisie >= 7;
+                                    if (uniteTempsChoisieFaux) {
+                                        System.out.println("Veuillez entrer un nombre "
+                                                        + "entre un 1 et 6 : ");                        
+                                    }
                 } else {
                     System.out.println("Veuillez entrer un nombre "
-                                       + "entre un 1 et 6 : ");
+                                    + "entre un 1 et 6 : ");
                 }
                 entree.nextLine();
             }
@@ -390,85 +390,100 @@ public class Projet {
         }
         return projet;
     }
-    
+
     /**
      * Sauvegarde dans un fichier les informations du fichier
      */
     public void sauvegarder() {
-    	String tache = "";
-    	// TODO continuer l'algorithme
+        String listeTaches = "";
+        String nomTachesPrealable = "";
         File file = new File("sauv.txt");
         FileWriter fichier;
-		try {
-			fichier = new FileWriter(file);
-	       for (int i = 0; i < taches.size(); i++) {
-	    	   tache += "\n" + taches.get(i).getNom() + "\n" 
-	    			   	+ taches.get(i).getDescription() + "\n"
-	    			   	+ taches.get(i).getDuree() + "\n"
-	    			   	+ taches.get(i).getDateAuPlusTot() + "\n"
-	    			   	+ taches.get(i).getDateAuPlusTard() + "\n"
-	    			   	+ taches.get(i).getTachesPrealables() + "\n";
-	       }
-	       System.out.println(tache);
-			
-			
-	        fichier.write(this.nom + "\n" + this.description + "\n" + this.uniteTemps + "\n" 
-					+ this.dateAuPlusTotProjet + "\n" + this.dateAuPlusTardProjet + "\n" 
-					+ tache
-	        		);
-	       
-	        fichier.close();
-		} catch (IOException erreur) {
-			System.out.println("erreur");
-		}
+        try {
+            fichier = new FileWriter(file);
+            for (int i = 0; i < taches.size(); i++) {
+                for (int index = 0; 
+                     index < taches.get(i).getTachesPrealables().size(); 
+                     index++) {
+                    nomTachesPrealable += taches.get(i).getTachesPrealables()
+                                    .get(index).getNom() + "\n";
+                }
+                listeTaches += taches.get(i).getNom() + "\n" 
+                          + taches.get(i).getDescription() + "\n"
+                          + taches.get(i).getDuree() + "\n"
+                          + taches.get(i).getDateAuPlusTot() + "\n"
+                          + taches.get(i).getDateAuPlusTard() + "\n"
+                          + taches.get(i).getTachesPrealables().size() + "\n"
+                          + nomTachesPrealable;
+            }
+
+            fichier.write( taches.size() + "\n" + this.nom + "\n"
+                          + this.description + "\n" 
+                          + this.uniteTemps + "\n" 
+                          + this.dateAuPlusTotProjet + "\n" 
+                          + this.dateAuPlusTardProjet + "\n" 
+                          + "\n" + listeTaches
+                          );
+
+            fichier.close();
+        } catch (IOException erreur) {
+            System.out.println("erreur");
+        }
     }
-    
+
     /**
      * importer dans un fichier les informations du fichier
+     * @return projet
      */
     public static Projet importer() {
-    	String[] projetInfo = new String[6];
-    	Projet projet = new Projet("nom","desc","Mois");
-    	Tache tache;
-    	String nomAChercher ="";
-    	int indexTache = 0;
-    	boolean trouve;
-    	
-    	BufferedReader reader;
-		try {
-			reader = new BufferedReader(new FileReader("sauv.txt"));
-			String line = reader.readLine();
-			// Information du projet
-			for (int index = 0; index < 6; index++) {
-				projetInfo[index] = line;
-				line = reader.readLine();
-			}
-			projet = new Projet (projetInfo[1], projetInfo[2], projetInfo[3]);
-			projet.dateAuPlusTotProjet=Double.parseDouble(projetInfo[4]);
-			projet.dateAuPlusTardProjet=Double.parseDouble(projetInfo[5]);
-			// Taches du projets
-			for (int i = 0; i < Integer.parseInt(projetInfo[0]); i++) {
-				tache = new Tache(reader.readLine(),reader.readLine(),
-						Double.parseDouble(reader.readLine()));
-				tache.setDateAuPlusTot(Double.parseDouble(reader.readLine()));
-				tache.setDateAuPlusTard(Double.parseDouble(reader.readLine()));
-				projet.ajouterTache(tache);
 
-				nomAChercher = reader.readLine();
-				trouve = false;
-				for (indexTache = 0; !trouve && indexTache < projet.taches.size(); indexTache++) {
-					trouve = projet.taches.get(indexTache).getNom().equals(nomAChercher);
-				}
-				if (trouve) {
-					tache.ajouterTachePrealable(projet.taches.get(indexTache - 1));
-				}
-			}
-			reader.close();
-		} catch (IOException e) {
-			System.out.println("erreur");
-		}
-		
-		return projet;
+        String[] projetInfo = new String[6];
+        String nomAChercher ="";
+        int indexTache = 0;
+        int nbTachesPrealable = 0;
+        boolean trouve;  
+        Projet projet = new Projet("nom","desc","Mois");
+        Tache tache;
+        BufferedReader reader;
+
+        try {
+            reader = new BufferedReader(new FileReader("sauv.txt"));
+            String line = reader.readLine();
+            // Information du projet
+            for (int index = 0; index < 6; index++) {
+                projetInfo[index] = line;
+                line = reader.readLine();
+            }
+            projet = new Projet (projetInfo[1], projetInfo[2], projetInfo[3]);
+            projet.dateAuPlusTotProjet = Double.parseDouble(projetInfo[4]);
+            projet.dateAuPlusTardProjet = Double.parseDouble(projetInfo[5]);
+            // Taches du projets
+            for (int i = 0; i < Integer.parseInt(projetInfo[0]); i++) {
+                tache = new Tache(reader.readLine(),reader.readLine(),
+                                Double.parseDouble(reader.readLine()));
+                tache.setDateAuPlusTot(Double.parseDouble(reader.readLine()));
+                tache.setDateAuPlusTard(Double.parseDouble(reader.readLine()));
+                projet.ajouterTache(tache);
+
+                nbTachesPrealable = Integer.parseInt(reader.readLine());
+                for (int index = 0; index < nbTachesPrealable; index++) {
+                    nomAChercher = reader.readLine();
+                    trouve = false;
+                    for (indexTache = 0; 
+                              !trouve && indexTache < projet.taches.size(); indexTache++) {
+                        trouve = projet.taches.get(indexTache).getNom().equals(nomAChercher);
+                    }
+                    if (trouve) {
+                        tache.ajouterTachePrealable(projet.taches.get(indexTache - 1));
+                    }
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("erreur");
+        }
+
+        return projet;
     }
     /** 
      * Permet d'ajouter les taches prealables du projet
@@ -483,7 +498,7 @@ public class Projet {
         Scanner entree = new Scanner(System.in);
         do {
             System.out.println("\nTapez 0 pour revenir au menu du projet,"
-                               + " ou choisissez une tache a configurer :");
+                            + " ou choisissez une tache a configurer :");
             for (int i = 0; i < this.taches.size(); i++) {
                 System.out.println(this.taches.get(i).getNom());
             }
@@ -503,11 +518,11 @@ public class Projet {
                 System.out.println("Cette tache n'est pas dans le projet");
             } else {
                 System.out.println("Choisissez la tache a ajouter au tache "
-                                   + "prealable de " + tache.getNom());
+                                + "prealable de " + tache.getNom());
                 for (int i = 0; i < this.taches.size(); i++) {
                     if (!nomTache.equals(this.taches.get(i).getNom())
-                        || !tache.getTachesPrealables()
-                        .contains(this.taches.get(i))) {
+                                    || !tache.getTachesPrealables()
+                                    .contains(this.taches.get(i))) {
                         System.out.println(this.taches.get(i).getNom());
                     }
                 }
@@ -522,11 +537,11 @@ public class Projet {
                             tache.ajouterTachePrealable(tacheAAjouter);
                             if (this.aUnCircuit()) {
                                 System.out.println("Cette tache ne peut pas "
-                                                   + "etre ajouter aux taches "
-                                                   + "prealables de " 
-                                                   + nomTache
-                                                   + " car il y aura des "
-                                                   + "circuits");
+                                                + "etre ajouter aux taches "
+                                                + "prealables de " 
+                                                + nomTache
+                                                + " car il y aura des "
+                                                + "circuits");
                                 tache.enleverTachePrealable(tacheAAjouter);
                             } else {
                                 System.out.println("Cette tache a ete ajouter");
@@ -542,7 +557,7 @@ public class Projet {
             }
         } while (!retour);
     }
-    
+
     /** 
      * Permet d'enlever les taches prealables du projet
      */
@@ -556,7 +571,7 @@ public class Projet {
         Scanner entree = new Scanner(System.in);
         do {
             System.out.println("\nTapez 0 pour revenir au menu du projet,"
-                               + " ou choisissez une tache a configurer :");
+                            + " ou choisissez une tache a configurer :");
             for (int i = 0; i < this.taches.size(); i++) {
                 System.out.println(this.taches.get(i).getNom());
             }
@@ -577,19 +592,19 @@ public class Projet {
                 System.out.println("Cette tache n'a pas de tache prealable");
             } else {
                 System.out.println("Choisissez une tache prealable "
-                                   + "a enlever :");
+                                + "a enlever :");
                 for (int i = 0; i < tache.getTachesPrealables().size(); i++) {
                     System.out.println(tache.getTachesPrealables()
-                                       .get(i).getNom());
+                                    .get(i).getNom());
                 }
                 System.out.println("Choisissez une tache :");
                 nomTacheAEnlever = entree.nextLine();
                 ok = false;
                 for (int i = 0; !ok && i < tache.getTachesPrealables().size()
-                     ; i++) {
+                                ; i++) {
                     ok = nomTacheAEnlever.equals(
-                         tache.getTachesPrealables().get(i).getNom()
-                    );
+                                    tache.getTachesPrealables().get(i).getNom()
+                                    );
                     if (ok) {
                         tacheAEnlever = tache.getTachesPrealables().get(i);
                     }
@@ -600,7 +615,7 @@ public class Projet {
             }
         } while (!retour);
     }
-    
+
     /** 
      * teste si le projet possede un circuit
      * @return true s'il y a un circuit
@@ -618,11 +633,11 @@ public class Projet {
             taches += this.taches.get(i) + "\n";
         }
         return "Ce projet est nomme : " + this.nom + "\n" 
-               + "Sa description est : " + this.description + "\n"
-               + "Son unite de temps est : " + this.uniteTemps + "\n" 
-               + taches + "\n"
-               + "Sa date au plus tot est : " + this.dateAuPlusTotProjet + "\n" 
-               + "Sa date au plus tard est : " + this.dateAuPlusTardProjet;
+        + "Sa description est : " + this.description + "\n"
+        + "Son unite de temps est : " + this.uniteTemps + "\n" 
+        + taches + "\n"
+        + "Sa date au plus tot est : " + this.dateAuPlusTotProjet + "\n" 
+        + "Sa date au plus tard est : " + this.dateAuPlusTardProjet;
     }
-    
+
 }
