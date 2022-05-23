@@ -6,7 +6,6 @@ package sae.pert;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -356,8 +355,8 @@ public class Projet {
             nom = entree.nextLine();
             System.out.print("Veuillez decrire votre projet : ");
             description = entree.nextLine();
-            System.out.println("Veuillez saisir un chiffre pour choisir une unite"
-                             + " de temps pour votre projet : ");
+            System.out.println("Veuillez saisir un chiffre pour choisir une "
+                               + "unite de temps pour votre projet : ");
             for (int i = 0; i < UNITE_TEMPS.length; i++) {
                 System.out.println((i + 1) + ". " + UNITE_TEMPS[i]);
             }
@@ -425,6 +424,7 @@ public class Projet {
     
     /**
      * importer dans un fichier les informations du fichier
+     * @return projet
      */
     public static Projet importer() {
     	String[] projetInfo = new String[6];
@@ -592,6 +592,11 @@ public class Projet {
                     );
                     if (ok) {
                         tacheAEnlever = tache.getTachesPrealables().get(i);
+                        try {
+                            tache.enleverTachePrealable(tacheAEnlever);
+                        } catch (IllegalArgumentException erreurDeSaisie) {
+                            System.out.println(erreurDeSaisie.getMessage());
+                        }
                     }
                 }
                 if (!ok) {
@@ -605,7 +610,7 @@ public class Projet {
      * teste si le projet possede un circuit
      * @return true s'il y a un circuit
      */
-    private boolean aUnCircuit() {
+    public boolean aUnCircuit() {
         // TODO coder l'algo qui teste s'il y a un circuit
         return false; //stub
     }
