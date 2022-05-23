@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import sae.pert.Projet;
 import sae.pert.Tache;
-import testOutillage.assertionTest;
+import test.outillage.AssertionTest;
 
 /** 
  * Serie de test de la classe Projet permettant de faire avancer un projet.
@@ -17,7 +17,7 @@ import testOutillage.assertionTest;
  * @author Emilien Restoueix
  * @author Enzo Soulier
  */
-public class testProjet {
+public class TestProjet {
     /**
      * Jeux de tests unitaires qui servira a tester des mï¿½thodes
      */
@@ -42,6 +42,7 @@ public class testProjet {
         ok &= testGetUniteTemps();
         ok &= testAjouterTacheProjet();
         ok &= testEnleverTacheProjet();
+        ok &= testToString();
         
         
         
@@ -112,7 +113,7 @@ public class testProjet {
         
         ok = true;
         for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
-            ok &= assertionTest.assurerEgalite(nomAttendus[noJeu],aTester[noJeu].getNom());
+            ok &= AssertionTest.assurerEgalite(nomAttendus[noJeu],aTester[noJeu].getNom());
         }
         return ok;
     }
@@ -131,7 +132,7 @@ public class testProjet {
         
         ok = true;
         for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
-            ok &= assertionTest.assurerEgalite(nomAttendus[noJeu],aTester[noJeu].getDescription());
+            ok &= AssertionTest.assurerEgalite(nomAttendus[noJeu],aTester[noJeu].getDescription());
         }
         return ok;
     }
@@ -174,7 +175,7 @@ public class testProjet {
         
         ok = true;
         for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
-            ok &= assertionTest.assurerEgalite(nomAttendus[noJeu],aTester[noJeu].getUniteTemps());
+            ok &= AssertionTest.assurerEgalite(nomAttendus[noJeu],aTester[noJeu].getUniteTemps());
         }
         return ok;
     }
@@ -189,7 +190,7 @@ public class testProjet {
         
         Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TEMPS[2]);
         
-        Tache tacheAAjouter = new Tache("Tache A", "RÃ©partition du travail", 30.5);
+        Tache tacheAAjouter = new Tache("Tache A", "Répartition du travail", 30.5);
         
         ArrayList<Tache> tacheProjetAttendues = new ArrayList<Tache>();
         tacheProjetAttendues.add(tacheAAjouter);
@@ -197,17 +198,23 @@ public class testProjet {
         ProjetTest.ajouterTache(tacheAAjouter);
         ok &= ProjetTest.getTaches().equals(tacheProjetAttendues);
         
-        try {
-            ProjetTest.ajouterTache(tacheAAjouter);
-            ok = false;
-        } catch (IllegalArgumentException tacheDejaPrÃ©sente) {
-            ok = true;
-        }
+        
+          try { 
+              ProjetTest.ajouterTache(tacheAAjouter); 
+              ok = true; 
+          } catch (IllegalArgumentException tacheDejaPrésente) { 
+              ok = false; 
+          }
+         
         
             
         return ok;
     }
     
+    /**
+     * Test unitaires de enleverTache
+     * @return true si test reussis sinon false
+     */
     private static boolean testEnleverTacheProjet() {
         boolean ok = true;
         
@@ -234,15 +241,110 @@ public class testProjet {
         try {
             ProjetTest.enleverTache(tacheAAjouter2);
             ok = false;
-        } catch (IllegalArgumentException tacheNonPrÃ©sente) {
+        } catch (IllegalArgumentException tacheNonPrésente) {
             ok = true;
-        }
-        
-            
+        } 
         return ok;
     }
     
-    
-    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @return true si test réussi, sinon false
+     */
+    private static boolean testToString() {
+       
+        
+        boolean ok;
+        
+        String attenduA = "Ce projet est nomme : Projet A\n" 
+                        + "Sa description est : Projet automatique\n"
+                        + "Son unite de temps est : Jour(s)\n" 
+                        + "Ses taches sont : \n"
+                        + "Cette tache est defini par :\n"
+                        + "  Nom : Tache A\n"
+                        + "  Description : Répartition du travail\n"
+                        + "  Duree : 30.5\n"
+                        + "  Date au plus tot : 0.0\n"
+                        + "  Date au plus tard : 0.0\n"
+                        + "  Cette tache n'a pas de taches prealables\n"
+                        + "Cette tache est defini par :\n"
+                        + "  Nom : Tache B\n"
+                        + "  Description : Réalisation de l'application\n"
+                        + "  Duree : 3.5\n"
+                        + "  Date au plus tot : 0.0\n"
+                        + "  Date au plus tard : 0.0\n"
+                        + "  Taches prealables : Tache A | Tache C | \n\n"
+                        + "Sa date au plus tot est : 0.0\n" 
+                        + "Sa date au plus tard est : 0.0";
+        
+        String attenduB = "Ce projet est nomme : Projet B\n" 
+                        + "Sa description est : Projet calculant un cout\n"
+                        + "Son unite de temps est : Heure(s)\n" 
+                        + "Ses taches sont : \n"
+                        + "Cette tache est defini par :\n"
+                        + "  Nom : Tache C\n"
+                        + "  Description : Réalisation des tests\n"
+                        + "  Duree : 20.0\n"
+                        + "  Date au plus tot : 0.0\n"
+                        + "  Date au plus tard : 0.0\n"
+                        + "  Taches prealables : Tache B | \n"
+                        + "Cette tache est defini par :\n"
+                        + "  Nom : Tache A\n"
+                        + "  Description : Répartition du travail\n"
+                        + "  Duree : 30.5\n"
+                        + "  Date au plus tot : 0.0\n"
+                        + "  Date au plus tard : 0.0\n"
+                        + "  Cette tache n'a pas de taches prealables\n\n"
+                        + "Sa date au plus tot est : 0.0\n" 
+                        + "Sa date au plus tard est : 0.0";
+        
+        String attenduC = "Ce projet est nomme : Projet C\n"
+                        + "Sa description est : Projet automatique\n"
+                        + "Son unite de temps est : Jour(s)\n"
+                        + "Ses taches sont : \n"
+                        + "Cette tache est defini par :\n"
+                        + "  Nom : Tache B\n"
+                        + "  Description : Réalisation de l'application\n"
+                        + "  Duree : 3.5\n"
+                        + "  Date au plus tot : 0.0\n"
+                        + "  Date au plus tard : 0.0\n"
+                        + "  Taches prealables : Tache A | Tache C | \n"
+                        + "Cette tache est defini par :\n"
+                        + "  Nom : Tache C\n"
+                        + "  Description : Réalisation des tests\n"
+                        + "  Duree : 20.0\n"
+                        + "  Date au plus tot : 0.0\n"
+                        + "  Date au plus tard : 0.0\n"
+                        + "  Taches prealables : Tache B | \n\n"
+                        + "Sa date au plus tot est : 0.0\n"
+                        + "Sa date au plus tard est : 0.0";
+        
+        
+        
+        Projet ProjetA = new Projet("Projet A", "Projet automatique", Projet.UNITE_TEMPS[2]);
+        Projet ProjetB = new Projet("Projet B", "Projet calculant un cout", Projet.UNITE_TEMPS[1]);
+        Projet ProjetC = new Projet("Projet C", "Projet automatique", Projet.UNITE_TEMPS[2]);
+        
+        Tache tacheAAjouter = new Tache("Tache A", "Répartition du travail", 30.5);
+        Tache tacheAAjouter1 = new Tache("Tache B", "Réalisation de l'application", 3.5);
+        Tache tacheAAjouter2 = new Tache("Tache C", "Réalisation des tests", 20.0);
+        
+        ProjetA.ajouterTache(tacheAAjouter);
+        ProjetA.ajouterTache(tacheAAjouter1);
+        ProjetB.ajouterTache(tacheAAjouter2);
+        ProjetB.ajouterTache(tacheAAjouter);
+        ProjetC.ajouterTache(tacheAAjouter1);
+        ProjetC.ajouterTache(tacheAAjouter2);
+        
+        tacheAAjouter1.ajouterTachePrealable(tacheAAjouter);
+        tacheAAjouter1.ajouterTachePrealable(tacheAAjouter2);
+        tacheAAjouter2.ajouterTachePrealable(tacheAAjouter1);
+
+        
+        ok = AssertionTest.assurerEgalite(attenduA, ProjetA.toString());
+        ok &= AssertionTest.assurerEgalite(attenduB, ProjetB.toString());
+        ok &= AssertionTest.assurerEgalite(attenduC, ProjetC.toString());
+        return ok;
+    }
     
 }

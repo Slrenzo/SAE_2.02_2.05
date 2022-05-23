@@ -2,7 +2,7 @@
  * assertionTest.java                                  27 avr. 2022
  * IUT de Rodez, Info1 2021-2022 Groupe 3, pas de copyright 
  */
-package testOutillage;
+package test.outillage;
 
 /** Assertions permettant de tester différentes méthodes
  * @author Thomas Nalix
@@ -10,7 +10,7 @@ package testOutillage;
  * @author Emilien Restoueix
  * @author Enzo Soulier
  */
-public class assertionTest {
+public class AssertionTest {
     
     
     /** méthodes qui va tester si les arguments de type String sont égaux

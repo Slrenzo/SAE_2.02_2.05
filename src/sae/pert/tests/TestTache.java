@@ -7,7 +7,7 @@ package sae.pert.tests;
 import java.util.ArrayList;
 
 import sae.pert.Tache;
-import testOutillage.assertionTest;
+import test.outillage.AssertionTest;
 
 /** 
  * Serie de test de la classe tache permettant de faire avancer un projet.
@@ -16,7 +16,7 @@ import testOutillage.assertionTest;
  * @author Emilien Restoueix
  * @author Enzo Soulier
  */
-public class testTache {
+public class TestTache {
     
     /**
      * Jeux de tests unitaires qui servira a tester des m�thodes
@@ -158,7 +158,7 @@ public class testTache {
         
         ok = true;
         for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
-            ok &= assertionTest.assurerEgalite(nomAttendus[noJeu],aTester[noJeu].getNom());
+            ok &= AssertionTest.assurerEgalite(nomAttendus[noJeu],aTester[noJeu].getNom());
         }
         return ok;
     }
@@ -180,7 +180,7 @@ public class testTache {
         
         ok = true;
         for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
-            ok &= assertionTest.assurerEgalite(descriptionAttendus[noJeu],
+            ok &= AssertionTest.assurerEgalite(descriptionAttendus[noJeu],
                                                aTester[noJeu].getDescription());
         }
         return ok;
@@ -198,7 +198,7 @@ public class testTache {
         
         ok = true;
         for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
-            ok &= assertionTest.assurerEgaliteDouble(dureeAttendus[noJeu],
+            ok &= AssertionTest.assurerEgaliteDouble(dureeAttendus[noJeu],
                                                aTester[noJeu].getDuree());
         }
         return ok;
@@ -363,9 +363,9 @@ public class testTache {
     	tacheD.ajouterTachePrealable(tacheA);
     	tacheD.ajouterTachePrealable(tacheC);
     	
-        ok = assertionTest.assurerEgalite(attenduA, tacheA.toString());
-        ok &= assertionTest.assurerEgalite(attenduB, tacheB.toString());
-        ok &= assertionTest.assurerEgalite(attenduD, tacheD.toString());        
+        ok = AssertionTest.assurerEgalite(attenduA, tacheA.toString());
+        ok &= AssertionTest.assurerEgalite(attenduB, tacheB.toString());
+        ok &= AssertionTest.assurerEgalite(attenduD, tacheD.toString());        
         
         return ok;
     }
@@ -376,12 +376,14 @@ public class testTache {
      */
     private static boolean testGetDateAuPlusTot() {
         
-        double[] dateAuPlusTotAttendus = {2.0, 7.0, 7.0, 12.0};
+        double[] dateAuPlusTotAttendus = {5.0, 30.0, 0.0};
+        
         boolean ok;
         
         ok = true;
         for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
-            ok &= assertionTest.assurerEgaliteDouble(dateAuPlusTotAttendus[noJeu],
+            
+            ok &= AssertionTest.assurerEgaliteDouble(dateAuPlusTotAttendus[noJeu],
                                                aTester[noJeu].getDateAuPlusTot());
         }
         return ok;
@@ -394,11 +396,12 @@ public class testTache {
     private static boolean testGetDateAuPlusTard() {
         
         double[] dateAuPlusTotAttendus = {8.0, 12.0, 12.5, 42.0};
+        
         boolean ok;
         
         ok = true;
         for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
-            ok &= assertionTest.assurerEgaliteDouble(dateAuPlusTotAttendus[noJeu],
+            ok &= AssertionTest.assurerEgaliteDouble(dateAuPlusTotAttendus[noJeu],
                                                aTester[noJeu].getDateAuPlusTard());
         }
         return ok;
@@ -420,7 +423,7 @@ public class testTache {
         ok = true;
         for (int noTest = 0; ok && noTest < testDateAuPlusTot.length; noTest++) {
             try {
-                test.setDuree(testDateAuPlusTot[noTest]);
+                test.setDateAuPlusTot(testDateAuPlusTot[noTest]);
                 ok &= test.getDateAuPlusTot() == DateAuPlusTotAttendus[noTest];
             } catch (IllegalArgumentException DateAuPlusTotIncorrect) {
                 ok = true;
