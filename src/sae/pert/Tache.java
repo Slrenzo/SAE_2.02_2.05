@@ -60,9 +60,8 @@ public class Tache {
         if (description.isBlank()) {
             throw new IllegalArgumentException("Le description est vide");
         }
-        if (duree <= 0.0) {
-            throw new IllegalArgumentException("La duree est nulle "
-                                               + "ou negative");
+        if (duree < 0.0) {
+            throw new IllegalArgumentException("La duree est negative");
         }
         this.nom = nom;
         this.description = description;

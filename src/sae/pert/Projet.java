@@ -148,7 +148,24 @@ public class Projet {
                     }
                     break;
                 case 4:
-                    //TODO Configurer les taches prealables
+                    System.out.println("\n1. Ajouter une tache"
+                                       + "\n2. Enlever une tache");
+                    System.out.print("Votre choix : ");
+                    if (entree.hasNextInt()) {
+                        choix = entree.nextInt();
+                        if (choix == 1) {
+                            projet.ajouterTachePrealable();
+                        } else if (choix == 2) {
+                            projet.enleverTachePrealable();
+                        } else {
+                            System.out.println("Vous n'avez pas saisie une "
+                                               + "valeur corect");
+                        }
+                    } else {
+                        System.out.println("Vous n'avez pas saisie une valeur "
+                                           + "corect");
+                    }
+                    entree.nextLine();
                     break;
                 case 5:
                 	projet.sauvegarder();
@@ -294,7 +311,7 @@ public class Projet {
      */
     public void ajouterTache(Tache tacheAAjouter) {
         for (int i = 0; i < this.taches.size(); i++) {
-            if (tacheAAjouter.getNom().equals(this.nom)) {
+            if (tacheAAjouter.getNom().equals(this.taches.get(i).getNom())) {
                 throw new IllegalArgumentException("Cette tache est deja "
                                                    + "presente");
             }
@@ -441,17 +458,17 @@ public class Projet {
     }
 
     /** 
-     * Permet de configurer les taches prealables du projet
+     * Permet d'ajouter les taches prealables du projet
      */
-    public void ajouterTachesPrealables() {
-        int choix = 1;
+    public void ajouterTachePrealable() {
+        boolean retour = false;
         boolean ok = false;
         String nomTache;
         String nomTacheAAjouter;
         Tache tache = new Tache("nom", "description", 0.0);
         Tache tacheAAjouter = new Tache("nom", "description", 0.0);
         Scanner entree = new Scanner(System.in);
-        while (choix != 0) {
+        do {
             System.out.println("\nTapez 0 pour revenir au menu du projet,"
                                + " ou choisissez une tache a configurer :");
             for (int i = 0; i < this.taches.size(); i++) {
@@ -459,13 +476,17 @@ public class Projet {
             }
             System.out.print("Choisissez une tache : ");
             nomTache = entree.nextLine();
+            ok = false;
             for (int i = 0; !ok && i < this.taches.size(); i++) {
                 ok = nomTache.equals(this.taches.get(i).getNom());
                 if (ok) {
                     tache = this.taches.get(i);
                 }
             }
-            if (!ok) {
+            if (nomTache.startsWith("0")) {
+                System.out.println("Retour au projet\n");
+                retour = true;
+            } else if (!ok) {
                 System.out.println("Cette tache n'est pas dans le projet");
             } else {
                 System.out.println("Choisissez la tache a ajouter au tache "
@@ -481,24 +502,90 @@ public class Projet {
                 nomTacheAAjouter = entree.nextLine();
                 ok = false;
                 for (int i = 0; !ok && i < this.taches.size(); i++) {
-                    ok = !nomTache.equals(this.taches.get(i).getNom())
-                         || !tache.getTachesPrealables()
-                         .contains(this.taches.get(i));
+                    ok = nomTacheAAjouter.equals(this.taches.get(i).getNom());
                     if (ok) {
                         tacheAAjouter = this.taches.get(i);
-                        tache.ajouterTachePrealable(tacheAAjouter);
+                        try {
+                            tache.ajouterTachePrealable(tacheAAjouter);
+                            if (this.aUnCircuit()) {
+                                System.out.println("Cette tache ne peut pas "
+                                                   + "etre ajouter aux taches "
+                                                   + "prealables de " 
+                                                   + nomTache
+                                                   + " car il y aura des "
+                                                   + "circuits");
+                                tache.enleverTachePrealable(tacheAAjouter);
+                            } else {
+                                System.out.println("Cette tache a ete ajouter");
+                            }
+                        } catch (IllegalArgumentException erreurDeSaisie) {
+                            System.out.println(erreurDeSaisie.getMessage());
+                        }
                     }
                 }
-                if (!ok && this.aUnCircuit()) {
-                    System.out.println("Cette tache ne peut pas etre ajouter "
-                                       + "aux taches prealables de " 
-                                       + nomTache);
-                    tache.enleverTachePrealable(tacheAAjouter);
-                } else {
-                    System.out.println("Cette tache a ete ajouter");
+                if (!ok) {
+                    System.out.println("Cette tache n'existe pas");
                 }
             }
-        }
+        } while (!retour);
+    }
+    
+    /** 
+     * Permet d'enlever les taches prealables du projet
+     */
+    public void enleverTachePrealable() {
+        boolean retour = false;
+        boolean ok = false;
+        String nomTache;
+        String nomTacheAEnlever;
+        Tache tache = new Tache("nom", "description", 0.0);
+        Tache tacheAEnlever = new Tache("nom", "description", 0.0);
+        Scanner entree = new Scanner(System.in);
+        do {
+            System.out.println("\nTapez 0 pour revenir au menu du projet,"
+                               + " ou choisissez une tache a configurer :");
+            for (int i = 0; i < this.taches.size(); i++) {
+                System.out.println(this.taches.get(i).getNom());
+            }
+            System.out.print("Choisissez une tache : ");
+            nomTache = entree.nextLine();
+            for (int i = 0; !ok && i < this.taches.size(); i++) {
+                ok = nomTache.equals(this.taches.get(i).getNom());
+                if (ok) {
+                    tache = this.taches.get(i);
+                }
+            }
+            if (nomTache.startsWith("0")) {
+                System.out.println("Retour au projet\n");
+                retour = true;
+            } else if (!ok) {
+                System.out.println("Cette tache n'est pas dans le projet");
+            } else if (tache.getTachesPrealables().size() == 0) {
+                System.out.println("Cette tache n'a pas de tache prealable");
+            } else {
+                System.out.println("Choisissez une tache prealable "
+                                   + "a enlever :");
+                for (int i = 0; i < tache.getTachesPrealables().size(); i++) {
+                    System.out.println(tache.getTachesPrealables()
+                                       .get(i).getNom());
+                }
+                System.out.println("Choisissez une tache :");
+                nomTacheAEnlever = entree.nextLine();
+                ok = false;
+                for (int i = 0; !ok && i < tache.getTachesPrealables().size()
+                     ; i++) {
+                    ok = nomTacheAEnlever.equals(
+                         tache.getTachesPrealables().get(i).getNom()
+                    );
+                    if (ok) {
+                        tacheAEnlever = tache.getTachesPrealables().get(i);
+                    }
+                }
+                if (!ok) {
+                    System.out.println("Ceci n'est pas une tache prealable");
+                }
+            }
+        } while (!retour);
     }
     
     /** 
