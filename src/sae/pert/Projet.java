@@ -5,6 +5,7 @@
 package sae.pert;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -83,7 +84,7 @@ public class Projet {
                     projetCharge = true;
                     break;
                 case 2:
-                    //TODO coder la methode charger()
+                	projet = importer();
                     projetCharge = true;
                     break;
                 case 3:
@@ -375,19 +376,68 @@ public class Projet {
      * Sauvegarde dans un fichier les informations du fichier
      */
     public void sauvegarder() {
+    	String tache = "";
     	// TODO continuer l'algorithme
         File file = new File("sauv.txt");
         FileWriter fichier;
 		try {
 			fichier = new FileWriter(file);
-	        
+	       for (int i = 0; i < taches.size(); i++) {
+	    	   tache += "\n" + taches.get(i).getNom() + "\n" 
+	    			   	+ taches.get(i).getDescription() + "\n"
+	    			   	+ taches.get(i).getDuree() + "\n"
+	    			   	+ taches.get(i).getDateAuPlusTot() + "\n"
+	    			   	+ taches.get(i).getDateAuPlusTard() + "\n"
+	    			   	+ taches.get(i).getTachesPrealables() + "\n";
+	       }
+	       System.out.println(tache);
+			
+			
 	        fichier.write(this.nom + "\n" + this.description + "\n" + this.uniteTemps + "\n" 
-					+ this.dateAuPlusTotProjet + "\n" + this.dateAuPlusTardProjet + "\n" + taches);
+					+ this.dateAuPlusTotProjet + "\n" + this.dateAuPlusTardProjet + "\n" 
+					+ tache
+	        		);
 	       
 	        fichier.close();
 		} catch (IOException erreur) {
 			System.out.println("erreur");
 		}
+    }
+    
+    /**
+     * importer dans un fichier les informations du fichier
+     */
+    public static Projet importer() {
+    	
+    	String[] projetInfo = new String[5];
+    	Projet projet = null;
+    	
+		String contenu = "";
+		
+        File myObj = new File("sauv.txt");
+        Scanner myReader;
+		try {
+			myReader = new Scanner(myObj);
+			for (int index = 0; index < projetInfo.length; index++) {
+				projetInfo[index] = myReader.nextLine();
+			}
+			System.out.println(projetInfo[2]);
+			projet = new Projet (projetInfo[0],
+					projetInfo[1],
+					projetInfo[2]
+					);
+//	        while (myReader.hasNextLine()) {
+//	            contenu += myReader.nextLine() + "\n";
+//	        }
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(projet.toString());
+        
+ 
+        System.out.println(contenu);
+        return null;
     }
 
     /** 
