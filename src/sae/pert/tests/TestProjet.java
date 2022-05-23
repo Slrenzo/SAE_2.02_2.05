@@ -186,11 +186,12 @@ public class TestProjet {
      * @return true si test reussis sinon false
      */
     private static boolean testAjouterTacheProjet() {
-        boolean ok = true;
+        boolean ok;
+        ok = true;
         
         Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TEMPS[2]);
         
-        Tache tacheAAjouter = new Tache("Tache A", "Répartition du travail", 30.5);
+        Tache tacheAAjouter = new Tache("Tache A", "RÃ©partition du travail", 30.5);
         
         ArrayList<Tache> tacheProjetAttendues = new ArrayList<Tache>();
         tacheProjetAttendues.add(tacheAAjouter);
@@ -202,7 +203,7 @@ public class TestProjet {
           try { 
               ProjetTest.ajouterTache(tacheAAjouter); 
               ok = true; 
-          } catch (IllegalArgumentException tacheDejaPrésente) { 
+          } catch (IllegalArgumentException tacheDejaPrÃ©sente) { 
               ok = false; 
           }
          
@@ -241,20 +242,42 @@ public class TestProjet {
         try {
             ProjetTest.enleverTache(tacheAAjouter2);
             ok = false;
-        } catch (IllegalArgumentException tacheNonPrésente) {
+        } catch (IllegalArgumentException tacheNonPrÃ©sente) {
             ok = true;
         } 
         return ok;
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @return true si test réussi, sinon false
+     * test unitaires de la mï¿½thode getTaches
+     * @return
+     */
+    private static boolean testGetTaches() {
+        
+        boolean ok;
+        ok = true;
+        
+        Tache tacheAAjouter = new Tache("tache Ã  ajouter", "description de la "
+                        + "tache Ã  ajouter", 20.0);
+        
+        ArrayList<Tache> tachesAttendues = new ArrayList<Tache>();
+        tachesAttendues.add(tacheAAjouter);
+        
+        return ok;
+        
+    }
+    
+    
+    
+    /**
+     * test unitaires de la mÃ©thode toString
+     * @return true si test rÃ©ussi, sinon false
      */
     private static boolean testToString() {
        
         
         boolean ok;
+        ok = true;
         
         String attenduA = "Ce projet est nomme : Projet A\n" 
                         + "Sa description est : Projet automatique\n"
@@ -262,14 +285,14 @@ public class TestProjet {
                         + "Ses taches sont : \n"
                         + "Cette tache est defini par :\n"
                         + "  Nom : Tache A\n"
-                        + "  Description : Répartition du travail\n"
+                        + "  Description : RÃ©partition du travail\n"
                         + "  Duree : 30.5\n"
                         + "  Date au plus tot : 0.0\n"
                         + "  Date au plus tard : 0.0\n"
                         + "  Cette tache n'a pas de taches prealables\n"
                         + "Cette tache est defini par :\n"
                         + "  Nom : Tache B\n"
-                        + "  Description : Réalisation de l'application\n"
+                        + "  Description : RÃ©alisation de l'application\n"
                         + "  Duree : 3.5\n"
                         + "  Date au plus tot : 0.0\n"
                         + "  Date au plus tard : 0.0\n"
@@ -283,14 +306,14 @@ public class TestProjet {
                         + "Ses taches sont : \n"
                         + "Cette tache est defini par :\n"
                         + "  Nom : Tache C\n"
-                        + "  Description : Réalisation des tests\n"
+                        + "  Description : RÃ©alisation des tests\n"
                         + "  Duree : 20.0\n"
                         + "  Date au plus tot : 0.0\n"
                         + "  Date au plus tard : 0.0\n"
                         + "  Taches prealables : Tache B | \n"
                         + "Cette tache est defini par :\n"
                         + "  Nom : Tache A\n"
-                        + "  Description : Répartition du travail\n"
+                        + "  Description : RÃ©partition du travail\n"
                         + "  Duree : 30.5\n"
                         + "  Date au plus tot : 0.0\n"
                         + "  Date au plus tard : 0.0\n"
@@ -304,14 +327,14 @@ public class TestProjet {
                         + "Ses taches sont : \n"
                         + "Cette tache est defini par :\n"
                         + "  Nom : Tache B\n"
-                        + "  Description : Réalisation de l'application\n"
+                        + "  Description : RÃ©alisation de l'application\n"
                         + "  Duree : 3.5\n"
                         + "  Date au plus tot : 0.0\n"
                         + "  Date au plus tard : 0.0\n"
                         + "  Taches prealables : Tache A | Tache C | \n"
                         + "Cette tache est defini par :\n"
                         + "  Nom : Tache C\n"
-                        + "  Description : Réalisation des tests\n"
+                        + "  Description : RÃ©alisation des tests\n"
                         + "  Duree : 20.0\n"
                         + "  Date au plus tot : 0.0\n"
                         + "  Date au plus tard : 0.0\n"
@@ -325,9 +348,9 @@ public class TestProjet {
         Projet ProjetB = new Projet("Projet B", "Projet calculant un cout", Projet.UNITE_TEMPS[1]);
         Projet ProjetC = new Projet("Projet C", "Projet automatique", Projet.UNITE_TEMPS[2]);
         
-        Tache tacheAAjouter = new Tache("Tache A", "Répartition du travail", 30.5);
-        Tache tacheAAjouter1 = new Tache("Tache B", "Réalisation de l'application", 3.5);
-        Tache tacheAAjouter2 = new Tache("Tache C", "Réalisation des tests", 20.0);
+        Tache tacheAAjouter = new Tache("Tache A", "RÃ©partition du travail", 30.5);
+        Tache tacheAAjouter1 = new Tache("Tache B", "RÃ©alisation de l'application", 3.5);
+        Tache tacheAAjouter2 = new Tache("Tache C", "RÃ©alisation des tests", 20.0);
         
         ProjetA.ajouterTache(tacheAAjouter);
         ProjetA.ajouterTache(tacheAAjouter1);

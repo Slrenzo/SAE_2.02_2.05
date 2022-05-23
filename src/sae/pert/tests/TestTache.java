@@ -212,10 +212,10 @@ public class TestTache {
         boolean ok;
         
         /** Tache de test */
-        Tache test = new Tache("Tache A", "R�partition du travail", 30.5);
-        String[] testDescription = {"Fin de projet","R�alisation-de-l'application", "Fin_de_projet", "    "};
+        Tache test = new Tache("Tache A", "Répartition du travail", 30.5);
+        String[] testDescription = {"Fin de projet","Réalisation-de-l'application", "Fin_de_projet", "    "};
         
-        String[] descriptionAttendus = {"Fin de projet", "R�alisation-de-l'application", "Fin_de_projet", "R�partition du travail"};
+        String[] descriptionAttendus = {"Fin de projet", "Réalisation-de-l'application", "Fin_de_projet", "Répartition du travail"};
         
         ok = true;
         for (int noTest = 0; ok && noTest < testDescription.length; noTest++) {
@@ -257,13 +257,13 @@ public class TestTache {
 
     /** 
      * Test unitaires de ajouterTachePrealable
-     * @return true si test r�ussi, sinon false
+     * @return true si test réussi, sinon false
      */
     private static boolean testAjouterTachePrealable() {
         boolean ok = true;
         
-        Tache tacheAAjouter = new Tache("tache � ajouter", "description de la "
-                                        + "tache � ajouter", 20.0);
+        Tache tacheAAjouter = new Tache("tache à ajouter", "description de la "
+                                        + "tache à ajouter", 20.0);
         Tache tacheDeTest = new Tache("tache de test", "description de test"
                                       , 10.0);
         ArrayList<Tache> tachesPrealablesAttendues = new ArrayList<Tache>();
@@ -290,17 +290,17 @@ public class TestTache {
     
     /** 
      * Test unitaires de enleverTachePrealable
-     * @return true si test r�ussi, sinon false
+     * @return true si test réussi, sinon false
      */
     private static boolean testEnleverTachePrealable() {
         boolean ok = true;
         
-        Tache tacheAAjouter1 = new Tache("tache � ajouter 1", "description de "
-                                         + "la tache � ajouter", 20.0);
-        Tache tacheAAjouter2 = new Tache("tache � ajouter 2", "description de "
-                                         + "la tache � ajouter", 20.0);
-        Tache tacheAAjouter3 = new Tache("tache � ajouter 3", "description de "
-                                         + "la tache � ajouter", 20.0);
+        Tache tacheAAjouter1 = new Tache("tache à ajouter 1", "description de "
+                                         + "la tache à ajouter", 20.0);
+        Tache tacheAAjouter2 = new Tache("tache à ajouter 2", "description de "
+                                         + "la tache à ajouter", 20.0);
+        Tache tacheAAjouter3 = new Tache("tache à ajouter 3", "description de "
+                                         + "la tache à ajouter", 20.0);
         Tache tacheDeTest = new Tache("tache de test", "description de test"
                                       , 10.0);
         tacheDeTest.ajouterTachePrealable(tacheAAjouter1);
