@@ -413,6 +413,10 @@ public class Projet {
         try {
             fichier = new FileWriter(file);
             for (int i = 0; i < taches.size(); i++) {
+                
+                nomTachesPrealable += taches.get(i).getNom() + "\n"
+                                      + taches.get(i).getTachesPrealables().size()
+                                      + "\n";
                 for (int index = 0; 
                      index < taches.get(i).getTachesPrealables().size(); 
                      index++) {
@@ -420,12 +424,10 @@ public class Projet {
                                     .get(index).getNom() + "\n";
                 }
                 listeTaches += taches.get(i).getNom() + "\n" 
-                          + taches.get(i).getDescription() + "\n"
-                          + taches.get(i).getDuree() + "\n"
-                          + taches.get(i).getDateAuPlusTot() + "\n"
-                          + taches.get(i).getDateAuPlusTard() + "\n"
-                          + taches.get(i).getTachesPrealables().size() + "\n"
-                          + nomTachesPrealable;
+                               + taches.get(i).getDescription() + "\n"
+                               + taches.get(i).getDuree() + "\n"
+                               + taches.get(i).getDateAuPlusTot() + "\n"
+                               + taches.get(i).getDateAuPlusTard() + "\n";
             }
 
             fichier.write( taches.size() + "\n" + this.nom + "\n"
@@ -434,6 +436,7 @@ public class Projet {
                           + this.dateAuPlusTotProjet + "\n" 
                           + this.dateAuPlusTardProjet + "\n" 
                           + "\n" + listeTaches
+                          + "\n" + nomTachesPrealable
                           );
 
             fichier.close();
@@ -449,12 +452,13 @@ public class Projet {
     public static Projet importer() {
 
         String[] projetInfo = new String[6];
-        String nomAChercher ="";
+        String nomTache ="";
+        String nomTachePrea ="";
         int indexTache = 0;
         int nbTachesPrealable = 0;
         boolean trouve;  
         Projet projet = new Projet("nom","desc","Mois");
-        Tache tache;
+        Tache tache = new Tache("nom", "desc", 2.0);
         BufferedReader reader;
 
         try {
@@ -475,14 +479,29 @@ public class Projet {
                 tache.setDateAuPlusTot(Double.parseDouble(reader.readLine()));
                 tache.setDateAuPlusTard(Double.parseDouble(reader.readLine()));
                 projet.ajouterTache(tache);
-
+            }
+            reader.readLine(); // saut de ligne
+            
+            for (int i = 0; i < Integer.parseInt(projetInfo[0]); i++) {
+                // Tache à ajouter les prealables
+                nomTache = reader.readLine();
+    
+                trouve = false;
+                for (indexTache = 0; 
+                     !trouve && indexTache < projet.taches.size(); indexTache++) {
+                    trouve = projet.taches.get(indexTache).getNom().equals(nomTache);
+                }
+                if (trouve) {
+                    tache = projet.taches.get(indexTache - 1);
+                }
+                                      
                 nbTachesPrealable = Integer.parseInt(reader.readLine());
                 for (int index = 0; index < nbTachesPrealable; index++) {
-                    nomAChercher = reader.readLine();
+                    nomTachePrea = reader.readLine();
                     trouve = false;
                     for (indexTache = 0; 
                               !trouve && indexTache < projet.taches.size(); indexTache++) {
-                        trouve = projet.taches.get(indexTache).getNom().equals(nomAChercher);
+                        trouve = projet.taches.get(indexTache).getNom().equals(nomTachePrea);
                     }
                     if (trouve) {
                         tache.ajouterTachePrealable(projet.taches.get(indexTache - 1));
