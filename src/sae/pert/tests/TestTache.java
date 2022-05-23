@@ -40,15 +40,15 @@ public class TestTache {
         ok &= testGetNom();
         ok &= testGetDescription();
         ok &= testGetDuree();
-        //ok &= testToString();
+        ok &= testToString();
         ok &= testSetDescription();
         ok &= testSetDuree();
         ok &= testAjouterTachePrealable();
         ok &= testEnleverTachePrealable();
-        //ok &= testGetDateAuPlusTot();
-        //ok &= testGetDateAuPlusTard();
-        //ok &= testSetDateAuPlusTot();
-        //ok &= testSetDateAuPlusTard();
+        ok &= testGetDateAuPlusTot();
+        ok &= testGetDateAuPlusTard();
+        ok &= testSetDateAuPlusTot();
+        ok &= testSetDateAuPlusTard();
         
         
         if(ok) {
@@ -331,26 +331,26 @@ public class TestTache {
      */
     private static boolean testToString() {
     	
-    	String attenduA = "Cette tache est défini par :\n  Nom : Tache A"
+    	String attenduA = "Cette tache est defini par :\n  Nom : Tache A"
 				            + "\n  Description : Répartition du travail"
 				            + "\n  Duree : 29.0"
 				            + "\n  Date au plus tot : 0.0"
 				            + "\n  Date au plus tard : 0.0"
-				            + "\n  Cette tache n'a pas de taches préalables";
+				            + "\n  Cette tache n'a pas de taches prealables";
     	
-    	String attenduB =  "Cette tache est défini par :\n  Nom : Tache B"
+    	String attenduB =  "Cette tache est defini par :\n  Nom : Tache B"
 				            + "\n  Description : Création d'une base de donnée"
 				            + "\n  Duree : 10.0"
 				            + "\n  Date au plus tot : 0.0"
                                             + "\n  Date au plus tard : 0.0"
-				            + "\n  Taches préalables : Tache A | ";
+				            + "\n  Taches prealables : Tache A | ";
     	
-    	String attenduD =  "Cette tache est défini par :\n  Nom : Tache D"
+    	String attenduD =  "Cette tache est defini par :\n  Nom : Tache D"
 				            + "\n  Description : Developpement"
 				            + "\n  Duree : 60.0"
 				            + "\n  Date au plus tot : 0.0"
                                             + "\n  Date au plus tard : 0.0"
-				            + "\n  Taches préalables : Tache A | Tache C | ";
+				            + "\n  Taches prealables : Tache A | Tache C | ";
     	boolean ok;
     	
     	Tache tacheA = new Tache("Tache A", "Répartition du travail", 29);
@@ -376,15 +376,19 @@ public class TestTache {
      */
     private static boolean testGetDateAuPlusTot() {
         
-        double[] dateAuPlusTotAttendus = {5.0, 30.0, 0.0};
+        Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
+        
+        double[] testDateAuPlusTot = {5.0, 0.0};
+        
+        double[] dateAuPlusTotAttendus = {5.0, 0.0};
         
         boolean ok;
-        
         ok = true;
-        for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
-            
+        
+        for (int noJeu = 0; ok && noJeu < testDateAuPlusTot.length; noJeu++) {
+            test.setDateAuPlusTot(testDateAuPlusTot[noJeu]);
             ok &= AssertionTest.assurerEgaliteDouble(dateAuPlusTotAttendus[noJeu],
-                                               aTester[noJeu].getDateAuPlusTot());
+                                               test.getDateAuPlusTot());
         }
         return ok;
     }
@@ -395,14 +399,19 @@ public class TestTache {
      */
     private static boolean testGetDateAuPlusTard() {
         
-        double[] dateAuPlusTotAttendus = {8.0, 12.0, 12.5, 42.0};
+Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
+        
+        double[] testDateAuPlusTard = {5.0, 0.0};
+        
+        double[] dateAuPlusTardAttendus = {5.0, 0.0};
         
         boolean ok;
-        
         ok = true;
-        for (int noJeu = 0; ok && noJeu < aTester.length; noJeu++) {
-            ok &= AssertionTest.assurerEgaliteDouble(dateAuPlusTotAttendus[noJeu],
-                                               aTester[noJeu].getDateAuPlusTard());
+        
+        for (int noJeu = 0; ok && noJeu < testDateAuPlusTard.length; noJeu++) {
+            test.setDateAuPlusTard(testDateAuPlusTard[noJeu]);
+            ok &= AssertionTest.assurerEgaliteDouble(dateAuPlusTardAttendus[noJeu],
+                                               test.getDateAuPlusTard());
         }
         return ok;
     }
@@ -418,7 +427,7 @@ public class TestTache {
         Tache test = new Tache("Tache D", "Réalisation de l'application", 30.0);
         double[] testDateAuPlusTot = {78, 0.0, -5};
         
-        double[] DateAuPlusTotAttendus = {78, 12, 30.5};
+        double[] DateAuPlusTotAttendus = {78, 0.0, 30.0};
         
         ok = true;
         for (int noTest = 0; ok && noTest < testDateAuPlusTot.length; noTest++) {
@@ -443,12 +452,12 @@ public class TestTache {
         Tache test = new Tache("Tache D", "Réalisation de l'application", 30.0);
         double[] testDateAuPlusTard = {78, 0.0, -5};
         
-        double[] DateAuPlusTardAttendus = {78, 12, 30.5};
+        double[] DateAuPlusTardAttendus = {78, 0.0, 30.0};
         
         ok = true;
         for (int noTest = 0; ok && noTest < testDateAuPlusTard.length; noTest++) {
             try {
-                test.setDuree(testDateAuPlusTard[noTest]);
+                test.setDateAuPlusTard(testDateAuPlusTard[noTest]);
                 ok &= test.getDateAuPlusTard() == DateAuPlusTardAttendus[noTest];
             } catch (IllegalArgumentException DateAuPlusTardIncorrect) {
                 ok = true;
