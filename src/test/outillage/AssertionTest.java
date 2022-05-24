@@ -4,7 +4,7 @@
  */
 package test.outillage;
 
-/** Assertions permettant de tester différentes méthodes
+/** Assertions permettant de tester diffï¿½rentes mï¿½thodes
  * @author Thomas Nalix
  * @author Lorentin Nicolas
  * @author Emilien Restoueix
@@ -13,19 +13,19 @@ package test.outillage;
 public class AssertionTest {
     
     
-    /** méthodes qui va tester si les arguments de type String sont égaux
+    /** mï¿½thodes qui va tester si les arguments de type String sont Ã©gaux
      * @param attendu
      * @param obtenu
-     * @return true si obtenu équivalent à attendu, false sinon.
+     * @return true si obtenu ï¿½quivalent ï¿½ attendu, false sinon.
      */
     public static boolean assurerEgalite(String attendu, String obtenu) {
         return attendu.equals(obtenu);
     }
     
-    /** méthodes qui va tester si les arguments de type double sont égaux
+    /** mï¿½thodes qui va tester si les arguments de type double sont ï¿½gaux
      * @param attendu
      * @param obtenu
-     * @return true si obtenu équivalent à attendu, false sinon.
+     * @return true si obtenu ï¿½quivalent ï¿½ attendu, false sinon.
      */
     public static boolean assurerEgaliteDouble(double attendu, double obtenu) {
         if(attendu == obtenu) {
@@ -33,5 +33,35 @@ public class AssertionTest {
         } else {
             return false;
         }
+    }
+    
+    /**
+     * mÃ©thodes qui va tester si les argument de type String ne sont pas Ã©gaux
+     * @param attendu
+     * @param obtenu
+     * @return true si obtenu diffÃ©rents d'attendu, false sinon
+     */
+    public static boolean assurerNonEgalite(String attendu, String obtenu) {
+        if(attendu != obtenu) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+    
+    /**
+     * mÃ©thodes qui va tester si les argument de type double ne sont pas Ã©gaux
+     * @param attendu
+     * @param obtenu
+     * @return true si obtenu diffÃ©rents d'attendu, false sinon
+     */
+    public static boolean assurerNonEgaliteDouble(double attendu, double obtenu) {
+        if(attendu != obtenu) {
+            return true;
+        } else {
+            return false;
+        }
+        
     }
 }

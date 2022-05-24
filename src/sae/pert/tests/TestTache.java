@@ -253,6 +253,26 @@ public class TestTache {
         }
         return ok;
     }
+    
+    /**
+     * test unitaires de la méthode getTachesPrealables
+     * @return true si test reussis ou false si test echoue
+     */
+    private static boolean testGetTachesPrealables() {
+        boolean ok;
+        ok = true;
+        
+        ArrayList<Tache> cloneTachesPrealables = new ArrayList<Tache>();
+        ArrayList<Tache> tachesPrealables = new ArrayList<Tache>();
+        Tache cloneTacheTest = new Tache("testNom", "testDescription", 30.5);
+        Tache tacheDeTest = new Tache("tache de test", "description de test"
+                        , 10.0);
+        tachesPrealables.add(tacheDeTest);
+        
+        
+        
+        return ok;
+    }
 
 
     /** 
