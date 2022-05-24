@@ -40,9 +40,10 @@ public class TestProjet {
         ok &= testGetDescription();
         ok &= testSetDescription();
         ok &= testGetUniteTemps();
-        ok &= testAjouterTacheProjet();
-        ok &= testEnleverTacheProjet();
+        //ok &= testAjouterTacheProjet();
+        //ok &= testEnleverTacheProjet();
         ok &= testToString();
+        ok &= testGetTaches();
         
         
         
@@ -249,7 +250,7 @@ public class TestProjet {
     }
     
     /**
-     * test unitaires de la m�thode getTaches
+     * test unitaires de la méthode getTachesq
      * @return
      */
     private static boolean testGetTaches() {
@@ -257,17 +258,28 @@ public class TestProjet {
         boolean ok;
         ok = true;
         
-        Tache tacheAAjouter = new Tache("tache à ajouter", "description de la "
-                        + "tache à ajouter", 20.0);
+        ArrayList<Tache> cloneTaches = new ArrayList<Tache>();
         
-        ArrayList<Tache> tachesAttendues = new ArrayList<Tache>();
-        tachesAttendues.add(tacheAAjouter);
+        Projet ProjetA = new Projet("Projet A", "Projet automatique", Projet.UNITE_TEMPS[2]);
+        
+        Tache tacheAAjouter = new Tache("Tache A", "Répartition du travail", 30.5);
+        
+        ProjetA.ajouterTache(tacheAAjouter);
+        
+        cloneTaches = ProjetA.getTaches();
+        
+        for ( int noTest = 0 ; noTest < cloneTaches.size() ; noTest++) {
+            Tache tacheClone1 = cloneTaches.get(noTest);
+            
+            tacheClone1.setDescription("test changement de description");
+            tacheClone1.setDuree(20.0);
+            
+            ok = AssertionTest.assurerNonEgalite(tacheClone1.getDescription(), tacheAAjouter.getDescription());
+            ok = AssertionTest.assurerNonEgaliteDouble(tacheClone1.getDuree(), tacheAAjouter.getDuree());
+        }
         
         return ok;
-        
     }
-    
-    
     
     /**
      * test unitaires de la méthode toString
