@@ -73,11 +73,7 @@ public class Projet {
                                 + "2 - Importer un projet\n"
                                 + "3 - Quitter le logiciel\n");
                 System.out.print("Entrez le chiffre de votre choix : ");
-                if (entree.hasNextInt()) {
-                    choix = entree.nextInt();
-                } else {
-                    choix = 0;
-                }
+                choix = entree.hasNextInt() ? entree.nextInt() : 0;
                 entree.nextLine();
                 switch (choix) {
                 case 1: 
@@ -107,17 +103,11 @@ public class Projet {
                                 + "4 - Configurer les taches prealables\n"
                                 + "5 - Sauvegarder et retourner au menu\n");
                 System.out.print("Entrez le chiffre de votre choix : ");
-                if (entree.hasNextInt()) {
-                    choix = entree.nextInt();
-                } else {
-                    choix = 0;
-                }
+                choix = entree.hasNextInt() ? entree.nextInt() : 0;
                 entree.nextLine();
                 switch (choix) {
                 case 1: 
-                    System.out.println();
-                    System.out.println(projet.toString());
-                    System.out.println();
+                    System.out.println("\n" + projet.toString() + "\n");
                     break;
                 case 2:
                     try {
@@ -160,11 +150,11 @@ public class Projet {
                             projet.enleverTachePrealable();
                         } else {
                             System.out.println("Vous n'avez pas saisie une "
-                                            + "valeur corect");
+                                            + "valeur correct");
                         }
                     } else {
                         System.out.println("Vous n'avez pas saisie une valeur "
-                                        + "corect");
+                                        + "correct");
                     }
                     entree.nextLine();
                     break;
@@ -180,11 +170,10 @@ public class Projet {
                 }
             }
         }
-        entree.close();
     }
 
     /**
-     * D�finition d'un projet qui possede un nom 
+     * Definition d'un projet qui possede un nom 
      * et qui possede une unite de temps
      * @param nom le nom du projet
      * @param description description du projet
@@ -301,11 +290,7 @@ public class Projet {
             System.out.print("Veuillez entrer la description de la tache : ");
             description = entree.nextLine();
             System.out.print("Veuillez entrer la duree de la tache : ");
-            if (entree.hasNextDouble()) {
-                duree = entree.nextDouble();
-            } else {
-                duree = -1.0;
-            }
+            duree = entree.hasNextDouble() ? entree.nextDouble() : -1.0; 
             entree.nextLine();
             try {
                 tache = new Tache(nom, description, duree);
@@ -315,7 +300,6 @@ public class Projet {
                 System.out.println("Veuillez recommencer");
             }
         }
-        entree.close();
         return tache;
     }
 
@@ -401,7 +385,6 @@ public class Projet {
                 System.out.println("Veuillez recommencer");
             }
         }
-        entree.close();
         return projet;
     }
 
@@ -589,7 +572,6 @@ public class Projet {
                 }
             }
         } while (!retour);
-        entree.close();
     }
 
     /** 
@@ -653,7 +635,6 @@ public class Projet {
                 }
             }
         } while (!retour);
-        entree.close();
     }
 
     /** 
@@ -663,10 +644,11 @@ public class Projet {
     public boolean aUnCircuit() {
         // TODO coder l'algo qui teste s'il y a un circuit
         boolean[] marquagesTaches = new boolean[this.taches.size()];
-        for (int i = 0; i < this.taches.size(); i++) {
-            for (int j = 0; j < this.taches.get(i).nombreTachesPrealables()
-                 ; j++) {
-                
+        for (int i = 0; i < marquagesTaches.length; i++) {
+            if (!marquagesTaches[i]) {
+                for (int j = 0; ; ) {
+                    
+                }
             }
         }
         return false; //stub
