@@ -73,11 +73,7 @@ public class Projet {
                                 + "2 - Importer un projet\n"
                                 + "3 - Quitter le logiciel\n");
                 System.out.print("Entrez le chiffre de votre choix : ");
-                if (entree.hasNextInt()) {
-                    choix = entree.nextInt();
-                } else {
-                    choix = 0;
-                }
+                choix = entree.hasNextInt() ? entree.nextInt() : 0;
                 entree.nextLine();
                 switch (choix) {
                 case 1: 
@@ -107,17 +103,11 @@ public class Projet {
                                 + "4 - Configurer les taches prealables\n"
                                 + "5 - Sauvegarder et retourner au menu\n");
                 System.out.print("Entrez le chiffre de votre choix : ");
-                if (entree.hasNextInt()) {
-                    choix = entree.nextInt();
-                } else {
-                    choix = 0;
-                }
+                choix = entree.hasNextInt() ? entree.nextInt() : 0;
                 entree.nextLine();
                 switch (choix) {
                 case 1: 
-                    System.out.println();
-                    System.out.println(projet.toString());
-                    System.out.println();
+                    System.out.println("\n" + projet.toString() + "\n");
                     break;
                 case 2:
                     try {
@@ -160,11 +150,11 @@ public class Projet {
                             projet.enleverTachePrealable();
                         } else {
                             System.out.println("Vous n'avez pas saisie une "
-                                            + "valeur corect");
+                                            + "valeur correct");
                         }
                     } else {
                         System.out.println("Vous n'avez pas saisie une valeur "
-                                        + "corect");
+                                        + "correct");
                     }
                     entree.nextLine();
                     break;
@@ -180,11 +170,10 @@ public class Projet {
                 }
             }
         }
-        entree.close();
     }
 
     /**
-     * D�finition d'un projet qui possede un nom 
+     * Definition d'un projet qui possede un nom 
      * et qui possede une unite de temps
      * @param nom le nom du projet
      * @param description description du projet
@@ -301,11 +290,7 @@ public class Projet {
             System.out.print("Veuillez entrer la description de la tache : ");
             description = entree.nextLine();
             System.out.print("Veuillez entrer la duree de la tache : ");
-            if (entree.hasNextDouble()) {
-                duree = entree.nextDouble();
-            } else {
-                duree = -1.0;
-            }
+            duree = entree.hasNextDouble() ? entree.nextDouble() : -1.0; 
             entree.nextLine();
             try {
                 tache = new Tache(nom, description, duree);
@@ -315,7 +300,6 @@ public class Projet {
                 System.out.println("Veuillez recommencer");
             }
         }
-        entree.close();
         return tache;
     }
 
@@ -382,13 +366,12 @@ public class Projet {
                     uniteTempsChoisie = entree.nextInt();
                     uniteTempsChoisieFaux = uniteTempsChoisie <= 0 
                                     || uniteTempsChoisie >= 7;
-                                    if (uniteTempsChoisieFaux) {
-                                        System.out.println("Veuillez entrer un nombre "
-                                                        + "entre un 1 et 6 : ");                        
-                                    }
                 } else {
+                    uniteTempsChoisieFaux = true;
+                }
+                if (uniteTempsChoisieFaux) {
                     System.out.println("Veuillez entrer un nombre "
-                                    + "entre un 1 et 6 : ");
+                                       + "entre un 1 et 6 : ");
                 }
                 entree.nextLine();
             }
@@ -401,7 +384,6 @@ public class Projet {
                 System.out.println("Veuillez recommencer");
             }
         }
-        entree.close();
         return projet;
     }
 
@@ -589,7 +571,6 @@ public class Projet {
                 }
             }
         } while (!retour);
-        entree.close();
     }
 
     /** 
@@ -653,7 +634,6 @@ public class Projet {
                 }
             }
         } while (!retour);
-        entree.close();
     }
 
     /** 
@@ -661,15 +641,27 @@ public class Projet {
      * @return true s'il y a un circuit
      */
     public boolean aUnCircuit() {
-        // TODO coder l'algo qui teste s'il y a un circuit
         boolean[] marquagesTaches = new boolean[this.taches.size()];
-        for (int i = 0; i < this.taches.size(); i++) {
-            for (int j = 0; j < this.taches.get(i).nombreTachesPrealables()
-                 ; j++) {
-                
+        ArrayList<Tache> tachesPrealables;   
+        int indexTache;
+        for (int i = 0; i < marquagesTaches.length; i++) {
+            if (!marquagesTaches[i]) {
+                marquagesTaches[i] = true;
+                tachesPrealables = this.taches.get(i).getTachesPrealables();
+                for (int j = 0; j < tachesPrealables.size(); j++) {
+                    for (indexTache = 0
+                         ; !tachesPrealables.get(j).getNom()
+                           .equals(this.taches.get(indexTache).getNom())
+                         ; indexTache++);
+                    if (marquagesTaches[indexTache]) {
+                        return true;
+                    } else {
+                        marquagesTaches[indexTache] = false;
+                    }
+                }
             }
         }
-        return false; //stub
+        return false;
     }
 
     @Override
