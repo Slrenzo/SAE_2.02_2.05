@@ -418,10 +418,10 @@ public class Projet {
             for (int i = 0; i < taches.size(); i++) {
                 
                 nomTachesPrealable += taches.get(i).getNom() + "\n"
-                                      + taches.get(i).getTachesPrealables().size()
+                                      + taches.get(i).nombreTachesPrealables()
                                       + "\n";
                 for (int index = 0; 
-                     index < taches.get(i).getTachesPrealables().size(); 
+                     index < taches.get(i).nombreTachesPrealables(); 
                      index++) {
                     nomTachesPrealable += taches.get(i).getTachesPrealables()
                                     .get(index).getNom() + "\n";
@@ -622,19 +622,19 @@ public class Projet {
                 retour = true;
             } else if (!ok) {
                 System.out.println("Cette tache n'est pas dans le projet");
-            } else if (tache.getTachesPrealables().size() == 0) {
+            } else if (tache.nombreTachesPrealables() == 0) {
                 System.out.println("Cette tache n'a pas de tache prealable");
             } else {
                 System.out.println("Choisissez une tache prealable "
                                 + "a enlever :");
-                for (int i = 0; i < tache.getTachesPrealables().size(); i++) {
+                for (int i = 0; i < tache.nombreTachesPrealables(); i++) {
                     System.out.println(tache.getTachesPrealables()
                                     .get(i).getNom());
                 }
                 System.out.println("Choisissez une tache :");
                 nomTacheAEnlever = entree.nextLine();
                 ok = false;
-                for (int i = 0; !ok && i < tache.getTachesPrealables().size()
+                for (int i = 0; !ok && i < tache.nombreTachesPrealables()
                                 ; i++) {
                     ok = nomTacheAEnlever.equals(
                                     tache.getTachesPrealables().get(i).getNom()
@@ -664,7 +664,7 @@ public class Projet {
         // TODO coder l'algo qui teste s'il y a un circuit
         boolean[] marquagesTaches = new boolean[this.taches.size()];
         for (int i = 0; i < this.taches.size(); i++) {
-            for (int j = 0; j < this.taches.get(i).getTachesPrealables().size()
+            for (int j = 0; j < this.taches.get(i).nombreTachesPrealables()
                  ; j++) {
                 
             }

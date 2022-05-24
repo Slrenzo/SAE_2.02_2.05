@@ -178,8 +178,7 @@ public class Tache {
     }
     
     /** 
-     * retourne le nombre de taches prealable de cette tache
-     * @return nombre de taches prealables
+     * @return nombre de taches prealables de cette tache
      */
     public int nombreTachesPrealables() {
         return this.tachesPrealables.size();
