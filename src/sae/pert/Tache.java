@@ -176,6 +176,14 @@ public class Tache {
         }
         return cloneTachesPrealables;
     }
+    
+    /** 
+     * retourne le nombre de taches prealable de cette tache
+     * @return nombre de taches prealables
+     */
+    public int nombreTachesPrealables() {
+        return this.tachesPrealables.size();
+    }
 
     /**
      * Ajoute une tache aux taches prealables de cette tache

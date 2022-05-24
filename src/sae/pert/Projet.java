@@ -180,6 +180,7 @@ public class Projet {
                 }
             }
         }
+        entree.close();
     }
 
     /**
@@ -314,6 +315,7 @@ public class Projet {
                 System.out.println("Veuillez recommencer");
             }
         }
+        entree.close();
         return tache;
     }
 
@@ -399,6 +401,7 @@ public class Projet {
                 System.out.println("Veuillez recommencer");
             }
         }
+        entree.close();
         return projet;
     }
 
@@ -586,6 +589,7 @@ public class Projet {
                 }
             }
         } while (!retour);
+        entree.close();
     }
 
     /** 
@@ -649,6 +653,7 @@ public class Projet {
                 }
             }
         } while (!retour);
+        entree.close();
     }
 
     /** 
@@ -657,6 +662,13 @@ public class Projet {
      */
     public boolean aUnCircuit() {
         // TODO coder l'algo qui teste s'il y a un circuit
+        boolean[] marquagesTaches = new boolean[this.taches.size()];
+        for (int i = 0; i < this.taches.size(); i++) {
+            for (int j = 0; j < this.taches.get(i).getTachesPrealables().size()
+                 ; j++) {
+                
+            }
+        }
         return false; //stub
     }
 
