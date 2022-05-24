@@ -6,6 +6,7 @@ package sae.pert;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -180,15 +181,14 @@ public class Projet {
                 }
             }
         }
-        entree.close();
     }
 
     /**
-     * D�finition d'un projet qui possede un nom 
+     * D finition d'un projet qui possede un nom 
      * et qui possede une unite de temps
      * @param nom le nom du projet
      * @param description description du projet
-     * @param uniteTemps l'unite de temps d�fini pour ce projet
+     * @param uniteTemps l'unite de temps d fini pour ce projet
      * @throws IllegalArgumentException si le nom est vide
      * @throws IllegalArgumentException si la description est vide
      * @throws IllegalArgumentException si l'unite de temps est invalide
@@ -315,7 +315,6 @@ public class Projet {
                 System.out.println("Veuillez recommencer");
             }
         }
-        entree.close();
         return tache;
     }
 
@@ -401,7 +400,6 @@ public class Projet {
                 System.out.println("Veuillez recommencer");
             }
         }
-        entree.close();
         return projet;
     }
 
@@ -409,38 +407,20 @@ public class Projet {
      * Sauvegarde dans un fichier les informations du fichier
      */
     public void sauvegarder() {
-        String listeTaches = "";
-        String nomTachesPrealable = "";
+     
         File file = new File("sauv.txt");
         FileWriter fichier;
+        
         try {
             fichier = new FileWriter(file);
-            for (int i = 0; i < taches.size(); i++) {
-                
-                nomTachesPrealable += taches.get(i).getNom() + "\n"
-                                      + taches.get(i).nombreTachesPrealables()
-                                      + "\n";
-                for (int index = 0; 
-                     index < taches.get(i).nombreTachesPrealables(); 
-                     index++) {
-                    nomTachesPrealable += taches.get(i).getTachesPrealables()
-                                    .get(index).getNom() + "\n";
-                }
-                listeTaches += taches.get(i).getNom() + "\n" 
-                               + taches.get(i).getDescription() + "\n"
-                               + taches.get(i).getDuree() + "\n"
-                               + taches.get(i).getDateAuPlusTot() + "\n"
-                               + taches.get(i).getDateAuPlusTard() + "\n";
-            }
-
             fichier.write( taches.size() + "\n" + this.nom + "\n"
-                          + this.description + "\n" 
-                          + this.uniteTemps + "\n" 
-                          + this.dateAuPlusTotProjet + "\n" 
-                          + this.dateAuPlusTardProjet + "\n" 
-                          + "\n" + listeTaches
-                          + "\n" + nomTachesPrealable
-                          );
+                    + this.description + "\n" 
+                    + this.uniteTemps + "\n" 
+                    + this.dateAuPlusTotProjet + "\n" 
+                    + this.dateAuPlusTardProjet + "\n" 
+                    + "\n" + tacheToString()
+                    + "\n" + tachePrealableToString()
+                    );
 
             fichier.close();
         } catch (IOException erreur) {
@@ -448,6 +428,42 @@ public class Projet {
         }
     }
 
+    /** 
+     *  Récupere le nom des taches préalables a aux differentes taches du projet
+     */
+    private String tachePrealableToString() {
+        String nomTachesPrealable = "";
+        for (int i = 0; i < taches.size(); i++) {
+            
+            nomTachesPrealable += taches.get(i).getNom() + "\n"
+                                  + taches.get(i).getTachesPrealables().size()
+                                  + "\n";
+            for (int index = 0; 
+                 index < taches.get(i).getTachesPrealables().size(); 
+                 index++) {
+                nomTachesPrealable += taches.get(i).getTachesPrealables()
+                                .get(index).getNom() + "\n";
+            }
+        }
+        return nomTachesPrealable;
+        
+    }
+    
+    /**
+     * Récupere toutes les informations d'une tâche et les mets en forme
+     */
+    private String tacheToString() {
+        String listeTaches = "";
+        for (int i = 0; i < taches.size(); i++) {
+            listeTaches += taches.get(i).getNom() + "\n" 
+                            + taches.get(i).getDescription() + "\n"
+                            + taches.get(i).getDuree() + "\n"
+                            + taches.get(i).getDateAuPlusTot() + "\n"
+                            + taches.get(i).getDateAuPlusTard() + "\n";
+        }
+        return listeTaches;
+    }
+    
     /**
      * importer dans un fichier les informations du fichier
      * @return projet
@@ -467,7 +483,7 @@ public class Projet {
         try {
             reader = new BufferedReader(new FileReader("sauv.txt"));
             String line = reader.readLine();
-            // Information du projet
+            /** info du projet */
             for (int index = 0; index < 6; index++) {
                 projetInfo[index] = line;
                 line = reader.readLine();
@@ -518,6 +534,7 @@ public class Projet {
 
         return projet;
     }
+    
     /** 
      * Permet d'ajouter les taches prealables du projet
      */
@@ -589,7 +606,6 @@ public class Projet {
                 }
             }
         } while (!retour);
-        entree.close();
     }
 
     /** 
@@ -622,19 +638,19 @@ public class Projet {
                 retour = true;
             } else if (!ok) {
                 System.out.println("Cette tache n'est pas dans le projet");
-            } else if (tache.nombreTachesPrealables() == 0) {
+            } else if (tache.getTachesPrealables().size() == 0) {
                 System.out.println("Cette tache n'a pas de tache prealable");
             } else {
                 System.out.println("Choisissez une tache prealable "
                                 + "a enlever :");
-                for (int i = 0; i < tache.nombreTachesPrealables(); i++) {
+                for (int i = 0; i < tache.getTachesPrealables().size(); i++) {
                     System.out.println(tache.getTachesPrealables()
                                     .get(i).getNom());
                 }
                 System.out.println("Choisissez une tache :");
                 nomTacheAEnlever = entree.nextLine();
                 ok = false;
-                for (int i = 0; !ok && i < tache.nombreTachesPrealables()
+                for (int i = 0; !ok && i < tache.getTachesPrealables().size()
                                 ; i++) {
                     ok = nomTacheAEnlever.equals(
                                     tache.getTachesPrealables().get(i).getNom()
@@ -653,7 +669,6 @@ public class Projet {
                 }
             }
         } while (!retour);
-        entree.close();
     }
 
     /** 
@@ -662,13 +677,6 @@ public class Projet {
      */
     public boolean aUnCircuit() {
         // TODO coder l'algo qui teste s'il y a un circuit
-        boolean[] marquagesTaches = new boolean[this.taches.size()];
-        for (int i = 0; i < this.taches.size(); i++) {
-            for (int j = 0; j < this.taches.get(i).nombreTachesPrealables()
-                 ; j++) {
-                
-            }
-        }
         return false; //stub
     }
 
