@@ -174,11 +174,7 @@ public class Projet {
     }
 
     /**
-<<<<<<< HEAD
-     * Definition d'un projet qui possede un nom 
-=======
-     * D finition d'un projet qui possede un nom 
->>>>>>> sauvegardeV2
+     * Définition d'un projet qui possède un nom 
      * et qui possede une unite de temps
      * @param nom le nom du projet
      * @param description description du projet
@@ -419,6 +415,7 @@ public class Projet {
 
     /** 
      *  Récupere le nom des taches préalables a aux differentes taches du projet
+     *  @return toutes les taches préalable
      */
     private String tachePrealableToString() {
         String nomTachesPrealable = "";
@@ -440,6 +437,7 @@ public class Projet {
     
     /**
      * Récupere toutes les informations d'une tâche et les mets en forme
+     * @return toutes les taches
      */
     private String tacheToString() {
         String listeTaches = "";
@@ -472,7 +470,7 @@ public class Projet {
         try {
             reader = new BufferedReader(new FileReader("sauv.txt"));
             String line = reader.readLine();
-            /** info du projet */
+            /* info du projet */
             for (int index = 0; index < 6; index++) {
                 projetInfo[index] = line;
                 line = reader.readLine();
