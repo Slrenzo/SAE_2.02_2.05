@@ -40,8 +40,8 @@ public class TestProjet {
         ok &= testGetDescription();
         ok &= testSetDescription();
         ok &= testGetUniteTemps();
-        //ok &= testAjouterTacheProjet();
-        //ok &= testEnleverTacheProjet();
+        ok &= testAjouterTacheProjet();
+        ok &= testEnleverTacheProjet();
         ok &= testToString();
         ok &= testGetTaches();
         
@@ -200,12 +200,11 @@ public class TestProjet {
         ProjetTest.ajouterTache(tacheAAjouter);
         ok &= ProjetTest.getTaches().equals(tacheProjetAttendues);
         
-        
           try { 
               ProjetTest.ajouterTache(tacheAAjouter); 
-              ok = true; 
-          } catch (IllegalArgumentException tacheDejaPrésente) { 
               ok = false; 
+          } catch (IllegalArgumentException tacheDejaPrésente) { 
+              ok = true; 
           }
          
         
@@ -226,7 +225,7 @@ public class TestProjet {
         
         Tache tacheAAjouter1 = new Tache("Tache B", "Réalisation de l'application", 3.5);
         
-        Tache tacheAAjouter2 = new Tache("Tache B", "Réalisation des tests", 20.0);
+        Tache tacheAAjouter2 = new Tache("Tache C", "Réalisation des tests", 20.0);
         
         ProjetTest.ajouterTache(tacheAAjouter);
         ProjetTest.ajouterTache(tacheAAjouter1);
