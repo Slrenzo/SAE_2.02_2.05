@@ -641,16 +641,27 @@ public class Projet {
      * @return true s'il y a un circuit
      */
     public boolean aUnCircuit() {
-        // TODO coder l'algo qui teste s'il y a un circuit
         boolean[] marquagesTaches = new boolean[this.taches.size()];
+        ArrayList<Tache> tachesPrealables;   
+        int indexTache;
         for (int i = 0; i < marquagesTaches.length; i++) {
             if (!marquagesTaches[i]) {
-                for (int j = 0; ; ) {
-                    
+                marquagesTaches[i] = true;
+                tachesPrealables = this.taches.get(i).getTachesPrealables();
+                for (int j = 0; j < tachesPrealables.size(); j++) {
+                    for (indexTache = 0
+                         ; !tachesPrealables.get(j).getNom()
+                           .equals(this.taches.get(indexTache).getNom())
+                         ; indexTache++);
+                    if (marquagesTaches[indexTache]) {
+                        return true;
+                    } else {
+                        marquagesTaches[indexTache] = false;
+                    }
                 }
             }
         }
-        return false; //stub
+        return false;
     }
 
     @Override
