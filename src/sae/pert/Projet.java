@@ -366,13 +366,12 @@ public class Projet {
                     uniteTempsChoisie = entree.nextInt();
                     uniteTempsChoisieFaux = uniteTempsChoisie <= 0 
                                     || uniteTempsChoisie >= 7;
-                                    if (uniteTempsChoisieFaux) {
-                                        System.out.println("Veuillez entrer un nombre "
-                                                        + "entre un 1 et 6 : ");                        
-                                    }
                 } else {
+                    uniteTempsChoisieFaux = true;
+                }
+                if (uniteTempsChoisieFaux) {
                     System.out.println("Veuillez entrer un nombre "
-                                    + "entre un 1 et 6 : ");
+                                       + "entre un 1 et 6 : ");
                 }
                 entree.nextLine();
             }
