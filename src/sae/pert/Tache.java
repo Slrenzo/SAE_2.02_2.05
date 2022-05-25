@@ -210,6 +210,14 @@ public class Tache {
     }
     
     /**
+     * @param tacheATester tache que l'on test si elle est une tache prealable
+     * @return true si tacheATester est une tache prealable
+     */
+    public boolean aLaTachePrealabale(Tache tacheATester) {
+        return this.tachesPrealables.contains(tacheATester);
+    }
+    
+    /**
      * Enleve une tache aux taches prealables de cette tache
      * @param tache tache que l'on souhaite ajouter aux taches prealables
      * @throws IllegalArgumentException tache ne fait pas partie des taches 

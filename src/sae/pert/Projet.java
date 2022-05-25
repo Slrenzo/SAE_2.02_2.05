@@ -557,11 +557,7 @@ public class Projet {
                 System.out.println("Choisissez la tache a ajouter au tache "
                                 + "prealable de " + tache.getNom());
                 for (int i = 0; i < this.taches.size(); i++) {
-                    if (!nomTache.equals(this.taches.get(i).getNom())
-                                    || !tache.getTachesPrealables()
-                                    .contains(this.taches.get(i))) {
-                        System.out.println(this.taches.get(i).getNom());
-                    }
+                    System.out.println(this.taches.get(i).getNom());
                 }
                 System.out.print("Choisissez une tache : ");
                 nomTacheAAjouter = entree.nextLine();
