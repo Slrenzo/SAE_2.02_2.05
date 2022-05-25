@@ -217,6 +217,14 @@ public class Tache {
         return this.tachesPrealables.contains(tacheATester);
     }
     
+    /** 
+     * @param i l'index de la tache que l'on veut recuperer
+     * @return la tache a l'index i
+     */
+    public Tache avoirTachePrealable(int i) {
+        return this.tachesPrealables.get(i);
+    }
+    
     /**
      * Enleve une tache aux taches prealables de cette tache
      * @param tache tache que l'on souhaite ajouter aux taches prealables
