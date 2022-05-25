@@ -548,6 +548,49 @@ public class Projet {
         }
         return false;
     }
+    
+    /** 
+     * Algorithme calculant la date au plus tot de chaque tache
+     * et la date au plus tot de fin de projet
+     */
+    public void calculerDateAuPlusTot() {
+        ArrayList<Tache> tacheTester = new ArrayList<Tache>();
+        double dateAuPlusTot;
+        boolean ok;
+        for (int i = 0; i < this.taches.size(); i++) {
+            if (this.taches.get(i).nombreTachesPrealables() == 0) {
+                tacheTester.add(this.taches.get(i));
+                this.taches.get(i).setDateAuPlusTot(0.0);
+            }
+        }
+        for (int i = 0; i < tacheTester.size(); i++) {
+            for (int j = 0; j < this.taches.size(); j++) {
+                ok = true;
+                for (int k = 0; ok && k < this.taches.get(j)
+                                .nombreTachesPrealables(); k++) {
+                    ok = tacheTester
+                         .contains(this.taches.get(j).avoirTachePrealable(k));
+                }
+                if (ok) {
+                    for (int k = 0; ok && k < this.taches.get(j)
+                    .nombreTachesPrealables(); k++) {
+                        dateAuPlusTot = this.taches.get(j)
+                                        .avoirTachePrealable(k)
+                                        .getDateAuPlusTot() 
+                                        + this.taches.get(j).getDuree();
+                        if (dateAuPlusTot 
+                            > this.taches.get(j).getDateAuPlusTot()) {
+                            this.taches.get(j).setDateAuPlusTot(dateAuPlusTot);
+                        }
+                    }
+                    tacheTester.add(taches.get(j));
+                }
+            }
+        }
+        this.dateAuPlusTotProjet = 
+            tacheTester.get(tacheTester.size() - 1).getDateAuPlusTot() 
+            + tacheTester.get(tacheTester.size() - 1).getDuree();
+    }
 
     
     /**
