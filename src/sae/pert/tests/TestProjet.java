@@ -249,7 +249,7 @@ public class TestProjet {
     }
     
     /**
-     * test unitaires de la méthode getTachesq
+     * test unitaires de la méthode getTaches
      * @return
      */
     private static boolean testGetTaches() {
