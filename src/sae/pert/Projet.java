@@ -388,139 +388,6 @@ public class Projet {
         return projet;
     }
 
-    /**
-     * Sauvegarde dans un fichier les informations du fichier
-     */
-    public void sauvegarder() {
-     
-        File file = new File("sauv.txt");
-        FileWriter fichier;
-        
-        try {
-            fichier = new FileWriter(file);
-            fichier.write( taches.size() + "\n" + this.nom + "\n"
-                    + this.description + "\n" 
-                    + this.uniteTemps + "\n" 
-                    + this.dateAuPlusTotProjet + "\n" 
-                    + this.dateAuPlusTardProjet + "\n" 
-                    + "\n" + tacheToString()
-                    + "\n" + tachePrealableToString()
-                    );
-
-            fichier.close();
-        } catch (IOException erreur) {
-            System.out.println("erreur");
-        }
-    }
-
-    /** 
-     *  Récupere le nom des taches préalables a aux differentes taches du projet
-     *  @return toutes les taches préalable
-     */
-    private String tachePrealableToString() {
-        String nomTachesPrealable = "";
-        for (int i = 0; i < taches.size(); i++) {
-            
-            nomTachesPrealable += taches.get(i).getNom() + "\n"
-                                  + taches.get(i).getTachesPrealables().size()
-                                  + "\n";
-            for (int index = 0; 
-                 index < taches.get(i).getTachesPrealables().size(); 
-                 index++) {
-                nomTachesPrealable += taches.get(i).getTachesPrealables()
-                                .get(index).getNom() + "\n";
-            }
-        }
-        return nomTachesPrealable;
-        
-    }
-    
-    /**
-     * Récupere toutes les informations d'une tâche et les mets en forme
-     * @return toutes les taches
-     */
-    private String tacheToString() {
-        String listeTaches = "";
-        for (int i = 0; i < taches.size(); i++) {
-            listeTaches += taches.get(i).getNom() + "\n" 
-                            + taches.get(i).getDescription() + "\n"
-                            + taches.get(i).getDuree() + "\n"
-                            + taches.get(i).getDateAuPlusTot() + "\n"
-                            + taches.get(i).getDateAuPlusTard() + "\n";
-        }
-        return listeTaches;
-    }
-    
-    /**
-     * importer dans un fichier les informations du fichier
-     * @return projet
-     */
-    public static Projet importer() {
-
-        String[] projetInfo = new String[6];
-        String nomTache ="";
-        String nomTachePrea ="";
-        int indexTache = 0;
-        int nbTachesPrealable = 0;
-        boolean trouve;  
-        Projet projet = new Projet("nom","desc","Mois");
-        Tache tache = new Tache("nom", "desc", 2.0);
-        BufferedReader reader;
-
-        try {
-            reader = new BufferedReader(new FileReader("sauv.txt"));
-            String line = reader.readLine();
-            /* info du projet */
-            for (int index = 0; index < 6; index++) {
-                projetInfo[index] = line;
-                line = reader.readLine();
-            }
-            projet = new Projet (projetInfo[1], projetInfo[2], projetInfo[3]);
-            projet.dateAuPlusTotProjet = Double.parseDouble(projetInfo[4]);
-            projet.dateAuPlusTardProjet = Double.parseDouble(projetInfo[5]);
-            // Taches du projets
-            for (int i = 0; i < Integer.parseInt(projetInfo[0]); i++) {
-                tache = new Tache(reader.readLine(),reader.readLine(),
-                                Double.parseDouble(reader.readLine()));
-                tache.setDateAuPlusTot(Double.parseDouble(reader.readLine()));
-                tache.setDateAuPlusTard(Double.parseDouble(reader.readLine()));
-                projet.ajouterTache(tache);
-            }
-            reader.readLine(); // saut de ligne
-            
-            for (int i = 0; i < Integer.parseInt(projetInfo[0]); i++) {
-                // Tache à ajouter les prealables
-                nomTache = reader.readLine();
-    
-                trouve = false;
-                for (indexTache = 0; 
-                     !trouve && indexTache < projet.taches.size(); indexTache++) {
-                    trouve = projet.taches.get(indexTache).getNom().equals(nomTache);
-                }
-                if (trouve) {
-                    tache = projet.taches.get(indexTache - 1);
-                }
-                                      
-                nbTachesPrealable = Integer.parseInt(reader.readLine());
-                for (int index = 0; index < nbTachesPrealable; index++) {
-                    nomTachePrea = reader.readLine();
-                    trouve = false;
-                    for (indexTache = 0; 
-                              !trouve && indexTache < projet.taches.size(); indexTache++) {
-                        trouve = projet.taches.get(indexTache).getNom().equals(nomTachePrea);
-                    }
-                    if (trouve) {
-                        tache.ajouterTachePrealable(projet.taches.get(indexTache - 1));
-                    }
-                }
-            }
-            reader.close();
-        } catch (IOException e) {
-            System.out.println("erreur");
-        }
-
-        return projet;
-    }
     
     /** 
      * Permet d'ajouter les taches prealables du projet
@@ -682,6 +549,204 @@ public class Projet {
         return false;
     }
 
+    
+    /**
+     * Sauvegarde dans un fichier les informations du projet
+     */
+    public void sauvegarder() {
+     
+        File file = new File("sauv.txt");
+        FileWriter fichier;
+        
+        try {
+            fichier = new FileWriter(file);
+            fichier.write( this.nom + "\n"
+                           + this.description + "\n" 
+                           + this.uniteTemps + "\n" 
+                           + this.dateAuPlusTotProjet + "\n" 
+                           + this.dateAuPlusTardProjet + "\n" 
+                           + taches.size() + "\n"
+                           + "\n" + tacheToString()
+                           + "\n" + tachePrealableToString()
+                         );
+
+            fichier.close();
+        } catch (IOException erreur) {
+            System.err.println("Erreur lors de la sauvegarde");
+        }
+    }
+
+    /** 
+     *  Récupere le nom des taches préalables aux differentes taches du projet
+     *  @return toutes les taches préalable
+     */
+    private String tachePrealableToString() {
+        String nomTachesPrealable = "";
+        for (int i = 0; i < taches.size(); i++) {
+            
+            nomTachesPrealable += taches.get(i).getNom() + "\n"
+                                  + taches.get(i).getTachesPrealables().size()
+                                  + "\n";
+            for (int index = 0; 
+                 index < taches.get(i).getTachesPrealables().size(); 
+                 index++) {
+                nomTachesPrealable += taches.get(i).getTachesPrealables()
+                                .get(index).getNom() + "\n";
+            }
+        }
+        return nomTachesPrealable;
+        
+    }
+    
+    /**
+     * Récupere toutes les informations d'une tâche et les mets en forme
+     * @return toutes les taches 
+     */
+    private String tacheToString() {
+        String listeTaches = "";
+        for (int i = 0; i < taches.size(); i++) {
+            listeTaches += taches.get(i).getNom() + "\n" 
+                            + taches.get(i).getDescription() + "\n"
+                            + taches.get(i).getDuree() + "\n"
+                            + taches.get(i).getDateAuPlusTot() + "\n"
+                            + taches.get(i).getDateAuPlusTard() + "\n";
+        }
+        return listeTaches;
+    }
+    
+    /**
+     * Importer à partir d'un fichier les informations du projet
+     * @return le projet
+     */
+    public static Projet importer() {
+
+        Projet projet = new Projet("nom","desc","Mois");
+        int nbTaches = 0;
+        BufferedReader lecteur;
+
+        try {
+            lecteur = new BufferedReader(new FileReader("sauv.txt"));
+            projet = infoProjet(lecteur);
+            nbTaches = Integer.parseInt(lecteur.readLine());
+            
+            projet = projetTaches(lecteur, projet, nbTaches);
+            lecteur.readLine(); // saut de ligne
+            projetTachesPrealables(lecteur, projet, nbTaches);
+
+            lecteur.close();
+        } catch (IOException e) {
+            System.err.println("Erreur lors de l'importation");
+        }
+        return projet;
+    }
+    
+    /** 
+     * Ajoute au projet les informations (nom, description, dates...)
+     * @param lecteur du fichier
+     * @return le projet
+     */
+    public static Projet infoProjet(BufferedReader lecteur) {
+
+        Projet projet = new Projet("nom","desc","Mois");
+        String[] projetInfo = new String[5];
+        
+        try {
+            String line = lecteur.readLine();
+            /* info du projet */
+            for (int index = 0; index < 5; index++) {
+                projetInfo[index] = line;
+                line = lecteur.readLine();
+            }
+            projet = new Projet (projetInfo[0], projetInfo[1], projetInfo[2]);
+            projet.dateAuPlusTotProjet = Double.parseDouble(projetInfo[3]);
+            projet.dateAuPlusTardProjet = Double.parseDouble(projetInfo[4]);
+        } catch (IOException e) {
+            System.out.println("Erreur lors de l'importation");
+        }     
+        return projet;
+    }
+    
+    /** 
+     * Ajoute les taches au projet lors de l'importation
+     * @param lecteur du fichier
+     * @param projetActuel
+     * @param nbTache total du projet
+     * @return le projet actualisé
+     */
+    public static Projet projetTaches(BufferedReader lecteur, 
+                                      Projet projetActuel,
+                                      int nbTache) {
+
+        Projet projet = projetActuel;
+        String[] projetInfo = new String[5];
+        
+        try {
+            for (int i = 0; i < nbTache; i++) {
+                Tache tache = new Tache(lecteur.readLine(),lecteur.readLine(),
+                                Double.parseDouble(lecteur.readLine()));
+                tache.setDateAuPlusTot(Double.parseDouble(lecteur.readLine()));
+                tache.setDateAuPlusTard(Double.parseDouble(lecteur.readLine()));
+                projet.ajouterTache(tache);
+            }
+        } catch (IOException e) {
+            System.out.println("Erreur lors de l'importation");
+        } 
+        return projet;
+    }
+    
+    /** 
+     * Ajoute les taches préalable au projet lors de l'importation
+     * @param lecteur du fichier
+     * @param projetActuel 
+     * @param nbTache total du projet
+     * @return le projet actualisé
+     */
+    public static Projet projetTachesPrealables(BufferedReader lecteur, 
+                                                Projet projetActuel,
+                                                int nbTache) {
+        String nomTache = "";
+        String nomTachePrea = "";
+        int indexTache = 0;
+        int nbTachesPrealable = 0;
+        boolean trouve;  
+        Projet projet = projetActuel;
+        String[] projetInfo = new String[5];
+        Tache tache = new Tache("nom","desc",2.0);
+        
+        try {
+            for (int i = 0; i < nbTache; i++) {
+                // Tache à ajouter les prealables
+                nomTache = lecteur.readLine();
+    
+                trouve = false;
+                for (indexTache = 0; 
+                     !trouve && indexTache < projet.taches.size(); indexTache++) {
+                    trouve = projet.taches.get(indexTache).getNom().equals(nomTache);
+                }
+                if (trouve) {
+                    tache = projet.taches.get(indexTache - 1);
+                }
+                                      
+                nbTachesPrealable = Integer.parseInt(lecteur.readLine());
+                for (int index = 0; index < nbTachesPrealable; index++) {
+                    nomTachePrea = lecteur.readLine();
+                    trouve = false;
+                    for (indexTache = 0; 
+                              !trouve && indexTache < projet.taches.size(); indexTache++) {
+                        trouve = projet.taches.get(indexTache).getNom().equals(nomTachePrea);
+                    }
+                    if (trouve) {
+                        tache.ajouterTachePrealable(projet.taches.get(indexTache - 1));
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Erreur lors de l'importation");
+        }       
+        return projet;
+    }
+    
+    
     @Override
     public String toString() {
         String taches = this.taches.size() == 0 ? "Ce projet ne contient pas "
