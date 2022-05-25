@@ -6,6 +6,7 @@ package sae.pert.tests;
 
 import java.util.ArrayList;
 
+import sae.pert.Projet;
 import sae.pert.Tache;
 import test.outillage.AssertionTest;
 
@@ -49,6 +50,7 @@ public class TestTache {
         ok &= testGetDateAuPlusTard();
         ok &= testSetDateAuPlusTot();
         ok &= testSetDateAuPlusTard();
+        ok &= testGetTachesPrealables();
         
         
         if(ok) {
@@ -251,26 +253,6 @@ public class TestTache {
                 ok = true;
             }
         }
-        return ok;
-    }
-    
-    /**
-     * test unitaires de la méthode getTachesPrealables
-     * @return true si test reussis ou false si test echoue
-     */
-    private static boolean testGetTachesPrealables() {
-        boolean ok;
-        ok = true;
-        
-        ArrayList<Tache> cloneTachesPrealables = new ArrayList<Tache>();
-        ArrayList<Tache> tachesPrealables = new ArrayList<Tache>();
-        Tache cloneTacheTest = new Tache("testNom", "testDescription", 30.5);
-        Tache tacheDeTest = new Tache("tache de test", "description de test"
-                        , 10.0);
-        tachesPrealables.add(tacheDeTest);
-        
-        
-        
         return ok;
     }
 
@@ -483,6 +465,62 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
                 ok = true;
             }
         }
+        return ok;
+    }
+    
+    /**
+     * test unitaires de la méthode getTachesPrealables
+     * @return true si test reussis sinon false
+     */
+    private static boolean testGetTachesPrealables() {
+        
+        boolean ok;
+        ok = true;
+        
+        ArrayList<Tache> cloneTaches = new ArrayList<Tache>();
+        
+        Tache tacheDeTest = new Tache("Tache D", "Réalisation de l'application", 30.0);
+        
+        Tache tacheAAjouter = new Tache("Tache A", "Répartition du travail", 30.5);
+        
+        tacheDeTest.ajouterTachePrealable(tacheAAjouter);
+        
+        cloneTaches = tacheDeTest.getTachesPrealables();
+        
+        for ( int noTest = 0 ; noTest < cloneTaches.size() ; noTest++) {
+            Tache tacheClone1 = cloneTaches.get(noTest);
+            
+            tacheClone1.setDescription("test changement de description");
+            tacheClone1.setDuree(20.0);
+            
+            ok = AssertionTest.assurerNonEgalite(tacheClone1.getDescription(), tacheAAjouter.getDescription());
+            ok = AssertionTest.assurerNonEgaliteDouble(tacheClone1.getDuree(), tacheAAjouter.getDuree());
+        }
+        
+        return ok;
+    }
+    
+    /**
+     * test unitaires de la méthode testNombreTachesPrealables
+     * @return true si test reussis sinon false
+     */
+    private static boolean testNombreTachesPrealables() {
+        
+        boolean ok;
+        ok = true;
+        
+        Tache tacheDeTest = new Tache("Tache D", "Réalisation de l'application", 30.0);
+        
+        Tache tacheAAjouter = new Tache("Tache A", "Répartition du travail", 30.5);
+        
+        Tache tacheAAjouter1 = new Tache("Tache A", "Répartition du travail", 30.5);
+        
+        tacheDeTest.ajouterTachePrealable(tacheAAjouter);
+        tacheDeTest.ajouterTachePrealable(tacheAAjouter1);
+        
+        ArrayList<Tache> tachePrealables = tacheDeTest.getTachesPrealables();
+        ok = AssertionTest.assurerEgaliteDouble(tacheDeTest.nombreTachesPrealables(), tachePrealables.size());
+        
         return ok;
     }
 
