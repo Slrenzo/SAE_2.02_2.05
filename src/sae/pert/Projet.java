@@ -649,6 +649,7 @@ public class Projet {
         ArrayList<Tache> tacheTester = this.dernieresTaches();
         double dateAuPlusTard;
         Tache tacheTest;
+        ArrayList<Tache> tachesContraintes = new ArrayList<Tache>();
         boolean ok;
         this.dateAuPlusTardProjet = this.dateAuPlusTotProjet;
         for (int i = 0; i < this.taches.size(); i++) {
@@ -659,17 +660,27 @@ public class Projet {
                              .getDuree();
             tacheTester.get(i).setDateAuPlusTard(dateAuPlusTard); 
         }
-        for (int i = 0; i < tacheTester.size(); i++) {
-            tacheTest = tacheTester.get(i);
-              for (int j = 0; j < tacheTest.nombreTachesPrealables(); j++) {
-                  dateAuPlusTard = tacheTest.getDateAuPlusTard() - tacheTest
-                                   .avoirTachePrealable(j).getDuree();
-                if (dateAuPlusTard < tacheTest.avoirTachePrealable(j)
-                    .getDateAuPlusTard()) {
-                    tacheTest.avoirTachePrealable(j)
-                             .setDateAuPlusTard(dateAuPlusTard);
+        while (tacheTester.size() < this.taches.size()) {
+            ok = false;
+            for (int i = 0; !ok && i < this.taches.size(); i++) {
+                tacheTest = this.taches.get(i);
+                tachesContraintes = new ArrayList<Tache>();
+                for (int j = 0; j < this.taches.size(); j++) {
+                    if (this.taches.get(j).aLaTachePrealable(tacheTest)) {
+                        tachesContraintes.add(this.taches.get(j));
+                    }
                 }
-                tacheTester.add(tacheTest.avoirTachePrealable(j));
+                if (tacheTester.containsAll(tachesContraintes)) {
+                    for (int j = 0; j < tachesContraintes.size(); j++) {
+                        dateAuPlusTard = tachesContraintes.get(j)
+                                         .getDateAuPlusTard() 
+                                         - tacheTest.getDuree();
+                        if (dateAuPlusTard < tacheTest.getDateAuPlusTard()) {
+                            tacheTest.setDateAuPlusTard(dateAuPlusTard);
+                        }
+                    }
+                    tacheTester.add(tacheTest);
+                }
             }
         }
     }
