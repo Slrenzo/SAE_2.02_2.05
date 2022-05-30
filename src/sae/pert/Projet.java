@@ -664,22 +664,22 @@ public class Projet {
             ok = false;
             for (int i = 0; !ok && i < this.taches.size(); i++) {
                 tacheTest = this.taches.get(i);
-                tachesContraintes = new ArrayList<Tache>();
-                for (int j = 0; j < this.taches.size(); j++) {
-                    if (this.taches.get(j).aLaTachePrealable(tacheTest)) {
-                        tachesContraintes.add(this.taches.get(j));
-                    }
-                }
-                if (tacheTester.containsAll(tachesContraintes)) {
-                    for (int j = 0; j < tachesContraintes.size(); j++) {
-                        dateAuPlusTard = tachesContraintes.get(j)
-                                         .getDateAuPlusTard() 
-                                         - tacheTest.getDuree();
-                        if (dateAuPlusTard < tacheTest.getDateAuPlusTard()) {
-                            tacheTest.setDateAuPlusTard(dateAuPlusTard);
+                if (!tacheTester.contains(tacheTest)) {
+                    tachesContraintes = new ArrayList<Tache>();
+                    for (int j = 0; j < this.taches.size(); j++) {
+                        if (this.taches.get(j).aLaTachePrealable(tacheTest)) {
+                            tachesContraintes.add(this.taches.get(j));
                         }
                     }
-                    if (!tacheTester.contains(tacheTest)) {
+                    if (tacheTester.containsAll(tachesContraintes)) {
+                        for (int j = 0; j < tachesContraintes.size(); j++) {
+                            dateAuPlusTard = tachesContraintes.get(j)
+                                            .getDateAuPlusTard() 
+                                            - tacheTest.getDuree();
+                            if (dateAuPlusTard < tacheTest.getDateAuPlusTard()){
+                                tacheTest.setDateAuPlusTard(dateAuPlusTard);
+                            }
+                        }
                         tacheTester.add(tacheTest);
                     }
                 }
