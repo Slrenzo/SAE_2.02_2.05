@@ -591,7 +591,8 @@ public class Projet {
             }
             for (int i = 0; i < tacheTest.nombreTachesPrealables(); i++) {
                 dateAuPlusTot = tacheTest.avoirTachePrealable(i)
-                                .getDateAuPlusTot() + tacheTest.getDuree();
+                                .getDateAuPlusTot() + tacheTest
+                                .avoirTachePrealable(i).getDuree();
                 if (dateAuPlusTot > tacheTest.getDateAuPlusTot()) {
                     tacheTest.setDateAuPlusTot(dateAuPlusTot);
                 }
