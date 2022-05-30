@@ -113,6 +113,9 @@ public class Projet {
                 case 2:
                     try {
                         projet.ajouterTache(creerTache());
+                        projet.calculerDateAuPlusTot();
+                        projet.calculerDateAuPlusTotFinDeProjet();
+                        projet.calculerDateAuPlusTard();
                     } catch (IllegalArgumentException erreurDeSaisie) {
                         System.out.println(erreurDeSaisie.getMessage());
                     }
@@ -132,6 +135,9 @@ public class Projet {
                         if (ok) {
                             projet.enleverTache(projet.taches.get(i));
                             System.out.println("Cette tache a ete supprimer");
+                            projet.calculerDateAuPlusTot();
+                            projet.calculerDateAuPlusTotFinDeProjet();
+                            projet.calculerDateAuPlusTard();
                         }
                     }
                     if (!ok) {
@@ -158,6 +164,9 @@ public class Projet {
                                         + "correct");
                     }
                     entree.nextLine();
+                    projet.calculerDateAuPlusTot();
+                    projet.calculerDateAuPlusTotFinDeProjet();
+                    projet.calculerDateAuPlusTard();
                     break;
                 case 5:
                     projet.sauvegarder();
@@ -633,10 +642,35 @@ public class Projet {
     public void calculerDateAuPlusTard() {
         ArrayList<Tache> tacheTester = this.dernieresTaches();
         double dateAuPlusTard;
+        boolean ok;
         this.dateAuPlusTardProjet = this.dateAuPlusTotProjet;
         for (int i = 0; i < tacheTester.size(); i++) {
-            dateAuPlusTard = this.dateAuPlusTardProjet - tacheTester.get(i).getDuree();
+            dateAuPlusTard = this.dateAuPlusTardProjet - tacheTester.get(i)
+                             .getDuree();
             tacheTester.get(i).setDateAuPlusTard(dateAuPlusTard); 
+        }
+        for (int i = 0; i < tacheTester.size(); i++) {
+            for (int j = 0; j < tacheTester.get(i).nombreTachesPrealables()
+                 ; j++) {
+                dateAuPlusTard = tacheTester.get(i).getDateAuPlusTard() 
+                                 - tacheTester.get(i).avoirTachePrealable(j)
+                                 .getDuree();
+                if (dateAuPlusTard < tacheTester.get(i).avoirTachePrealable(j)
+                    .getDateAuPlusTard()) {
+                    tacheTester.get(i).avoirTachePrealable(j)
+                    .setDateAuPlusTard(dateAuPlusTard);
+                }
+                ok = true;
+                for (int k = 0; ok && k < this.taches.size(); k++) {
+                    if (this.taches.get(k).aLaTachePrealable(
+                        tacheTester.get(i).avoirTachePrealable(j))) {
+                        ok = tacheTester.contains(this.taches.get(k));
+                    }
+                }
+                if (ok) {
+                    tacheTester.add(tacheTester.get(i).avoirTachePrealable(j));
+                }
+            }
         }
     }
     
