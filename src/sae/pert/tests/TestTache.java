@@ -51,6 +51,8 @@ public class TestTache {
         ok &= testSetDateAuPlusTot();
         ok &= testSetDateAuPlusTard();
         ok &= testGetTachesPrealables();
+        ok &= testNombreTachesPrealables();
+        ok &= testALaTachePrealable();
         
         
         if(ok) {
@@ -107,6 +109,13 @@ public class TestTache {
             new Tache("Tache A", "Répartition du travail", -5.0);
             testOK = false;
         } catch (IllegalArgumentException dureeNegative) {
+            testOK = true;
+        }
+        
+        try {
+            new Tache("Tache A", "Répartition du travail", Double.NaN);
+            testOK = false;
+        } catch (IllegalArgumentException dureeNaN) {
             testOK = true;
         }
         
@@ -513,13 +522,39 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
         
         Tache tacheAAjouter = new Tache("Tache A", "Répartition du travail", 30.5);
         
-        Tache tacheAAjouter1 = new Tache("Tache A", "Répartition du travail", 30.5);
+        Tache tacheAAjouter1 = new Tache("Tache B", "Réalisation de l'application", 2.0);
         
         tacheDeTest.ajouterTachePrealable(tacheAAjouter);
         tacheDeTest.ajouterTachePrealable(tacheAAjouter1);
         
         ArrayList<Tache> tachePrealables = tacheDeTest.getTachesPrealables();
         ok = AssertionTest.assurerEgaliteDouble(tacheDeTest.nombreTachesPrealables(), tachePrealables.size());
+        
+        return ok;
+    }
+    
+    /**
+     * test unitaires de la méthode testALaTachePrealable
+     * @return true si test reussis sinon false
+     */
+    private static boolean testALaTachePrealable() {
+        boolean ok;
+        ok = true;
+        
+        Tache tacheDeTest = new Tache("Tache D", "Réalisation de l'application", 30.0);
+        
+        Tache tacheAAjouter = new Tache("Tache A", "Répartition du travail", 30.5);
+        
+        Tache tacheAAjouter1 = new Tache("Tache B", "Réalisation de l'application", 2.0);
+        
+        tacheDeTest.ajouterTachePrealable(tacheAAjouter);
+        
+        try {
+            tacheDeTest.aLaTachePrealabale(tacheAAjouter);
+            ok = true;
+        } catch (IllegalArgumentException tachePrésente) {
+            ok = false;
+        }
         
         return ok;
     }
