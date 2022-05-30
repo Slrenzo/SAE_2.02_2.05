@@ -673,6 +673,8 @@ public class Projet {
                     if (tacheTester.contains(tacheTest.avoirTachePrealable(j))) {
                         tacheTester.remove(tacheTest.avoirTachePrealable(j));
                         tacheTester.add(tacheTest.avoirTachePrealable(j));
+                    } else {
+                        tacheTester.add(tacheTest.avoirTachePrealable(j));
                     }
                 }
             }
