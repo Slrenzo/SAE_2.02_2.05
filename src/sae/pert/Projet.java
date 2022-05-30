@@ -536,27 +536,25 @@ public class Projet {
      */
     public boolean aUnCircuit() {
         boolean[] marquagesTaches = new boolean[this.taches.size()];
-        ArrayList<Tache> tachesPrealables;   
-        int indexTache;
-        for (int i = 0; i < marquagesTaches.length; i++) {
-            if (!marquagesTaches[i]) {
-                marquagesTaches[i] = true;
-                tachesPrealables = this.taches.get(i).getTachesPrealables();
-                for (int j = 0; j < tachesPrealables.size(); j++) {
-                    for (indexTache = 0
-                         ; !tachesPrealables.get(j).getNom()
-                           .equals(this.taches.get(indexTache).getNom())
-                         ; indexTache++);
-                    if (marquagesTaches[indexTache]) {
-                        return true;
-                    } else {
-                        marquagesTaches[indexTache] = false;
-                    }
-                }
-            }
-            if (this.taches.get(i).nombreTachesPrealables() == 0) {
+        ArrayList<Tache> tachesATester = new ArrayList<Tache>();
+        int indexTest = 0;
+        tachesATester.add(this.taches.get(indexTest));
+        while (indexTest < this.taches.size() - 1 || tachesATester.isEmpty()) {
+            if (tachesATester.isEmpty()) {
+                indexTest++;
+                tachesATester.add(this.taches.get(indexTest));
                 marquagesTaches = new boolean[this.taches.size()];
             }
+            Tache tacheTest = tachesATester.get(0);
+            int indexTache = this.taches.indexOf(tacheTest);
+            if (marquagesTaches[indexTache]) {
+                return true;
+            }
+            marquagesTaches[indexTache] = true;
+            for (int i = 0; i < tacheTest.nombreTachesPrealables(); i++) {
+                tachesATester.add(tacheTest.avoirTachePrealable(i));
+            }
+            tachesATester.remove(0);
         }
         return false;
     }
