@@ -669,11 +669,6 @@ public class Projet {
                     tacheTest.avoirTachePrealable(j)
                              .setDateAuPlusTard(dateAuPlusTard);
                 }
-                if (tacheTester.contains(tacheTest.avoirTachePrealable(j))) {
-                    tacheTester.remove(tacheTest.avoirTachePrealable(j));
-                    tacheTester.add(tacheTest.avoirTachePrealable(j));
-                    i--;
-                } else {
                     tacheTester.add(tacheTest.avoirTachePrealable(j));
                 }
             }
