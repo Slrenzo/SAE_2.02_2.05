@@ -213,7 +213,7 @@ public class Tache {
      * @param tacheATester tache que l'on test si elle est une tache prealable
      * @return true si tacheATester est une tache prealable
      */
-    public boolean aLaTachePrealabale(Tache tacheATester) {
+    public boolean aLaTachePrealable(Tache tacheATester) {
         return this.tachesPrealables.contains(tacheATester);
     }
     

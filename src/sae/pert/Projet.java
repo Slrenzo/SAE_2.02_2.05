@@ -587,11 +587,59 @@ public class Projet {
                 }
             }
         }
-        this.dateAuPlusTotProjet = 
-            tacheTester.get(tacheTester.size() - 1).getDateAuPlusTot() 
-            + tacheTester.get(tacheTester.size() - 1).getDuree();
     }
-
+    
+    /**
+     * Algorithme calculant la date au plus tot de fin de projet
+     */
+    public void calculerDateAuPlusTotFinDeProjet() {
+        double dateAuPlusTardDeFinDeProjet;
+        for (int i= 0; i < this.taches.size(); i++) {
+            dateAuPlusTardDeFinDeProjet = this.taches.get(i).getDateAuPlusTot() 
+                                          + this.taches.get(i).getDuree();
+            this.dateAuPlusTotProjet = dateAuPlusTardDeFinDeProjet 
+                                       > this.dateAuPlusTotProjet
+                                       ? dateAuPlusTardDeFinDeProjet
+                                       : this.dateAuPlusTotProjet;
+        }
+    }
+    
+    /**
+     * Algorithme trouvant les dernieres taches du projet
+     * @return la liste des dernieres taches du projet
+     */
+    public ArrayList<Tache> dernieresTaches() {
+        ArrayList<Tache> dernieresTaches = new ArrayList<Tache>();
+        boolean ok = true;
+        if (this.taches.isEmpty()) {
+            throw new IllegalArgumentException("Ce projet n'a pas de tache");
+        }
+        for (int i = 0; i < this.taches.size(); i++) {
+            ok = true;
+            for (int j = 0; ok && j < this.taches.size(); j++) {
+                ok = !this.taches.get(j).aLaTachePrealable(this.taches.get(i));
+            }
+            if (ok) {
+                dernieresTaches.add(this.taches.get(i));
+            }
+        }
+        return dernieresTaches;
+    }
+    
+    /** 
+     * Algorithme calculant la date au plus tard de chaque tache
+     * et la date au plus tard de fin de projet
+     */
+    public void calculerDateAuPlusTard() {
+        ArrayList<Tache> tacheTester = this.dernieresTaches();
+        double dateAuPlusTard;
+        this.dateAuPlusTardProjet = this.dateAuPlusTotProjet;
+        for (int i = 0; i < tacheTester.size(); i++) {
+            dateAuPlusTard = this.dateAuPlusTardProjet - tacheTester.get(i).getDuree();
+            tacheTester.get(i).setDateAuPlusTard(dateAuPlusTard); 
+        }
+        
+    }
     
     /**
      * Sauvegarde dans un fichier les informations du projet
