@@ -539,6 +539,7 @@ public class Projet {
         ArrayList<Tache> tachesPrealables;   
         int indexTache;
         for (int i = 0; i < marquagesTaches.length; i++) {
+            marquagesTaches = new boolean[this.taches.size()];
             if (!marquagesTaches[i]) {
                 marquagesTaches[i] = true;
                 tachesPrealables = this.taches.get(i).getTachesPrealables();
