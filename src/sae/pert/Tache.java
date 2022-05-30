@@ -67,7 +67,7 @@ public class Tache {
         this.description = description;
         this.duree = duree;
         this.dateAuPlusTard = 0.0;
-        this.dateAuPlusTot = 0.0;
+        this.dateAuPlusTot = Double.POSITIVE_INFINITY;
         this.tachesPrealables = new ArrayList<Tache>(0);
     }
 

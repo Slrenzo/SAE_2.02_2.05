@@ -638,7 +638,6 @@ public class Projet {
             dateAuPlusTard = this.dateAuPlusTardProjet - tacheTester.get(i).getDuree();
             tacheTester.get(i).setDateAuPlusTard(dateAuPlusTard); 
         }
-        
     }
     
     /**
