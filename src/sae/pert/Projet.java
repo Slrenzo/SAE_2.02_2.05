@@ -592,7 +592,9 @@ public class Projet {
                             this.taches.get(j).setDateAuPlusTot(dateAuPlusTot);
                         }
                     }
-                    tacheTester.add(taches.get(j));
+                    if (!tacheTester.contains(taches.get(j))) {
+                        tacheTester.add(taches.get(j));
+                    }
                 }
             }
         }
@@ -655,6 +657,7 @@ public class Projet {
                 dateAuPlusTard = tacheTester.get(i).getDateAuPlusTard() 
                                  - tacheTester.get(i).avoirTachePrealable(j)
                                  .getDuree();
+                dateAuPlusTard = dateAuPlusTard < 0.0 ? 0.0 : dateAuPlusTard;
                 if (dateAuPlusTard < tacheTester.get(i).avoirTachePrealable(j)
                     .getDateAuPlusTard()) {
                     tacheTester.get(i).avoirTachePrealable(j)
