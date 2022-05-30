@@ -669,8 +669,7 @@ public class Projet {
                     tacheTest.avoirTachePrealable(j)
                              .setDateAuPlusTard(dateAuPlusTard);
                 }
-                    tacheTester.add(tacheTest.avoirTachePrealable(j));
-                }
+                tacheTester.add(tacheTest.avoirTachePrealable(j));
             }
         }
     }
