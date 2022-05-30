@@ -605,14 +605,16 @@ public class Projet {
      * Algorithme calculant la date au plus tot de fin de projet
      */
     public void calculerDateAuPlusTotFinDeProjet() {
-        double dateAuPlusTardDeFinDeProjet;
+        double dateAuPlusTotDeFinDeProjet;
         this.dateAuPlusTotProjet = 0.0;
-        for (int i= 0; i < this.taches.size(); i++) {
-            dateAuPlusTardDeFinDeProjet = this.taches.get(i).getDateAuPlusTot() 
-                                          + this.taches.get(i).getDuree();
-            this.dateAuPlusTotProjet = dateAuPlusTardDeFinDeProjet 
+        ArrayList<Tache> dernieresTaches = this.dernieresTaches();
+        for (int i= 0; i < dernieresTaches.size(); i++) {
+            dateAuPlusTotDeFinDeProjet = dernieresTaches.get(i)
+                                         .getDateAuPlusTot() 
+                                         + dernieresTaches.get(i).getDuree();
+            this.dateAuPlusTotProjet = dateAuPlusTotDeFinDeProjet 
                                        > this.dateAuPlusTotProjet
-                                       ? dateAuPlusTardDeFinDeProjet
+                                       ? dateAuPlusTotDeFinDeProjet
                                        : this.dateAuPlusTotProjet;
         }
     }
@@ -656,29 +658,8 @@ public class Projet {
                              .getDuree();
             tacheTester.get(i).setDateAuPlusTard(dateAuPlusTard); 
         }
-        for (int i = 0; i < tacheTester.size(); i++) {
-            for (int j = 0; j < tacheTester.get(i).nombreTachesPrealables()
-                 ; j++) {
-                dateAuPlusTard = tacheTester.get(i).getDateAuPlusTard() 
-                                 - tacheTester.get(i).avoirTachePrealable(j)
-                                 .getDuree();
-                dateAuPlusTard = dateAuPlusTard < 0.0 ? 0.0 : dateAuPlusTard;
-                if (dateAuPlusTard < tacheTester.get(i).avoirTachePrealable(j)
-                    .getDateAuPlusTard()) {
-                    tacheTester.get(i).avoirTachePrealable(j)
-                    .setDateAuPlusTard(dateAuPlusTard);
-                }
-                ok = true;
-                for (int k = 0; ok && k < this.taches.size(); k++) {
-                    if (this.taches.get(k).aLaTachePrealable(
-                        tacheTester.get(i).avoirTachePrealable(j))) {
-                        ok = tacheTester.contains(this.taches.get(k));
-                    }
-                }
-                if (ok) {
-                    tacheTester.add(tacheTester.get(i).avoirTachePrealable(j));
-                }
-            }
+        while (tacheTester.size() < this.taches.size()) {
+            
         }
     }
     
