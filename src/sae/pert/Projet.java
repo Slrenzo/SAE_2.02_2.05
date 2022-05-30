@@ -648,6 +648,7 @@ public class Projet {
     public void calculerDateAuPlusTard() {
         ArrayList<Tache> tacheTester = this.dernieresTaches();
         double dateAuPlusTard;
+        Tache tacheTest;
         boolean ok;
         this.dateAuPlusTardProjet = this.dateAuPlusTotProjet;
         for (int i = 0; i < this.taches.size(); i++) {
@@ -659,7 +660,17 @@ public class Projet {
             tacheTester.get(i).setDateAuPlusTard(dateAuPlusTard); 
         }
         while (tacheTester.size() < this.taches.size()) {
-            
+            for (int i = 0; i < tacheTester.size(); i++) {
+                tacheTest = tacheTester.get(i);
+                for (int j = 0; j < tacheTest.nombreTachesPrealables(); j++) {
+                    dateAuPlusTard = tacheTest.getDateAuPlusTard() - tacheTest
+                                     .avoirTachePrealable(j).getDuree();
+                    if (tacheTester.contains(tacheTest.avoirTachePrealable(j))) {
+                        tacheTester.remove(tacheTest.avoirTachePrealable(j));
+                        tacheTester.add(tacheTest.avoirTachePrealable(j));
+                    }
+                }
+            }
         }
     }
     
