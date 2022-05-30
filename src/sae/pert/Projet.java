@@ -679,7 +679,9 @@ public class Projet {
                             tacheTest.setDateAuPlusTard(dateAuPlusTard);
                         }
                     }
-                    tacheTester.add(tacheTest);
+                    if (!tacheTester.contains(tacheTest)) {
+                        tacheTester.add(tacheTest);
+                    }
                 }
             }
         }
