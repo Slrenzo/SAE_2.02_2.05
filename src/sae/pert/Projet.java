@@ -539,7 +539,6 @@ public class Projet {
         ArrayList<Tache> tachesPrealables;   
         int indexTache;
         for (int i = 0; i < marquagesTaches.length; i++) {
-            marquagesTaches = new boolean[this.taches.size()];
             if (!marquagesTaches[i]) {
                 marquagesTaches[i] = true;
                 tachesPrealables = this.taches.get(i).getTachesPrealables();
@@ -555,6 +554,9 @@ public class Projet {
                     }
                 }
             }
+            if (this.taches.get(i).nombreTachesPrealables() == 0) {
+                marquagesTaches = new boolean[this.taches.size()];
+            }
         }
         return false;
     }
@@ -565,39 +567,36 @@ public class Projet {
      */
     public void calculerDateAuPlusTot() {
         ArrayList<Tache> tacheTester = new ArrayList<Tache>();
+        Tache tacheTest = null;
         double dateAuPlusTot;
         boolean ok;
         for (int i = 0; i < this.taches.size(); i++) {
             if (this.taches.get(i).nombreTachesPrealables() == 0) {
                 tacheTester.add(this.taches.get(i));
-                this.taches.get(i).setDateAuPlusTot(0.0);
             }
+            this.taches.get(i).setDateAuPlusTot(0.0);
         }
-        for (int i = 0; i < tacheTester.size(); i++) {
-            for (int j = 0; j < this.taches.size(); j++) {
-                ok = true;
-                for (int k = 0; ok && k < this.taches.get(j)
-                                .nombreTachesPrealables(); k++) {
-                    ok = tacheTester
-                         .contains(this.taches.get(j).avoirTachePrealable(k));
-                }
-                if (ok) {
-                    for (int k = 0; ok && k < this.taches.get(j)
-                    .nombreTachesPrealables(); k++) {
-                        dateAuPlusTot = this.taches.get(j)
-                                        .avoirTachePrealable(k)
-                                        .getDateAuPlusTot() 
-                                        + this.taches.get(j).getDuree();
-                        if (dateAuPlusTot 
-                            > this.taches.get(j).getDateAuPlusTot()) {
-                            this.taches.get(j).setDateAuPlusTot(dateAuPlusTot);
-                        }
-                    }
-                    if (!tacheTester.contains(taches.get(j))) {
-                        tacheTester.add(taches.get(j));
+        while (tacheTester.size() < this.taches.size()) {
+            ok = false;
+            for (int i = 0; !ok && i < this.taches.size(); i++) {
+                tacheTest = this.taches.get(i);
+                if (!tacheTester.contains(tacheTest)) {
+                    ok = true;
+                    for (int j = 0; ok && j < tacheTest.nombreTachesPrealables()
+                         ; j++) {
+                        ok = tacheTester.contains(tacheTest
+                                        .avoirTachePrealable(j));
                     }
                 }
             }
+            for (int i = 0; i < tacheTest.nombreTachesPrealables(); i++) {
+                dateAuPlusTot = tacheTest.avoirTachePrealable(i)
+                                .getDateAuPlusTot() + tacheTest.getDuree();
+                if (dateAuPlusTot > tacheTest.getDateAuPlusTot()) {
+                    tacheTest.setDateAuPlusTot(dateAuPlusTot);
+                }
+            }
+            tacheTester.add(tacheTest);
         }
     }
     
@@ -606,6 +605,7 @@ public class Projet {
      */
     public void calculerDateAuPlusTotFinDeProjet() {
         double dateAuPlusTardDeFinDeProjet;
+        this.dateAuPlusTotProjet = 0.0;
         for (int i= 0; i < this.taches.size(); i++) {
             dateAuPlusTardDeFinDeProjet = this.taches.get(i).getDateAuPlusTot() 
                                           + this.taches.get(i).getDuree();
@@ -647,6 +647,9 @@ public class Projet {
         double dateAuPlusTard;
         boolean ok;
         this.dateAuPlusTardProjet = this.dateAuPlusTotProjet;
+        for (int i = 0; i < this.taches.size(); i++) {
+            taches.get(i).setDateAuPlusTard(Double.POSITIVE_INFINITY);
+        }
         for (int i = 0; i < tacheTester.size(); i++) {
             dateAuPlusTard = this.dateAuPlusTardProjet - tacheTester.get(i)
                              .getDuree();
