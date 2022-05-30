@@ -659,23 +659,22 @@ public class Projet {
                              .getDuree();
             tacheTester.get(i).setDateAuPlusTard(dateAuPlusTard); 
         }
-        while (tacheTester.size() < this.taches.size()) {
-            for (int i = 0; i < tacheTester.size(); i++) {
-                tacheTest = tacheTester.get(i);
-                for (int j = 0; j < tacheTest.nombreTachesPrealables(); j++) {
-                    dateAuPlusTard = tacheTest.getDateAuPlusTard() - tacheTest
-                                     .avoirTachePrealable(j).getDuree();
-                    if (dateAuPlusTard < tacheTest.avoirTachePrealable(j)
-                        .getDateAuPlusTard()) {
-                        tacheTest.avoirTachePrealable(j)
-                                 .setDateAuPlusTard(dateAuPlusTard);
-                    }
-                    if (tacheTester.contains(tacheTest.avoirTachePrealable(j))) {
-                        tacheTester.remove(tacheTest.avoirTachePrealable(j));
-                        tacheTester.add(tacheTest.avoirTachePrealable(j));
-                    } else {
-                        tacheTester.add(tacheTest.avoirTachePrealable(j));
-                    }
+        for (int i = 0; i < tacheTester.size(); i++) {
+            tacheTest = tacheTester.get(i);
+              for (int j = 0; j < tacheTest.nombreTachesPrealables(); j++) {
+                  dateAuPlusTard = tacheTest.getDateAuPlusTard() - tacheTest
+                                   .avoirTachePrealable(j).getDuree();
+                if (dateAuPlusTard < tacheTest.avoirTachePrealable(j)
+                    .getDateAuPlusTard()) {
+                    tacheTest.avoirTachePrealable(j)
+                             .setDateAuPlusTard(dateAuPlusTard);
+                }
+                if (tacheTester.contains(tacheTest.avoirTachePrealable(j))) {
+                    tacheTester.remove(tacheTest.avoirTachePrealable(j));
+                    tacheTester.add(tacheTest.avoirTachePrealable(j));
+                    i--;
+                } else {
+                    tacheTester.add(tacheTest.avoirTachePrealable(j));
                 }
             }
         }
