@@ -686,18 +686,19 @@ public class Projet {
         tachesContraintes = new ArrayList<Tache>();
         for (int i = 0; i < this.taches.size(); i++) {
             tacheTest = this.taches.get(i);
+            dateAuPlusTard = Double.POSITIVE_INFINITY;
             for (int j = i + 1; j < this.taches.size(); j++) {
-                ok = true;
+                ok = this.taches.get(j).nombreTachesPrealables()
+                     == tacheTest.nombreTachesPrealables();
                 for (int k = 0; ok && k < tacheTest.nombreTachesPrealables()
                      ; k++) {
-                    ok= this.taches.get(j).aLaTachePrealable(tacheTest
-                        .avoirTachePrealable(k));
+                    ok = this.taches.get(j).aLaTachePrealable(tacheTest
+                         .avoirTachePrealable(k));
                 }
                 if (ok) {
                     tachesContraintes.add(this.taches.get(j));
                 }
             }
-            dateAuPlusTard = Double.POSITIVE_INFINITY;
             for (int j = 0; j < tachesContraintes.size(); j ++) {
                 if (dateAuPlusTard > tachesContraintes.get(j)
                     .getDateAuPlusTard()) {
