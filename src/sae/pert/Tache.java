@@ -78,6 +78,8 @@ public class Tache {
         this.duree = duree;
         this.dateAuPlusTard = 0.0;
         this.dateAuPlusTot = 0.0;
+        this.margeLibre = 0.0;
+        this.margeTotale = 0.0;        
         this.tachesPrealables = new ArrayList<Tache>(0);
     }
 
@@ -179,6 +181,10 @@ public class Tache {
      * @param margeLibre modifie margeLibre
      */
     public void setMargeLibre(double margeLibre) {
+        if (margeLibre < 0.0) {
+            throw new IllegalArgumentException("La marge libre ne peut pas "
+                                               + "être négatif");
+        }
         this.margeLibre = margeLibre;
     }
 
@@ -193,6 +199,10 @@ public class Tache {
      * @param margeTotale modifie margeTotale 
      */
     public void setMargeTotale(double margeTotale) {
+        if (margeTotale < 0.0) {
+            throw new IllegalArgumentException("La marge totale ne peut pas "
+                                               + "être négatif");
+        }
         this.margeTotale = margeTotale;
     }
 
