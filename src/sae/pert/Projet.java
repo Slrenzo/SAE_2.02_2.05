@@ -699,6 +699,7 @@ public class Projet {
                     tachesContraintes.add(this.taches.get(j));
                 }
             }
+            tachesContraintes.add(tacheTest);
             for (int j = 0; j < tachesContraintes.size(); j ++) {
                 if (dateAuPlusTard > tachesContraintes.get(j)
                     .getDateAuPlusTard()) {
