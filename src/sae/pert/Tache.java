@@ -44,6 +44,16 @@ public class Tache {
      */
     private ArrayList<Tache> tachesPrealables;
     
+    /*
+     * Marge libre de cette tache defini par un projet
+     */
+    private double margeLibre;
+    
+    /*
+     * Marge totale de cette tache defini par un projet
+     */
+    private double margeTotale;
+    
     /**
      * Definition d'une tache ayant une duree de realisation
      * @param nom nom ni vide ni null de la tache
@@ -154,6 +164,36 @@ public class Tache {
             throw new IllegalArgumentException("La date est negative");
         }
         this.dateAuPlusTard = dateAuPlusTard;
+    }
+    
+    
+
+    /**
+     * @return margeLibre
+     */
+    public double getMargeLibre() {
+        return margeLibre;
+    }
+
+    /**
+     * @param margeLibre modifie margeLibre
+     */
+    public void setMargeLibre(double margeLibre) {
+        this.margeLibre = margeLibre;
+    }
+
+    /**
+     * @return margeTotale
+     */
+    public double getMargeTotale() {
+        return margeTotale;
+    }
+
+    /**
+     * @param margeTotale modifie margeTotale 
+     */
+    public void setMargeTotale(double margeTotale) {
+        this.margeTotale = margeTotale;
     }
 
     /**
