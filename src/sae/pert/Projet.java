@@ -683,9 +683,9 @@ public class Projet {
                 }
             }
         }
-        tachesContraintes = new ArrayList<Tache>();
         for (int i = 0; i < this.taches.size(); i++) {
             tacheTest = this.taches.get(i);
+            tachesContraintes.clear();
             dateAuPlusTard = Double.POSITIVE_INFINITY;
             for (int j = i + 1; j < this.taches.size(); j++) {
                 ok = this.taches.get(j).nombreTachesPrealables()
