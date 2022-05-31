@@ -726,7 +726,7 @@ public class Projet {
                            + this.uniteTemps + "\n" 
                            + this.dateAuPlusTotProjet + "\n" 
                            + this.dateAuPlusTardProjet + "\n" 
-                           + "\n" + taches.size() + "\n"
+                           + "\n" + taches.size()
                            + "\n" + tacheToString()
                            + "\n" + tachePrealableToString()
                          );
