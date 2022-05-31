@@ -550,7 +550,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
         tacheDeTest.ajouterTachePrealable(tacheAAjouter);
         
         try {
-            tacheDeTest.aLaTachePrealabale(tacheAAjouter);
+            tacheDeTest.aLaTachePrealable(tacheAAjouter);
             ok = true;
         } catch (IllegalArgumentException tachePrésente) {
             ok = false;
