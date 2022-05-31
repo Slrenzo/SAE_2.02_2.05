@@ -701,7 +701,7 @@ public class Projet {
             }
             tachesContraintes.add(tacheTest);
             for (int j = 0; j < tachesContraintes.size(); j ++) {
-                if (dateAuPlusTard < tachesContraintes.get(j)
+                if (dateAuPlusTard > tachesContraintes.get(j)
                     .getDateAuPlusTard()) {
                     dateAuPlusTard = tachesContraintes.get(j)
                                      .getDateAuPlusTard();
