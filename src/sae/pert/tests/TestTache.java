@@ -53,6 +53,8 @@ public class TestTache {
         ok &= testGetTachesPrealables();
         ok &= testNombreTachesPrealables();
         ok &= testALaTachePrealable();
+        ok &= testGetSetMargeLibre();
+        ok &= testGetSetMargeTotale();
         
         
         if(ok) {
@@ -558,5 +560,54 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
         
         return ok;
     }
-
+    
+    /** Test unitaires de setMargeLibre
+     * @return true si test reussis sinon false 
+     */
+    private static boolean testGetSetMargeLibre() {
+        
+        boolean ok;
+        
+        /** Tache de test */
+        Tache test = new Tache("Tache A", "Répartition du travail", 30.5);
+        double[] testMargeLibre = {78.0, 0.0};
+        
+        double[] margeLibreAttendus = {78.0, 0.0};
+        
+        ok = true;
+        for (int noTest = 0; ok && noTest < testMargeLibre.length; noTest++) {
+            try {
+                test.setMargeLibre(testMargeLibre[noTest]);
+                ok &= test.getMargeLibre() == margeLibreAttendus[noTest] ;
+            } catch (IllegalArgumentException margeIncorrect) {
+                ok = true;
+            }
+        }
+        return ok;
+    }
+    
+    /** Test unitaires de setMargeLibre
+     * @return true si test reussis sinon false 
+     */
+    private static boolean testGetSetMargeTotale() {
+        
+        boolean ok;
+        
+        /** Tache de test */
+        Tache test = new Tache("Tache A", "Répartition du travail", 30.5);
+        double[] testMargeTotale = {78.0, 0.0};
+        
+        double[] margeTotaleAttendus = {78.0, 0.0};
+        
+        ok = true;
+        for (int noTest = 0; ok && noTest < testMargeTotale.length; noTest++) {
+            try {
+                test.setMargeTotale(testMargeTotale[noTest]);
+                ok &= test.getMargeTotale() == margeTotaleAttendus[noTest] ;
+            } catch (IllegalArgumentException margeIncorrect) {
+                ok = true;
+            }
+        }
+        return ok;
+    }
 }
