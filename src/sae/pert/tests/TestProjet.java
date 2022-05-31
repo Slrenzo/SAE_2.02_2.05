@@ -47,6 +47,7 @@ public class TestProjet {
         ok &= testCalculDateAuPlusTot();
         ok &= testCalculDateAuPlusTard();
         ok &= testCalculDateAuPlusTotDeFinDeProjet();
+        ok &= testGetDateAuPlusTotetTardProjet();
         
         if (ok) {
             System.out.println("Test reussis");
@@ -398,6 +399,44 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
         ok &= AssertionTest.assurerEgaliteDouble(5.5, tacheD.getDateAuPlusTard());
         ok &= AssertionTest.assurerEgaliteDouble(25.5, tacheE.getDateAuPlusTard());
         
+        return ok;
+    }
+    
+    /**
+     * test unitaires de la méthode getDateAuPlusTotProjet
+     * @return true si test reussis, sinon false
+     */
+    private static boolean testGetDateAuPlusTotetTardProjet() {
+        boolean ok;
+        ok = true;
+        
+        Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TEMPS[2]);
+        
+        Tache tacheA = new Tache("Tache A", "Cette tache consiste à analyser le besoin", 2.0);
+        Tache tacheB = new Tache("Tache B", "Mise en place des méthodes de travail", 5.0);
+        Tache tacheC = new Tache("Tache C", "Répartition du travail", 3.5);
+        Tache tacheE = new Tache("Tache E", "Réalisation de l'application", 30.0);
+        Tache tacheD = new Tache("Tache D", "Réalisation des tests", 20.0);
+        
+        ProjetTest.ajouterTache(tacheA);
+        ProjetTest.ajouterTache(tacheB);
+        ProjetTest.ajouterTache(tacheC);
+        ProjetTest.ajouterTache(tacheD);
+        ProjetTest.ajouterTache(tacheE);
+        
+        tacheB.ajouterTachePrealable(tacheA);
+        tacheC.ajouterTachePrealable(tacheA);
+        tacheD.ajouterTachePrealable(tacheC);
+        tacheE.ajouterTachePrealable(tacheB);
+        tacheE.ajouterTachePrealable(tacheD);
+        
+        
+        ProjetTest.calculerDateAuPlusTot();
+        ProjetTest.calculerDateAuPlusTotFinDeProjet();
+        ProjetTest.calculerDateAuPlusTard();
+    
+        ok &= AssertionTest.assurerEgaliteDouble(55.5, ProjetTest.getDateAuPlusTotProjet());
+        ok &= AssertionTest.assurerEgaliteDouble(55.5, ProjetTest.getDateAuPlusTardProjet());
         return ok;
     }
     
