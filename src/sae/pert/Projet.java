@@ -539,7 +539,7 @@ public class Projet {
         ArrayList<Tache> tachesATester = new ArrayList<Tache>();
         int indexTest = 0;
         tachesATester.add(this.taches.get(indexTest));
-        while (indexTest < this.taches.size() - 1 || tachesATester.isEmpty()) {
+        while (indexTest < this.taches.size() - 1) {
             if (tachesATester.isEmpty()) {
                 indexTest++;
                 tachesATester.add(this.taches.get(indexTest));
@@ -681,6 +681,13 @@ public class Projet {
                         tacheTester.add(tacheTest);
                     }
                 }
+            }
+        }
+        tachesContraintes = new ArrayList<Tache>();
+        for (int i = 0; i < this.taches.size(); i++) {
+            tacheTest = this.taches.get(i);
+            for (int j = 0; j < this.taches.size(); j++) {
+                
             }
         }
     }
