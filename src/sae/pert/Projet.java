@@ -210,42 +210,32 @@ public class Projet {
     }
     
     /** 
+     * Determine les successeurs de chaque tache du projet
+     */
+    public void determinerLesSuccesseurs() {
+        List<Tache> successeurs;
+        for (int i = 0; i < taches.size(); i++) {
+            successeurs = new ArrayList<Tache>();
+            for (int j = 0; j < taches.size(); j++) {
+                if (taches.get(j).aLaTachePrealable(taches.get(i))) {
+                    successeurs.add(taches.get(j));
+                }
+            }
+            taches.get(i).setTachesSuccesseurs(successeurs);
+        }
+    }
+    
+    /** 
      * Algorithme calculant la date au plus tot de chaque tache
      * et la date au plus tot de fin de projet
      */
     public void calculerDateAuPlusTot() {
         List<Tache> tacheTester = new ArrayList<Tache>();
-        Tache tacheTest = null;
-        double dateAuPlusTot;
-        boolean ok;
         for (int i = 0; i < this.taches.size(); i++) {
             if (this.taches.get(i).nombreTachesPrealables() == 0) {
                 tacheTester.add(this.taches.get(i));
             }
             this.taches.get(i).setDateAuPlusTot(0.0);
-        }
-        while (tacheTester.size() < this.taches.size()) {
-            ok = false;
-            for (int i = 0; !ok && i < this.taches.size(); i++) {
-                tacheTest = this.taches.get(i);
-                if (!tacheTester.contains(tacheTest)) {
-                    ok = true;
-                    for (int j = 0; ok && j < tacheTest.nombreTachesPrealables()
-                         ; j++) {
-                        ok = tacheTester.contains(tacheTest
-                                        .avoirTachePrealable(j));
-                    }
-                }
-            }
-            for (int i = 0; i < tacheTest.nombreTachesPrealables(); i++) {
-                dateAuPlusTot = tacheTest.avoirTachePrealable(i)
-                                .getDateAuPlusTot() + tacheTest
-                                .avoirTachePrealable(i).getDuree();
-                if (dateAuPlusTot > tacheTest.getDateAuPlusTot()) {
-                    tacheTest.setDateAuPlusTot(dateAuPlusTot);
-                }
-            }
-            tacheTester.add(tacheTest);
         }
     }
     
