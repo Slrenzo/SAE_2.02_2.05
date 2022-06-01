@@ -326,6 +326,14 @@ public class Tache {
     }
     
     /**
+     * Ajoute une liste de taches aux taches successeurs de cette tache
+     * @param taches taches que l'on souhaite ajouter aux taches successeurs
+     */
+    public void setTachesSuccesseurs(List<Tache> taches) {
+        tachesSuccesseurs = taches;
+    }
+    
+    /**
      * @param tacheATester tache que l'on test si elle est une tache successeur
      * @return true si tacheATester est une tache successeur
      */
