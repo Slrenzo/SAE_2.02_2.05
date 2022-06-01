@@ -369,7 +369,7 @@ public class Projet {
      */
     public void sauvegarder(String chemin) {
      
-        File file = new File(chemin + ".txt");
+        File file = new File(chemin);
         FileWriter fichier;
         
         try {
@@ -436,7 +436,7 @@ public class Projet {
         BufferedReader lecteur;
 
         try {
-            lecteur = new BufferedReader(new FileReader(chemin + ".txt"));
+            lecteur = new BufferedReader(new FileReader(chemin));
             projet = infoProjet(lecteur);
             nbTaches = Integer.parseInt(lecteur.readLine());
             
