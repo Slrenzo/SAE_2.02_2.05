@@ -87,6 +87,7 @@ public class Tache {
         this.margeLibre = 0.0;
         this.margeTotale = 0.0;        
         this.tachesPrealables = new ArrayList<Tache>(0);
+        this.tachesSuccesseurs = new ArrayList<Tache>(0);
     }
 
     /**
