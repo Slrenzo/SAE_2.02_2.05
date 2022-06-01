@@ -265,6 +265,7 @@ public class Projet {
      * Algorithme calculant la date au plus tot de fin de projet
      */
     public void calculerDateAuPlusTotFinDeProjet() {
+        this.calculerDateAuPlusTot();
         double dateAuPlusTotDeFinDeProjet;
         this.dateAuPlusTotProjet = 0.0;
         List<Tache> dernieresTaches = this.dernieresTaches();
@@ -306,72 +307,12 @@ public class Projet {
      * et la date au plus tard de fin de projet
      */
     public void calculerDateAuPlusTard() {
-        List<Tache> tacheTester = this.dernieresTaches();
-        double dateAuPlusTard;
-        Tache tacheTest;
-        List<Tache> tachesContraintes = new ArrayList<Tache>();
-        boolean ok;
+        this.calculerDateAuPlusTotFinDeProjet();
         this.dateAuPlusTardProjet = this.dateAuPlusTotProjet;
-        for (int i = 0; i < this.taches.size(); i++) {
-            taches.get(i).setDateAuPlusTard(Double.POSITIVE_INFINITY);
-        }
-        for (int i = 0; i < tacheTester.size(); i++) {
-            dateAuPlusTard = this.dateAuPlusTardProjet - tacheTester.get(i)
-                             .getDuree();
-            tacheTester.get(i).setDateAuPlusTard(dateAuPlusTard); 
-        }
-        while (tacheTester.size() < this.taches.size()) {
-            ok = false;
-            for (int i = 0; !ok && i < this.taches.size(); i++) {
-                tacheTest = this.taches.get(i);
-                if (!tacheTester.contains(tacheTest)) {
-                    tachesContraintes = new ArrayList<Tache>();
-                    for (int j = 0; j < this.taches.size(); j++) {
-                        if (this.taches.get(j).aLaTachePrealable(tacheTest)) {
-                            tachesContraintes.add(this.taches.get(j));
-                        }
-                    }
-                    if (tacheTester.containsAll(tachesContraintes)) {
-                        for (int j = 0; j < tachesContraintes.size(); j++) {
-                            dateAuPlusTard = tachesContraintes.get(j)
-                                            .getDateAuPlusTard() 
-                                            - tacheTest.getDuree();
-                            if (dateAuPlusTard < tacheTest.getDateAuPlusTard()){
-                                tacheTest.setDateAuPlusTard(dateAuPlusTard);
-                            }
-                        }
-                        tacheTester.add(tacheTest);
-                    }
-                }
-            }
-        }
-        for (int i = 0; i < this.taches.size(); i++) {
-            tacheTest = this.taches.get(i);
-            tachesContraintes.clear();
-            dateAuPlusTard = Double.POSITIVE_INFINITY;
-            for (int j = i + 1; j < this.taches.size(); j++) {
-                ok = this.taches.get(j).nombreTachesPrealables()
-                     == tacheTest.nombreTachesPrealables();
-                for (int k = 0; ok && k < tacheTest.nombreTachesPrealables()
-                     ; k++) {
-                    ok = this.taches.get(j).aLaTachePrealable(tacheTest
-                         .avoirTachePrealable(k));
-                }
-                if (ok) {
-                    tachesContraintes.add(this.taches.get(j));
-                }
-            }
-            tachesContraintes.add(tacheTest);
-            for (int j = 0; j < tachesContraintes.size(); j ++) {
-                if (dateAuPlusTard > tachesContraintes.get(j)
-                    .getDateAuPlusTard()) {
-                    dateAuPlusTard = tachesContraintes.get(j)
-                                     .getDateAuPlusTard();
-                }
-            }
-            for (int j = 0; j < tachesContraintes.size(); j ++) {
-                tachesContraintes.get(j).setDateAuPlusTard(dateAuPlusTard);
-            }
+        List<Tache> tachesATester = this.dernieresTaches();
+        for (int i = 0; i < tachesATester.size(); i++) {
+            tachesATester.get(i).setDateAuPlusTard(dateAuPlusTardProjet 
+                                - tachesATester.get(i).getDuree());
         }
     }
     

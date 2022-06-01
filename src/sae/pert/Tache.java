@@ -303,6 +303,28 @@ public class Tache {
     }
     
     /**
+     * @return tachesPrealables les taches successeurs de cette tache
+     */
+    public List<Tache> getTachesSuccesseurs() {
+        List<Tache> cloneTachesSuccesseurs = new ArrayList<Tache>(0);
+        Tache cloneTache;
+        for (int i = 0; i < this.tachesSuccesseurs.size(); i++) {
+            cloneTache = new Tache(this.tachesSuccesseurs.get(i).getNom(),
+                                   this.tachesSuccesseurs.get(i)
+                                   .getDescription(),
+                                   this.duree);
+            cloneTache.setDateAuPlusTot(
+                            this.tachesSuccesseurs.get(i).getDateAuPlusTot()
+            );
+            cloneTache.setDateAuPlusTard(
+                            this.tachesSuccesseurs.get(i).getDateAuPlusTard()
+            );
+            cloneTachesSuccesseurs.add(cloneTache);
+        }
+        return cloneTachesSuccesseurs;
+    }
+    
+    /**
      * Ajoute une tache aux taches successeurs de cette tache
      * @param tache tache que l'on souhaite ajouter aux taches successeurs
      * @throws IllegalArgumentException tache est deja une tache successeur 
