@@ -200,6 +200,7 @@ public class Projet {
                  ; j++) {
                 ok = !tacheATester.contains(tacheATester.get(i)
                                   .avoirTachePrealable(j));
+                tacheATester.add(tacheATester.get(i).avoirTachePrealable(j));
             }
             if (!ok) {
                 return true;
