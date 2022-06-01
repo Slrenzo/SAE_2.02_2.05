@@ -5,6 +5,7 @@
 package sae.pert.tests;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import sae.pert.Projet;
 import sae.pert.Tache;
@@ -48,6 +49,7 @@ public class TestProjet {
         ok &= testCalculDateAuPlusTard();
         ok &= testCalculDateAuPlusTotDeFinDeProjet();
         ok &= testGetDateAuPlusTotetTardProjet();
+        ok &= testAUnCircuit();
         
         if (ok) {
             System.out.println("Test reussis");
@@ -259,7 +261,7 @@ public class TestProjet {
         boolean ok;
         ok = true;
         
-        ArrayList<Tache> cloneTaches = new ArrayList<Tache>();
+        List<Tache> cloneTaches = new ArrayList<Tache>();
         
         Projet ProjetA = new Projet("Projet A", "Projet automatique", Projet.UNITE_TEMPS[2]);
         
@@ -437,6 +439,67 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
     
         ok &= AssertionTest.assurerEgaliteDouble(55.5, ProjetTest.getDateAuPlusTotProjet());
         ok &= AssertionTest.assurerEgaliteDouble(55.5, ProjetTest.getDateAuPlusTardProjet());
+        return ok;
+    }
+    
+    /**
+     * test unitaire de la méthode aUnCircuit
+     * @return true si test reussis ,sinon false
+     */
+    private static boolean testAUnCircuit() {
+        boolean ok;
+        ok = true;
+        
+        Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TEMPS[2]);
+        
+        Tache tacheA = new Tache("Tache A", "Cette tache consiste à analyser le besoin", 2.0);
+        Tache tacheB = new Tache("Tache B", "Mise en place des méthodes de travail", 5.0);
+        Tache tacheC = new Tache("Tache C", "Répartition du travail", 3.5);
+        Tache tacheE = new Tache("Tache E", "Réalisation de l'application", 30.0);
+        Tache tacheD = new Tache("Tache D", "Réalisation des tests", 20.0);
+        
+        ProjetTest.ajouterTache(tacheA);
+        ProjetTest.ajouterTache(tacheB);
+        ProjetTest.ajouterTache(tacheC);
+        ProjetTest.ajouterTache(tacheD);
+        ProjetTest.ajouterTache(tacheE);
+        
+        tacheB.ajouterTachePrealable(tacheA);
+        tacheC.ajouterTachePrealable(tacheA);
+        tacheD.ajouterTachePrealable(tacheC);
+        tacheE.ajouterTachePrealable(tacheB);
+        tacheA.ajouterTachePrealable(tacheE);
+        
+        ok = ProjetTest.aUnCircuit(tacheA);
+        
+        
+        tacheB.enleverTachePrealable(tacheA);
+        tacheC.enleverTachePrealable(tacheA);
+        tacheD.enleverTachePrealable(tacheC);
+        tacheE.enleverTachePrealable(tacheB);
+        tacheA.enleverTachePrealable(tacheE);
+        Projet ProjetTest1 = new Projet("Projet B", "Projet automatique", Projet.UNITE_TEMPS[2]);
+        
+        Tache tacheF = new Tache("Tache F", "Cette tache consiste à analyser le besoin", 2.0);
+        Tache tacheG = new Tache("Tache G", "Mise en place des méthodes de travail", 5.0);
+        Tache tacheH = new Tache("Tache H", "Répartition du travail", 3.5);
+        Tache tacheI = new Tache("Tache I", "Réalisation de l'application", 30.0);
+        Tache tacheJ = new Tache("Tache J", "Réalisation des tests", 20.0);
+        
+        ProjetTest1.ajouterTache(tacheF);
+        ProjetTest1.ajouterTache(tacheG);
+        ProjetTest1.ajouterTache(tacheH);
+        ProjetTest1.ajouterTache(tacheI);
+        ProjetTest1.ajouterTache(tacheJ);
+        
+        tacheG.ajouterTachePrealable(tacheF);
+        tacheH.ajouterTachePrealable(tacheF);
+        tacheD.ajouterTachePrealable(tacheH);
+        tacheJ.ajouterTachePrealable(tacheG);
+        tacheJ.ajouterTachePrealable(tacheI);
+        
+        ok &= !ProjetTest1.aUnCircuit(tacheJ);
+        
         return ok;
     }
     

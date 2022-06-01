@@ -5,6 +5,7 @@
 package sae.pert.tests;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import sae.pert.Projet;
 import sae.pert.Tache;
@@ -488,7 +489,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
         boolean ok;
         ok = true;
         
-        ArrayList<Tache> cloneTaches = new ArrayList<Tache>();
+        List<Tache> cloneTaches = new ArrayList<Tache>();
         
         Tache tacheDeTest = new Tache("Tache D", "Réalisation de l'application", 30.0);
         
@@ -529,7 +530,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
         tacheDeTest.ajouterTachePrealable(tacheAAjouter);
         tacheDeTest.ajouterTachePrealable(tacheAAjouter1);
         
-        ArrayList<Tache> tachePrealables = tacheDeTest.getTachesPrealables();
+        List<Tache> tachePrealables = tacheDeTest.getTachesPrealables();
         ok = AssertionTest.assurerEgaliteDouble(tacheDeTest.nombreTachesPrealables(), tachePrealables.size());
         
         return ok;

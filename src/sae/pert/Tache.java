@@ -87,6 +87,7 @@ public class Tache {
         this.margeLibre = 0.0;
         this.margeTotale = 0.0;        
         this.tachesPrealables = new ArrayList<Tache>(0);
+        this.tachesSuccesseurs = new ArrayList<Tache>(0);
     }
 
     /**
@@ -153,7 +154,9 @@ public class Tache {
         if (dateAuPlusTot < 0.0) {
             throw new IllegalArgumentException("La date est negative");
         }
-        this.dateAuPlusTot = dateAuPlusTot;
+        if (dateAuPlusTot > this.dateAuPlusTot) {
+            this.dateAuPlusTot = dateAuPlusTot;
+        }
     }
 
     /**
@@ -322,6 +325,21 @@ public class Tache {
                                                + " sont les meme");
         }
         this.tachesSuccesseurs.add(tache);
+    }
+    
+    /** 
+     * @return nombre de taches successeurs de cette tache
+     */
+    public int nombreTachesSuccesseurs() {
+        return this.tachesSuccesseurs.size();
+    }
+    
+    /**
+     * Ajoute une liste de taches aux taches successeurs de cette tache
+     * @param taches taches que l'on souhaite ajouter aux taches successeurs
+     */
+    public void setTachesSuccesseurs(List<Tache> taches) {
+        tachesSuccesseurs = taches;
     }
     
     /**
