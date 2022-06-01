@@ -313,24 +313,24 @@ public class Projet {
     public void calculerDateAuPlusTard() {
         this.calculerDateAuPlusTotFinDeProjet();
         this.dateAuPlusTardProjet = this.dateAuPlusTotProjet;
-        List<Tache> tachesATester = this.dernieresTaches();
+        List<Tache> tachesTester = this.dernieresTaches();
         double dateAuPlusTard;
-        for (int i = 0; i < tachesATester.size(); i++) {
-            tachesATester.get(i).setDateAuPlusTard(dateAuPlusTardProjet 
-                                - tachesATester.get(i).getDuree());
+        for (int i = 0; i < tachesTester.size(); i++) {
+            tachesTester.get(i).setDateAuPlusTard(dateAuPlusTardProjet 
+                        - tachesTester.get(i).getDuree()); 
         }
-        for (int i = 0; i < tachesATester.size(); i++) {
-            for (int j = 0; j < tachesATester.get(i).nombreTachesPrealables()
+        for (int i = 0; i < tachesTester.size(); i++) {
+            for (int j = 0; j < tachesTester.get(i).nombreTachesPrealables()
                  ; j++) {
-                dateAuPlusTard = tachesATester.get(i).getDateAuPlusTard()
-                                 - tachesATester.get(i).avoirTachePrealable(j)
-                                 .getDuree();
-                if (dateAuPlusTard < tachesATester.get(i).avoirTachePrealable(j)
+                dateAuPlusTard = tachesTester.get(i).getDateAuPlusTard() 
+                                - tachesTester.get(i).avoirTachePrealable(j)
+                                .getDuree();
+                if (dateAuPlusTard < tachesTester.get(i).avoirTachePrealable(j)
                     .getDateAuPlusTard()) {
-                    tachesATester.get(i).avoirTachePrealable(j)
-                                 .setDateAuPlusTard(dateAuPlusTard);
+                    tachesTester.get(i).avoirTachePrealable(j)
+                                .setDateAuPlusTard(dateAuPlusTard);
                 }
-                tachesATester.add(tachesATester.get(i).avoirTachePrealable(j));
+                tachesTester.add(tachesTester.get(i).avoirTachePrealable(j));
             }
         }
     }
