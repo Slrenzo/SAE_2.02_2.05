@@ -154,9 +154,7 @@ public class Tache {
         if (dateAuPlusTot < 0.0) {
             throw new IllegalArgumentException("La date est negative");
         }
-        if (dateAuPlusTot > this.dateAuPlusTot) {
-            this.dateAuPlusTot = dateAuPlusTot;
-        }
+        this.dateAuPlusTot = dateAuPlusTot;
     }
 
     /**
