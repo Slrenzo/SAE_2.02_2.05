@@ -472,6 +472,34 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
         
         ok = ProjetTest.aUnCircuit(tacheA);
         
+        
+        tacheB.enleverTachePrealable(tacheA);
+        tacheC.enleverTachePrealable(tacheA);
+        tacheD.enleverTachePrealable(tacheC);
+        tacheE.enleverTachePrealable(tacheB);
+        tacheA.enleverTachePrealable(tacheE);
+        Projet ProjetTest1 = new Projet("Projet B", "Projet automatique", Projet.UNITE_TEMPS[2]);
+        
+        Tache tacheF = new Tache("Tache F", "Cette tache consiste à analyser le besoin", 2.0);
+        Tache tacheG = new Tache("Tache G", "Mise en place des méthodes de travail", 5.0);
+        Tache tacheH = new Tache("Tache H", "Répartition du travail", 3.5);
+        Tache tacheI = new Tache("Tache I", "Réalisation de l'application", 30.0);
+        Tache tacheJ = new Tache("Tache J", "Réalisation des tests", 20.0);
+        
+        ProjetTest1.ajouterTache(tacheF);
+        ProjetTest1.ajouterTache(tacheG);
+        ProjetTest1.ajouterTache(tacheH);
+        ProjetTest1.ajouterTache(tacheI);
+        ProjetTest1.ajouterTache(tacheJ);
+        
+        tacheG.ajouterTachePrealable(tacheF);
+        tacheH.ajouterTachePrealable(tacheF);
+        tacheD.ajouterTachePrealable(tacheH);
+        tacheJ.ajouterTachePrealable(tacheG);
+        tacheJ.ajouterTachePrealable(tacheI);
+        
+        ok &= !ProjetTest1.aUnCircuit(tacheJ);
+        
         return ok;
     }
     
