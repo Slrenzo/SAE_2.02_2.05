@@ -364,10 +364,11 @@ public class Projet {
     
     /**
      * Sauvegarde dans un fichier les informations du projet
+     * @param chemin du fichier
      */
-    public void sauvegarder() {
+    public void sauvegarder(String chemin) {
      
-        File file = new File("sauv.txt");
+        File file = new File(chemin + ".txt");
         FileWriter fichier;
         
         try {
@@ -424,16 +425,17 @@ public class Projet {
     
     /**
      * Importer à partir d'un fichier les informations du projet
+     * @param chemin
      * @return le projet
      */
-    public static Projet importer() {
+    public static Projet importer(String chemin) {
 
         Projet projet = new Projet("nom","desc","Mois");
         int nbTaches = 0;
         BufferedReader lecteur;
 
         try {
-            lecteur = new BufferedReader(new FileReader("sauv.txt"));
+            lecteur = new BufferedReader(new FileReader(chemin + ".txt"));
             projet = infoProjet(lecteur);
             nbTaches = Integer.parseInt(lecteur.readLine());
             
@@ -549,7 +551,24 @@ public class Projet {
         }       
         return projet;
     }
+    /**
+     * Renvoi le nombre de taches d'un projet donnée
+     * @param projet dont on veut connaitre le nombre de taches
+     * @return le nombre de tache du projet
+     */
+    public static int nombreTaches(Projet projet) {
+        return projet.taches.size();
+    }
     
+    /**
+     * Renvoi une tache à un index donné
+     * @param projet
+     * @param index
+     * @return la tache
+     */
+    public static Tache tacheProjet(Projet projet, int index) {
+        return projet.taches.get(index);
+    }
     
     @Override
     public String toString() {
