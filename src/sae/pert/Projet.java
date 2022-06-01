@@ -6,11 +6,11 @@ package sae.pert;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /** 
@@ -30,7 +30,7 @@ public class Projet {
     private String description;
 
     /* Listes des taches a effectuer dans pour ce projet */
-    private ArrayList<Tache> taches;
+    private List<Tache> taches;
 
     /* Unite de temps utilise pour parler des durees des taches */
     private String uniteTemps;
@@ -263,10 +263,10 @@ public class Projet {
     /**
      * @return taches les taches de ce projet
      */
-    public ArrayList<Tache> getTaches() {
-        ArrayList<Tache> cloneTaches = new ArrayList<Tache>(0);
+    public List<Tache> getTaches() {
+        List<Tache> cloneTaches = new ArrayList<Tache>(0);
         Tache cloneTache;
-        ArrayList<Tache> cloneTachesPrealables;
+        List<Tache> cloneTachesPrealables;
         for (int i = 0; i < this.taches.size(); i++) {
             cloneTache = new Tache(this.taches.get(i).getNom(),
                                    this.taches.get(i).getDescription(),
@@ -536,7 +536,7 @@ public class Projet {
      */
     public boolean aUnCircuit() {
         boolean[] marquagesTaches = new boolean[this.taches.size()];
-        ArrayList<Tache> tachesATester = new ArrayList<Tache>();
+        List<Tache> tachesATester = new ArrayList<Tache>();
         int indexTest = 0;
         tachesATester.add(this.taches.get(indexTest));
         while (indexTest < this.taches.size() - 1) {
@@ -564,7 +564,7 @@ public class Projet {
      * et la date au plus tot de fin de projet
      */
     public void calculerDateAuPlusTot() {
-        ArrayList<Tache> tacheTester = new ArrayList<Tache>();
+        List<Tache> tacheTester = new ArrayList<Tache>();
         Tache tacheTest = null;
         double dateAuPlusTot;
         boolean ok;
@@ -605,7 +605,7 @@ public class Projet {
     public void calculerDateAuPlusTotFinDeProjet() {
         double dateAuPlusTotDeFinDeProjet;
         this.dateAuPlusTotProjet = 0.0;
-        ArrayList<Tache> dernieresTaches = this.dernieresTaches();
+        List<Tache> dernieresTaches = this.dernieresTaches();
         for (int i= 0; i < dernieresTaches.size(); i++) {
             dateAuPlusTotDeFinDeProjet = dernieresTaches.get(i)
                                          .getDateAuPlusTot() 
@@ -621,8 +621,8 @@ public class Projet {
      * Algorithme trouvant les dernieres taches du projet
      * @return la liste des dernieres taches du projet
      */
-    public ArrayList<Tache> dernieresTaches() {
-        ArrayList<Tache> dernieresTaches = new ArrayList<Tache>();
+    public List<Tache> dernieresTaches() {
+        List<Tache> dernieresTaches = new ArrayList<Tache>();
         boolean ok = true;
         if (this.taches.isEmpty()) {
             throw new IllegalArgumentException("Ce projet n'a pas de tache");
@@ -644,10 +644,10 @@ public class Projet {
      * et la date au plus tard de fin de projet
      */
     public void calculerDateAuPlusTard() {
-        ArrayList<Tache> tacheTester = this.dernieresTaches();
+        List<Tache> tacheTester = this.dernieresTaches();
         double dateAuPlusTard;
         Tache tacheTest;
-        ArrayList<Tache> tachesContraintes = new ArrayList<Tache>();
+        List<Tache> tachesContraintes = new ArrayList<Tache>();
         boolean ok;
         this.dateAuPlusTardProjet = this.dateAuPlusTotProjet;
         for (int i = 0; i < this.taches.size(); i++) {

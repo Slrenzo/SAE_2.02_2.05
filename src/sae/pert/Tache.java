@@ -6,6 +6,7 @@
 package sae.pert;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Tache permettant de faire avancer un projet.
@@ -42,7 +43,7 @@ public class Tache {
     /*
      * Liste des taches a realiser avant de realiser cette tache
      */
-    private ArrayList<Tache> tachesPrealables;
+    private List<Tache> tachesPrealables;
     
     /*
      * Marge libre de cette tache defini par un projet
@@ -209,8 +210,8 @@ public class Tache {
     /**
      * @return tachesPrealables les taches prealables de cette tache
      */
-    public ArrayList<Tache> getTachesPrealables() {
-        ArrayList<Tache> cloneTachesPrealables = new ArrayList<Tache>(0);
+    public List<Tache> getTachesPrealables() {
+        List<Tache> cloneTachesPrealables = new ArrayList<Tache>(0);
         Tache cloneTache;
         for (int i = 0; i < this.tachesPrealables.size(); i++) {
             cloneTache = new Tache(this.tachesPrealables.get(i).getNom(),
