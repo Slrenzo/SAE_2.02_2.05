@@ -58,6 +58,7 @@ public class TestTache {
         ok &= testGetSetMargeTotale();
         ok &= testAjouterTacheSuccesseur();
         ok &= testALaTacheSuccesseur();
+        ok &= testEnleverTacheSuccesseur();
         
         if(ok) {
             System.out.println("Test reussis");
@@ -393,9 +394,9 @@ public class TestTache {
         
         Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
         
-        double[] testDateAuPlusTot = {5.0, 0.0};
+        double[] testDateAuPlusTot = {0.0, 5.0};
         
-        double[] dateAuPlusTotAttendus = {5.0, 0.0};
+        double[] dateAuPlusTotAttendus = {0.0, 5.0};
         
         boolean ok;
         ok = true;
@@ -440,9 +441,9 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
         
         /** Tache de test */
         Tache test = new Tache("Tache D", "Réalisation de l'application", 30.0);
-        double[] testDateAuPlusTot = {78, 0.0, -5};
+        double[] testDateAuPlusTot = {0.0, 78.0, -5};
         
-        double[] DateAuPlusTotAttendus = {78, 0.0, 30.0};
+        double[] DateAuPlusTotAttendus = {0.0, 78.0, 30.0};
         
         ok = true;
         for (int noTest = 0; ok && noTest < testDateAuPlusTot.length; noTest++) {
@@ -698,7 +699,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
         tachesSuccesseurAttendues.add(tacheAAjouter2);
         
         tacheDeTest.enleverTacheSuccesseur(tacheAAjouter3);
-        ok &= tacheDeTest.getTachesSuccesseur()
+        ok &= tacheDeTest.getTachesSuccesseurs()
                         .equals(tachesSuccesseurAttendues);
         
         try {
