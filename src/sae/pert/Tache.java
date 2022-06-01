@@ -154,7 +154,9 @@ public class Tache {
         if (dateAuPlusTot < 0.0) {
             throw new IllegalArgumentException("La date est negative");
         }
-        this.dateAuPlusTot = dateAuPlusTot;
+        if (dateAuPlusTot > this.dateAuPlusTot) {
+            this.dateAuPlusTot = dateAuPlusTot;
+        }
     }
 
     /**
@@ -323,6 +325,13 @@ public class Tache {
                                                + " sont les meme");
         }
         this.tachesSuccesseurs.add(tache);
+    }
+    
+    /** 
+     * @return nombre de taches successeurs de cette tache
+     */
+    public int nombreTachesSuccesseurs() {
+        return this.tachesSuccesseurs.size();
     }
     
     /**

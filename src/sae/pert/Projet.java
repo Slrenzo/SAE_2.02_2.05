@@ -231,11 +231,20 @@ public class Projet {
      */
     public void calculerDateAuPlusTot() {
         List<Tache> tacheTester = new ArrayList<Tache>();
+        double dateAuPlusTot;
         for (int i = 0; i < this.taches.size(); i++) {
             if (this.taches.get(i).nombreTachesPrealables() == 0) {
                 tacheTester.add(this.taches.get(i));
             }
             this.taches.get(i).setDateAuPlusTot(0.0);
+        }
+        for (int i = 0; i < tacheTester.size(); i++) {
+            for (int j = 0; j < tacheTester.get(i).nombreTachesSuccesseurs()
+                 ; j++) {
+                dateAuPlusTot = tacheTester.get(i).getDateAuPlusTot() 
+                                + tacheTester.get(i).getDuree();
+                tacheTester.get(i).avoirTacheSuccesseur(j).setDateAuPlusTot(j);
+            }
         }
     }
     
