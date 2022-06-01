@@ -301,7 +301,7 @@ public class Projet {
             if (ok) {
                 dernieresTaches.add(this.taches.get(i));
             }
-            this.taches.get(i).setDateAuPlusTard(Double.NaN);
+            this.taches.get(i).setDateAuPlusTard(Double.POSITIVE_INFINITY);
         }
         return dernieresTaches;
     }
@@ -325,7 +325,12 @@ public class Projet {
                 dateAuPlusTard = tachesATester.get(i).getDateAuPlusTard()
                                  - tachesATester.get(i).avoirTachePrealable(j)
                                  .getDuree();
-                
+                if (dateAuPlusTard < tachesATester.get(i).avoirTachePrealable(j)
+                    .getDateAuPlusTard()) {
+                    tachesATester.get(i).avoirTachePrealable(j)
+                                 .setDateAuPlusTard(dateAuPlusTard);
+                }
+                tachesATester.add(tachesATester.get(i).avoirTachePrealable(j));
             }
         }
     }
