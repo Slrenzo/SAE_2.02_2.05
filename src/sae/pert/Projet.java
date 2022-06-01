@@ -225,19 +225,30 @@ public class Projet {
         }
     }
     
+    
+    /**
+     * Algorithme trouvant les premieres taches du projet
+     * @return la liste des premieres taches du projet
+     */
+    public List<Tache> premieresTaches() {
+        List<Tache> taches = new ArrayList<Tache>();
+        for (int i = 0; i < this.taches.size(); i++) {
+            if (this.taches.get(i).nombreTachesPrealables() == 0) {
+                taches.add(this.taches.get(i));
+            }
+            this.taches.get(i).setDateAuPlusTot(0.0);
+        }
+        return taches;
+    }
+    
     /** 
      * Algorithme calculant la date au plus tot de chaque tache
      * et la date au plus tot de fin de projet
      */
     public void calculerDateAuPlusTot() {
-        List<Tache> tacheTester = new ArrayList<Tache>();
+        this.determinerLesSuccesseurs();
+        List<Tache> tacheTester = this.premieresTaches();
         double dateAuPlusTot;
-        for (int i = 0; i < this.taches.size(); i++) {
-            if (this.taches.get(i).nombreTachesPrealables() == 0) {
-                tacheTester.add(this.taches.get(i));
-            }
-            this.taches.get(i).setDateAuPlusTot(0.0);
-        }
         for (int i = 0; i < tacheTester.size(); i++) {
             for (int j = 0; j < tacheTester.get(i).nombreTachesSuccesseurs()
                  ; j++) {
