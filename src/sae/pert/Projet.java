@@ -243,7 +243,8 @@ public class Projet {
                  ; j++) {
                 dateAuPlusTot = tacheTester.get(i).getDateAuPlusTot() 
                                 + tacheTester.get(i).getDuree();
-                tacheTester.get(i).avoirTacheSuccesseur(j).setDateAuPlusTot(j);
+                tacheTester.get(i).avoirTacheSuccesseur(j)
+                           .setDateAuPlusTot(dateAuPlusTot);
             }
         }
     }
