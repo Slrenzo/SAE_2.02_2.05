@@ -726,8 +726,6 @@ public class Projet {
             fichier.write( this.nom + "\n"
                            + this.description + "\n" 
                            + this.uniteTemps + "\n" 
-                           + this.dateAuPlusTotProjet + "\n" 
-                           + this.dateAuPlusTardProjet + "\n" 
                            + "\n" + taches.size()
                            + "\n" + tacheToString()
                            + "\n" + tachePrealableToString()
@@ -770,9 +768,7 @@ public class Projet {
         for (int i = 0; i < taches.size(); i++) {
             listeTaches += taches.get(i).getNom() + "\n" 
                             + taches.get(i).getDescription() + "\n"
-                            + taches.get(i).getDuree() + "\n"
-                            + taches.get(i).getDateAuPlusTot() + "\n"
-                            + taches.get(i).getDateAuPlusTard() + "\n";
+                            + taches.get(i).getDuree() + "\n";
         }
         return listeTaches;
     }
@@ -811,18 +807,16 @@ public class Projet {
     public static Projet infoProjet(BufferedReader lecteur) {
 
         Projet projet = new Projet("nom","desc","Mois");
-        String[] projetInfo = new String[5];
+        String[] projetInfo = new String[3];
         
         try {
             String line = lecteur.readLine();
             /* info du projet */
-            for (int index = 0; index < 5; index++) {
+            for (int index = 0; index < projetInfo.length; index++) {
                 projetInfo[index] = line;
                 line = lecteur.readLine();
             }
             projet = new Projet (projetInfo[0], projetInfo[1], projetInfo[2]);
-            projet.dateAuPlusTotProjet = Double.parseDouble(projetInfo[3]);
-            projet.dateAuPlusTardProjet = Double.parseDouble(projetInfo[4]);
         } catch (IOException e) {
             System.out.println("Erreur lors de l'importation");
         }     
@@ -847,8 +841,6 @@ public class Projet {
             for (int i = 0; i < nbTache; i++) {
                 Tache tache = new Tache(lecteur.readLine(),lecteur.readLine(),
                                 Double.parseDouble(lecteur.readLine()));
-                tache.setDateAuPlusTot(Double.parseDouble(lecteur.readLine()));
-                tache.setDateAuPlusTard(Double.parseDouble(lecteur.readLine()));
                 projet.ajouterTache(tache);
             }
         } catch (IOException e) {
