@@ -31,7 +31,7 @@ public class TestTache {
     };
     
     /**
-     * Lance les diff�rents jeux de tests
+     * Lance les différents jeux de tests
      * @param args
      */
     public static void main(String[] args) {
@@ -56,7 +56,8 @@ public class TestTache {
         ok &= testALaTachePrealable();
         ok &= testGetSetMargeLibre();
         ok &= testGetSetMargeTotale();
-        
+        ok &= testAjouterTacheSuccesseur();
+        ok &= testALaTacheSuccesseur();
         
         if(ok) {
             System.out.println("Test reussis");
@@ -218,7 +219,7 @@ public class TestTache {
         return ok;
     }
     
-    /** Test unitaires de setDescription
+    /** Tests unitaires de setDescription
      * @return true si test reussis sinon false 
      */
     private static boolean testSetDescription() {
@@ -243,7 +244,7 @@ public class TestTache {
         return ok;
     }
     
-    /** Test unitaires de setDuree
+    /** Tests unitaires de setDuree
      * @return true si test reussis sinon false 
      */
     private static boolean testSetDuree() {
@@ -270,7 +271,7 @@ public class TestTache {
 
 
     /** 
-     * Test unitaires de ajouterTachePrealable
+     * Tests unitaires de ajouterTachePrealable
      * @return true si test réussi, sinon false
      */
     private static boolean testAjouterTachePrealable() {
@@ -303,7 +304,7 @@ public class TestTache {
     }
     
     /** 
-     * Test unitaires de enleverTachePrealable
+     * Tests unitaires de enleverTachePrealable
      * @return true si test réussi, sinon false
      */
     private static boolean testEnleverTachePrealable() {
@@ -340,7 +341,7 @@ public class TestTache {
     }
     
     /**
-     * Test unitaires de toString
+     * Tests unitaires de toString
      * @return true si test r�ussi, sinon false
      */
     private static boolean testToString() {
@@ -430,7 +431,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
         return ok;
     }
     
-    /** Test unitaires de setDateAuPlusTot
+    /** Tests unitaires de setDateAuPlusTot
      * @return true si test reussis sinon false 
      */
     private static boolean testSetDateAuPlusTot() {
@@ -455,7 +456,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
         return ok;
     }
     
-    /** Test unitaires de setDateAuPlusTard
+    /** Tests unitaires de setDateAuPlusTard
      * @return true si test reussis sinon false 
      */
     private static boolean testSetDateAuPlusTard() {
@@ -481,7 +482,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
     }
     
     /**
-     * test unitaires de la méthode getTachesPrealables
+     * tests unitaires de getTachesPrealables
      * @return true si test reussis sinon false
      */
     private static boolean testGetTachesPrealables() {
@@ -513,7 +514,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
     }
     
     /**
-     * test unitaires de la méthode testNombreTachesPrealables
+     * tests unitaires de NombreTachesPrealables
      * @return true si test reussis sinon false
      */
     private static boolean testNombreTachesPrealables() {
@@ -537,7 +538,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
     }
     
     /**
-     * test unitaires de la méthode testALaTachePrealable
+     * tests unitaires de ALaTachePrealable
      * @return true si test reussis sinon false
      */
     private static boolean testALaTachePrealable() {
@@ -562,7 +563,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
         return ok;
     }
     
-    /** Test unitaires de setMargeLibre
+    /** Tests unitaires de setMargeLibre et getMargeLibre
      * @return true si test reussis sinon false 
      */
     private static boolean testGetSetMargeLibre() {
@@ -587,7 +588,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
         return ok;
     }
     
-    /** Test unitaires de setMargeLibre
+    /** Tests unitaires de setMargeTotale et getMargeTotale
      * @return true si test reussis sinon false 
      */
     private static boolean testGetSetMargeTotale() {
@@ -609,6 +610,104 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
                 ok = true;
             }
         }
+        return ok;
+    }
+    
+    /**
+     * Test unitaires de AjouterTacheSuccesseur
+     * @return true si test reussis sinon false
+     */
+    private static boolean testAjouterTacheSuccesseur() {
+        boolean ok;
+        ok = true;
+        
+        Tache tacheAAjouter = new Tache("tache à ajouter", "description de la "
+                        + "tache à ajouter", 20.0);
+        Tache tacheDeTest = new Tache("tache de test", "description de test"
+                                        , 10.0);
+        ArrayList<Tache> tachesSuccesseurAttendues = new ArrayList<Tache>();
+        tachesSuccesseurAttendues.add(tacheAAjouter);
+        
+        tacheDeTest.ajouterTacheSuccesseur(tacheAAjouter);
+        ok &= tacheDeTest.getTachesPrealables()
+                .equals(tachesSuccesseurAttendues);
+        try {
+            tacheDeTest.ajouterTachePrealable(tacheAAjouter);
+            ok = false;
+        } catch (IllegalArgumentException doitSePropager) {
+            ok = true;
+        }
+        
+        try {
+            tacheDeTest.ajouterTachePrealable(tacheDeTest);
+            ok = false;
+        } catch (IllegalArgumentException doitSePropager) {
+            ok = true;
+        }
+        
+        return ok;
+    }
+    
+    /**
+     * tests unitaires de ALaTacheSuccesseur
+     * @return true si test reussis sinon false
+     */
+    private static boolean testALaTacheSuccesseur() {
+        boolean ok;
+        ok = true;
+        
+        Tache tacheDeTest = new Tache("Tache D", "Réalisation de l'application", 30.0);
+        
+        Tache tacheAAjouter = new Tache("Tache A", "Répartition du travail", 30.5);
+        
+        Tache tacheAAjouter1 = new Tache("Tache B", "Réalisation de l'application", 2.0);
+        
+        tacheDeTest.ajouterTacheSuccesseur(tacheAAjouter);
+        
+        try {
+            tacheDeTest.aLaTachePrealable(tacheAAjouter);
+            ok = true;
+        } catch (IllegalArgumentException tachePrésente) {
+            ok = false;
+        }
+        
+        return ok;
+    }
+    
+    /** 
+     * Tests unitaires de enleverTacheSuccesseur
+     * @return true si test réussi, sinon false
+     */
+    private static boolean testEnleverTacheSuccesseur() {
+        boolean ok = true;
+        
+        Tache tacheAAjouter1 = new Tache("tache à ajouter 1", "description de "
+                                         + "la tache à ajouter", 20.0);
+        Tache tacheAAjouter2 = new Tache("tache à ajouter 2", "description de "
+                                         + "la tache à ajouter", 20.0);
+        Tache tacheAAjouter3 = new Tache("tache à ajouter 3", "description de "
+                                         + "la tache à ajouter", 20.0);
+        Tache tacheDeTest = new Tache("tache de test", "description de test"
+                                      , 10.0);
+        tacheDeTest.ajouterTacheSuccesseur(tacheAAjouter1);
+        tacheDeTest.ajouterTacheSuccesseur(tacheAAjouter2);
+        tacheDeTest.ajouterTacheSuccesseur(tacheAAjouter3);
+        
+        ArrayList<Tache> tachesSuccesseurAttendues = new ArrayList<Tache>();
+        tachesSuccesseurAttendues.add(tacheAAjouter1);
+        tachesSuccesseurAttendues.add(tacheAAjouter2);
+        
+        tacheDeTest.enleverTacheSuccesseur(tacheAAjouter3);
+        ok &= tacheDeTest.getTachesSuccesseur()
+                        .equals(tachesSuccesseurAttendues);
+        
+        try {
+            tacheDeTest.enleverTacheSuccesseur(tacheAAjouter3);
+            ok = false;
+        } catch (IllegalArgumentException doitSePropager) {
+            ok = true;
+        }
+        
         return ok;
     }
 }
