@@ -46,6 +46,11 @@ public class Tache {
     private List<Tache> tachesPrealables;
     
     /*
+     * Liste des taches successeurs de cette tache
+     */
+    private List<Tache> tachesSuccesseurs;
+    
+    /*
      * Marge libre de cette tache defini par un projet
      */
     private double margeLibre;
@@ -292,6 +297,65 @@ public class Tache {
                                                + "tache prealable");
         }
         this.tachesPrealables.remove(tache);
+    }
+    
+    /**
+     * Ajoute une tache aux taches successeurs de cette tache
+     * @param tache tache que l'on souhaite ajouter aux taches successeurs
+     * @throws IllegalArgumentException tache est deja une tache successeur 
+     *         de cette tache
+     * @throws IllegalArgumentException la tache que l'on ajoute est la meme
+     *         que cette tache
+     */
+    public void ajouterTacheSuccesseur(Tache tache) {
+        boolean estPresent = false;
+        for (int i = 0; !estPresent && i < this.tachesSuccesseurs.size(); i++) {
+            estPresent = this.tachesSuccesseurs.get(i).nom == tache.nom;
+        }
+        if (estPresent) {
+            throw new IllegalArgumentException("Cette tache est deja une "
+                                               + "tache successeur");
+        }
+        if (this.nom == tache.nom) {
+            throw new IllegalArgumentException("Cette tache et la tache que"
+                                               + " vous souhaitez ajouter"
+                                               + " sont les meme");
+        }
+        this.tachesSuccesseurs.add(tache);
+    }
+    
+    /**
+     * @param tacheATester tache que l'on test si elle est une tache successeur
+     * @return true si tacheATester est une tache successeur
+     */
+    public boolean aLaTacheSuccesseur(Tache tacheATester) {
+        return this.tachesSuccesseurs.contains(tacheATester);
+    }
+    
+    /** 
+     * @param i l'index de la tache que l'on veut recuperer
+     * @return la tache a l'index i
+     */
+    public Tache avoirTacheSuccesseur(int i) {
+        return this.tachesSuccesseurs.get(i);
+    }
+    
+    /**
+     * Enleve une tache aux taches successeurs de cette tache
+     * @param tache tache que l'on souhaite ajouter aux taches successeurs
+     * @throws IllegalArgumentException tache ne fait pas partie des taches 
+     *         successeurs de cette tache
+     */
+    public void enleverTacheSuccesseur(Tache tache) {
+        boolean estPresent = false;
+        for (int i = 0; !estPresent && i < this.tachesSuccesseurs.size(); i++) {
+            estPresent = this.tachesSuccesseurs.get(i).nom == tache.nom;
+        }
+        if (!estPresent) {
+            throw new IllegalArgumentException("Cette tache n'est pas une "
+                                               + "tache successeur");
+        }
+        this.tachesSuccesseurs.remove(tache);
     }
     
     @Override
