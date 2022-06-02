@@ -30,6 +30,9 @@ public class Projet {
 
     /* Listes des taches a effectuer dans pour ce projet */
     private List<Tache> taches;
+    
+    /* Listes des taches critiques de ce projet */
+    private List<Tache> tachesCritiques;
 
     /* Unite de temps utilise pour parler des durees des taches */
     private String uniteTemps;
@@ -81,6 +84,7 @@ public class Projet {
         this.description = description;
         this.uniteTemps = uniteTemps;
         this.taches = new ArrayList<Tache>();
+        this.tachesCritiques = new ArrayList<Tache>();
         this.dateAuPlusTotProjet = 0.0;
         this.dateAuPlusTardProjet = 0.0;
     }
@@ -346,6 +350,20 @@ public class Projet {
         }
         tacheTest.setDateAuPlusTard(dateAuPlusTard - tacheTest.getDuree());
     }
+    
+    /** 
+     * Determine les taches critiques de ce projet
+     */
+    private void determinerTachesCritiques() {
+         this.calculerDateAuPlusTard();
+         Tache tacheTest;
+         for (int i = 0; i < this.taches.size(); i++) {
+             tacheTest = this.taches.get(i);
+             if (tacheTest.getDateAuPlusTot() == tacheTest.getDateAuPlusTard()){
+                 this.tachesCritiques.add(tacheTest);
+             }
+         }
+    }
 
     /**
      * Sauvegarde dans un fichier les informations du projet
@@ -559,15 +577,22 @@ public class Projet {
     public String toString() {
         String taches = this.taches.size() == 0 ? "Ce projet ne contient pas "
                         + "encore de tache" : "Ses taches sont : \n";
+        String tachesCritiques = this.tachesCritiques.size() == 0 ? "Ce projet "
+                                 + "ne contient pas encore de tache critique" 
+                                 : "Ses taches critiques sont : \n";
         for (int i = 0; i < this.taches.size(); i++) {
             taches += this.taches.get(i) + "\n";
+        }
+        for (int i = 0; i < this.tachesCritiques.size(); i++) {
+            tachesCritiques += this.tachesCritiques.get(i).getNom() + "\n";
         }
         return "Ce projet est nomme : " + this.nom + "\n" 
         + "Sa description est : " + this.description + "\n"
         + "Son unite de temps est : " + this.uniteTemps + "\n" 
         + taches + "\n"
         + "Sa date au plus tot est : " + this.dateAuPlusTotProjet + "\n" 
-        + "Sa date au plus tard est : " + this.dateAuPlusTardProjet;
+        + "Sa date au plus tard est : " + this.dateAuPlusTardProjet
+        + tachesCritiques;
     }
 
 }
