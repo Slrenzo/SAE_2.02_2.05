@@ -591,7 +591,7 @@ public class Projet {
         + "Son unite de temps est : " + this.uniteTemps + "\n" 
         + taches + "\n"
         + "Sa date au plus tot est : " + this.dateAuPlusTotProjet + "\n" 
-        + "Sa date au plus tard est : " + this.dateAuPlusTardProjet
+        + "Sa date au plus tard est : " + this.dateAuPlusTardProjet + "\n"
         + tachesCritiques;
     }
 
