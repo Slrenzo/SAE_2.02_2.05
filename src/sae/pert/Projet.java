@@ -250,7 +250,6 @@ public class Projet {
      * et la date au plus tot de fin de projet
      */
     public void calculerDateAuPlusTot() {
-        this.determinerLesSuccesseurs();
         List<Tache> tachesTester = this.premieresTaches();
         double dateAuPlusTot;
         for (int i = 0; i < tachesTester.size(); i++) {
@@ -272,7 +271,6 @@ public class Projet {
      * Algorithme calculant la date au plus tot de fin de projet
      */
     public void calculerDateAuPlusTotFinDeProjet() {
-        this.calculerDateAuPlusTot();
         double dateAuPlusTotDeFinDeProjet;
         this.dateAuPlusTotProjet = 0.0;
         List<Tache> dernieresTaches = this.dernieresTaches();
@@ -310,7 +308,6 @@ public class Projet {
      * et la date au plus tard de fin de projet
      */
     public void calculerDateAuPlusTard() {
-        this.calculerDateAuPlusTotFinDeProjet();
         this.dateAuPlusTardProjet = this.dateAuPlusTotProjet;
         List<Tache> tachesATester = this.dernieresTaches();
         Tache tacheTest;
@@ -354,8 +351,7 @@ public class Projet {
     /** 
      * Determine les taches critiques de ce projet
      */
-    private void determinerTachesCritiques() {
-         this.calculerDateAuPlusTard();
+    public void determinerTachesCritiques() {
          Tache tacheTest;
          for (int i = 0; i < this.taches.size(); i++) {
              tacheTest = this.taches.get(i);
@@ -363,6 +359,17 @@ public class Projet {
                  this.tachesCritiques.add(tacheTest);
              }
          }
+    }
+    
+    /**
+     * Methode qui lance les methodes d'ordonnancement
+     */
+    public void ordonnancement() {
+        this.determinerLesSuccesseurs();
+        this.calculerDateAuPlusTot();
+        this.calculerDateAuPlusTotFinDeProjet();
+        this.calculerDateAuPlusTard();
+        this.determinerTachesCritiques();
     }
 
     /**
