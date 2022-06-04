@@ -53,9 +53,7 @@ public class Menu {
             case 2:
                 System.out.println("Entrez le chemin du fichier : ");
                 projet = Projet.importer(entree.nextLine());
-                projet.calculerDateAuPlusTot();
-                projet.calculerDateAuPlusTotFinDeProjet();
-                //                projet.calculerDateAuPlusTard();
+                projet.ordonnancement();
                 menu(projet, entree);
                 repet = false;
                 break;

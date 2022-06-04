@@ -355,14 +355,28 @@ public class Projet {
          Tache tacheTest;
          for (int i = 0; i < this.taches.size(); i++) {
              tacheTest = this.taches.get(i);
-             if (tacheTest.getDateAuPlusTot() == tacheTest.getDateAuPlusTard()){
+             if (tacheTest.estTacheCritique()){
                  this.tachesCritiques.add(tacheTest);
              }
          }
     }
     
+    /** 
+     * Determine les marges de chaque tache de ce projet 
+     */
+    public void determinerMarges() {
+        for (int i = 0; i < taches.size(); i++) {
+            if (taches.get(i).estTacheCritique()) {
+                taches.get(i).setMargeLibre(0.0);
+                taches.get(i).setMargeTotale(0.0);
+            } else {
+                taches.get(i).calculMarges();
+            }
+        }
+    }
+    
     /**
-     * Methode qui lance les methodes d'ordonnancement
+     * Lance les methodes d'ordonnancement
      */
     public void ordonnancement() {
         this.determinerLesSuccesseurs();
@@ -370,6 +384,7 @@ public class Projet {
         this.calculerDateAuPlusTotFinDeProjet();
         this.calculerDateAuPlusTard();
         this.determinerTachesCritiques();
+        this.determinerMarges();
     }
 
     /**

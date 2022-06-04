@@ -396,6 +396,14 @@ public class Tache {
         this.tachesSuccesseurs.remove(tache);
     }
     
+    /** 
+     * Test si la tache est critique
+     * @return true si cette tache est une tache critique
+     */
+    public boolean estTacheCritique() {
+        return dateAuPlusTard == dateAuPlusTot;
+    }
+    
     @Override
     public String toString() {
         String tachesPrealables = this.tachesPrealables.size() != 0 
@@ -410,6 +418,30 @@ public class Tache {
                + "\n  Duree : " + this.duree
                + "\n  Date au plus tot : " + this.dateAuPlusTot
                + "\n  Date au plus tard : " + this.dateAuPlusTard
-               + tachesPrealables;
+               + tachesPrealables
+               + "\n  Marge libre : " + margeLibre
+               + "\n  Marge totale : " + margeTotale;
+    }
+
+    /** 
+     * Calcul la marge de cette tache 
+     */
+    public void calculMarges() {
+        double dateAuPlusTotMin = Double.POSITIVE_INFINITY;
+        double dateAuPlusTardMin = Double.POSITIVE_INFINITY;
+        for (int i = 0; i < tachesSuccesseurs.size(); i++) {
+            if (tachesSuccesseurs.get(i).getDateAuPlusTot() 
+                < dateAuPlusTotMin) {
+                dateAuPlusTotMin = tachesSuccesseurs.get(i)
+                                   .getDateAuPlusTot();
+            }
+            if (tachesSuccesseurs.get(i).getDateAuPlusTard() 
+                < dateAuPlusTardMin) {
+                dateAuPlusTardMin = tachesSuccesseurs.get(i)
+                                    .getDateAuPlusTard();
+            }
+            margeLibre = dateAuPlusTotMin - dateAuPlusTot - duree;
+            margeTotale = dateAuPlusTardMin - dateAuPlusTard - duree;
+        }
     }
 }
