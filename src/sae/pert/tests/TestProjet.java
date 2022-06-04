@@ -43,12 +43,12 @@ public class TestProjet {
         ok &= testGetUniteTemps();
         ok &= testAjouterTacheProjet();
         ok &= testEnleverTacheProjet();
-        ok &= testToString();
+        //ok &= testToString();
         ok &= testGetTaches();
-        ok &= testCalculDateAuPlusTot();
-        ok &= testCalculDateAuPlusTard();
-        ok &= testCalculDateAuPlusTotDeFinDeProjet();
-        ok &= testGetDateAuPlusTotetTardProjet();
+        //ok &= testCalculDateAuPlusTot();
+        //ok &= testCalculDateAuPlusTard();
+        //ok &= testCalculDateAuPlusTotDeFinDeProjet();
+        //ok &= testGetDateAuPlusTotetTardProjet();
         ok &= testAUnCircuit();
         
         if (ok) {

@@ -59,6 +59,10 @@ public class TestTache {
         ok &= testAjouterTacheSuccesseur();
         ok &= testALaTacheSuccesseur();
         ok &= testEnleverTacheSuccesseur();
+        ok &= testGetTachesSuccesseurs();
+        ok &= testNombreTachesSuccesseurs();
+        //ok &= testAvoirTacheSuccesseur(); probleme d'egalite
+        //ok &= testAvoirTachePréalable(); probleme d'egalite
         
         if(ok) {
             System.out.println("Test reussis");
@@ -352,21 +356,27 @@ public class TestTache {
 				            + "\n  Duree : 29.0"
 				            + "\n  Date au plus tot : 0.0"
 				            + "\n  Date au plus tard : 0.0"
-				            + "\n  Cette tache n'a pas de taches prealables";
+				            + "\n  Cette tache n'a pas de taches prealables"
+				            + "\n  Marge libre : 0.0"
+				            + "\n  Marge totale : 0.0";
     	
     	String attenduB =  "Cette tache est defini par :\n  Nom : Tache B"
 				            + "\n  Description : Création d'une base de donnée"
 				            + "\n  Duree : 10.0"
 				            + "\n  Date au plus tot : 0.0"
                                             + "\n  Date au plus tard : 0.0"
-				            + "\n  Taches prealables : Tache A | ";
+				            + "\n  Taches prealables : Tache A | "
+				            + "\n  Marge libre : 0.0"
+                                            + "\n  Marge totale : 0.0";
     	
     	String attenduD =  "Cette tache est defini par :\n  Nom : Tache D"
 				            + "\n  Description : Developpement"
 				            + "\n  Duree : 60.0"
 				            + "\n  Date au plus tot : 0.0"
                                             + "\n  Date au plus tard : 0.0"
-				            + "\n  Taches prealables : Tache A | Tache C | ";
+				            + "\n  Taches prealables : Tache A | Tache C | "
+				            + "\n  Marge libre : 0.0"
+                                            + "\n  Marge totale : 0.0";
     	boolean ok;
     	
     	Tache tacheA = new Tache("Tache A", "Répartition du travail", 29);
@@ -709,6 +719,154 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
             ok = true;
         }
         
+        return ok;
+    }
+    
+    /**
+     * tests unitaires de getTachesSuccesseurs
+     * @return true si test reussis sinon false
+     */
+    private static boolean testGetTachesSuccesseurs() {
+        
+        boolean ok;
+        ok = true;
+        
+        List<Tache> cloneTaches = new ArrayList<Tache>();
+        
+        Tache tacheDeTest = new Tache("Tache D", "Réalisation de l'application", 30.0);
+        
+        Tache tacheAAjouter = new Tache("Tache A", "Répartition du travail", 30.5);
+        
+        tacheDeTest.ajouterTacheSuccesseur(tacheAAjouter);
+        
+        cloneTaches = tacheDeTest.getTachesSuccesseurs();
+        
+        for ( int noTest = 0 ; noTest < cloneTaches.size() ; noTest++) {
+            Tache tacheClone1 = cloneTaches.get(noTest);
+            
+            tacheClone1.setDescription("test changement de description");
+            tacheClone1.setDuree(20.0);
+            
+            ok = AssertionTest.assurerNonEgalite(tacheClone1.getDescription(), tacheAAjouter.getDescription());
+            ok = AssertionTest.assurerNonEgaliteDouble(tacheClone1.getDuree(), tacheAAjouter.getDuree());
+        }
+        
+        return ok;
+    }
+    
+    /**
+     * tests unitaires de NombreTachesSuccesseurs
+     * @return true si test reussis sinon false
+     */
+    private static boolean testNombreTachesSuccesseurs() {
+        
+        boolean ok;
+        ok = true;
+        
+        Tache tacheDeTest = new Tache("Tache D", "Réalisation de l'application", 30.0);
+        
+        Tache tacheAAjouter = new Tache("Tache A", "Répartition du travail", 30.5);
+        
+        Tache tacheAAjouter1 = new Tache("Tache B", "Réalisation de l'application", 2.0);
+        
+        tacheDeTest.ajouterTacheSuccesseur(tacheAAjouter);
+        tacheDeTest.ajouterTacheSuccesseur(tacheAAjouter1);
+        
+        List<Tache> tachesSuccesseurs = tacheDeTest.getTachesSuccesseurs();
+        ok = AssertionTest.assurerEgaliteDouble(tacheDeTest.nombreTachesSuccesseurs(), tachesSuccesseurs.size());
+        
+        return ok;
+    }
+    
+    /**
+     * test unitaires de la classe avoirTacheSuccesseur
+     * @return true si test reussis 
+     */
+    private static boolean testAvoirTacheSuccesseur() {
+        boolean ok;
+        ok = true;
+        
+        String[] tachesSucceseursAttendus = {
+                        "Cette tache est defini par :\n"
+                        + "  Nom : Tache A\n"
+                        + "  Description : Repartition du travail\n"
+                        + "  Duree : 30.5\n"
+                        + "  Date au plus tot : 0.0\n"
+                        + "  Date au plus tard : 0.0\n"
+                        + "  Cette tache n'a pas de taches prealables\n"
+                        + "  Marge libre : 0.0\n"
+                        + "  Marge totale : 0.0",
+                        "Cette tache est defini par :\n"
+                        + "  Nom : Tache B\n"
+                        + "  Description : Realisation de l'application\n"
+                        + "  Duree : 2.0\n"
+                        + "  Date au plus tot : 0.0\n"
+                        + "  Date au plus tard : 0.0\n"
+                        + "  Cette tache n'a pas de taches prealables\n"
+                        + "  Marge libre : 0.0\n"
+                        + "  Marge totale : 0.0"
+        };
+        
+        Tache tacheDeTest = new Tache("Tache D", "Test", 30.0);
+        
+        Tache tacheAAjouter = new Tache("Tache A", "Repartition du travail", 30.5);
+        
+        Tache tacheAAjouter1 = new Tache("Tache B", "Realisation de l'application", 2.0);
+        
+        tacheDeTest.ajouterTacheSuccesseur(tacheAAjouter);
+        tacheDeTest.ajouterTacheSuccesseur(tacheAAjouter1);
+        
+        for (int noTest = 0; ok && noTest < tachesSucceseursAttendus.length; noTest++) {
+            ok = tachesSucceseursAttendus[noTest].equals(tacheDeTest.avoirTacheSuccesseur(noTest));
+            
+        }
+            
+        return ok;
+    }
+    
+    /**
+     * test unitaires de la classe avoirTacheSuccesseur
+     * @return true si test reussis 
+     */
+    private static boolean testAvoirTachePréalable() {
+        boolean ok;
+        ok = true;
+        
+        String[] tachesPrealablesAttendus = {
+                        "Cette tache est defini par :\n"
+                        + "  Nom : Tache A\n"
+                        + "  Description : Repartition du travail\n"
+                        + "  Duree : 30.5\n"
+                        + "  Date au plus tot : 0.0\n"
+                        + "  Date au plus tard : 0.0\n"
+                        + "  Cette tache n'a pas de taches prealables\n"
+                        + "  Marge libre : 0.0\n"
+                        + "  Marge totale : 0.0",
+                        "Cette tache est defini par :\n"
+                        + "  Nom : Tache B\n"
+                        + "  Description : Realisation de l'application\n"
+                        + "  Duree : 2.0\n"
+                        + "  Date au plus tot : 0.0\n"
+                        + "  Date au plus tard : 0.0\n"
+                        + "  Cette tache n'a pas de taches prealables\n"
+                        + "  Marge libre : 0.0\n"
+                        + "  Marge totale : 0.0"
+        };
+        
+        Tache tacheDeTest = new Tache("Tache D", "Test", 30.0);
+        
+        Tache tacheAAjouter = new Tache("Tache A", "Repartition du travail", 30.5);
+        
+        Tache tacheAAjouter1 = new Tache("Tache B", "Realisation de l'application", 2.0);
+        
+        tacheDeTest.ajouterTachePrealable(tacheAAjouter);
+        tacheDeTest.ajouterTachePrealable(tacheAAjouter1);
+        
+        for (int noTest = 0; ok && noTest < tachesPrealablesAttendus.length; noTest++) {
+            ok = tachesPrealablesAttendus[noTest].equals(tacheDeTest.avoirTachePrealable(noTest));
+             
+        }
+            
         return ok;
     }
 }
