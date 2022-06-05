@@ -51,11 +51,27 @@ public class Menu {
                 repet = false;
                 break;
             case 2:
-                System.out.println("Entrez le chemin du fichier : ");
-                projet = Projet.importer(entree.nextLine());
-                projet.ordonnancement();
-                menu(projet, entree);
-                repet = false;
+                while (choix != 0) {
+                    System.out.println("\n---------- Importation ----------\n");
+                    System.out.println("Entrez le chemin du fichier "
+                                       + "ou taper 0 pour retoruner au menu"
+                                       + "\n chemin du fichier : ");
+                    String lien = entree.nextLine();
+                    if (!lien.equals("0")) {
+                        try {
+                            projet = Projet.importer(lien);
+                            projet.ordonnancement();
+                            menu(projet, entree);
+                            choix = 0;
+                        } catch (IllegalArgumentException erreurFichier) {
+                            System.out.println("Le fichier n'existe pas "
+                                               + "ou est corrompu");
+                            choix = 2;
+                        }
+                    }else if (lien.equals("0")) {
+                        choix = 0;
+                    }
+                }
                 break;
             case 3:
                 System.out.println("\nAu revoir");
@@ -81,7 +97,7 @@ public class Menu {
         while (repet) {
             System.out.println("\n\nMenu du projet");
             System.out.println("\n---------- " + projet.getNom() 
-            + " ----------\n");
+                               + " ----------\n");
             System.out.println("1 - Afficher le projet\n"
                             + "2 - Créer une tache\n"
                             + "3 - Sélectionner une tâche pour la modifier\n"
@@ -93,14 +109,13 @@ public class Menu {
             entree.nextLine();
             switch (choix) {
             case 1: 
-                System.out.println("\n" + projet.toString() + "\n");
+                System.out.println("\n-------- Affichage du projet -------- \n\n" 
+                                   + projet.toString() + "\n");
                 break;
             case 2:
                 try {
                     projet.ajouterTache(creerTache());
-                    projet.calculerDateAuPlusTot();
-                    projet.calculerDateAuPlusTotFinDeProjet();
-                    //projet.calculerDateAuPlusTard();
+                    projet.ordonnancement();
                 } catch (IllegalArgumentException erreurDeSaisie) {
                     System.out.println(erreurDeSaisie.getMessage());
                 }
@@ -167,9 +182,7 @@ public class Menu {
                                     + erreur.getMessage());
                 }
 
-                projet.calculerDateAuPlusTot();
-                projet.calculerDateAuPlusTotFinDeProjet();
-                //projet.calculerDateAuPlusTard();
+                projet.ordonnancement();
                 repet = false;
                 menu(projet, entree);
                 break;
@@ -243,9 +256,7 @@ public class Menu {
                 }
                 break;
             case 5:
-                projet.calculerDateAuPlusTot();
-                projet.calculerDateAuPlusTotFinDeProjet();
-                //projet.calculerDateAuPlusTard();
+                projet.ordonnancement();
                 menu(projet, entree);
                 repet = false;
                 break;
@@ -409,7 +420,9 @@ public class Menu {
         String nomDeTache;
         System.out.println("Voici les taches de ce projet :");
         for (int i = 0; i < Projet.nombreTaches(projet); i++) {
-            System.out.println(Projet.tacheProjet(projet,i).getNom());
+            System.out.println("nom : " +Projet.tacheProjet(projet,i).getNom() 
+                               + " | description : "
+                               + Projet.tacheProjet(projet,i).getDescription());
         }
         System.out.print("Veuillez entrer le nom de la tache"
                         + " à selectionner : ");               
