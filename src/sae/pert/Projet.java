@@ -191,24 +191,24 @@ public class Projet {
     }
 
     /** 
-     * teste si le projet possede un circuit
+     * teste si le projet possede un circuit ayant la tache tacheModifiee
      * @param tacheModifiee derniere tache modifier
-     * @return true s'il y a un circuit
+     * @return true s'il y a un circuit  ayant la tache tacheModifiee
      */
     public boolean aUnCircuit(Tache tacheModifiee) {
         List<Tache> tacheATester = new ArrayList<Tache>();
-        tacheATester.add(tacheModifiee); 
-        boolean ok = true;
-        for (int i = 0; i < tacheATester.size(); i++) {
-            for (int j = 0; j < tacheATester.get(i).nombreTachesPrealables()
-                 ; j++) {
-                ok = !tacheATester.contains(tacheATester.get(i)
-                                  .avoirTachePrealable(j));
-                tacheATester.add(tacheATester.get(i).avoirTachePrealable(j));
-            }
-            if (!ok) {
+        for (int i = 0; i < tacheModifiee.nombreTachesPrealables(); i ++) {
+            tacheATester.add(tacheModifiee.avoirTachePrealable(i));
+        }
+        while (!tacheATester.isEmpty()) {
+            if (tacheATester.get(0).equals(tacheModifiee)) {
                 return true;
             }
+            for (int i = 0; i < tacheATester.get(0).nombreTachesPrealables()
+                 ; i++) {
+                tacheATester.add(tacheATester.get(0).avoirTachePrealable(i));
+            }
+            tacheATester.remove(0);
         }
         return false;
     }
