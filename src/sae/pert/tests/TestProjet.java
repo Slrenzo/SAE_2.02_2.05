@@ -45,12 +45,11 @@ public class TestProjet {
         ok &= testEnleverTacheProjet();
         //ok &= testToString();
         ok &= testGetTaches();
-        //ok &= testCalculDateAuPlusTot();
-        //ok &= testCalculDateAuPlusTard();
-        //ok &= testCalculDateAuPlusTotDeFinDeProjet();
-        //ok &= testGetDateAuPlusTotetTardProjet();
+        ok &= testCalculDateAuPlusTot();
+        ok &= testCalculDateAuPlusTard();
+        ok &= testCalculDateAuPlusTotDeFinDeProjet();
+        ok &= testGetDateAuPlusTotetTardProjet();
         ok &= testAUnCircuit();
-        
         if (ok) {
             System.out.println("Test reussis");
         } else {
@@ -312,8 +311,8 @@ public class TestProjet {
         tacheD.ajouterTachePrealable(tacheE);
         tacheD.ajouterTachePrealable(tacheB);
         
+        ProjetTest.ordonnancement();
         
-        ProjetTest.calculerDateAuPlusTot();
         ok = AssertionTest.assurerEgaliteDouble(0.0, tacheA.getDateAuPlusTot());
         ok &= AssertionTest.assurerEgaliteDouble(2.0, tacheB.getDateAuPlusTot());
         ok &= AssertionTest.assurerEgaliteDouble(2.0, tacheC.getDateAuPlusTot());
@@ -352,9 +351,7 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
         tacheE.ajouterTachePrealable(tacheD);
         
         
-        ProjetTest.calculerDateAuPlusTot();
-        ProjetTest.calculerDateAuPlusTotFinDeProjet();
-        ProjetTest.calculerDateAuPlusTard();
+        ProjetTest.ordonnancement();
         
         ok = AssertionTest.assurerEgaliteDouble(55.5, ProjetTest.getDateAuPlusTardProjet());
         
@@ -391,9 +388,7 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
         tacheE.ajouterTachePrealable(tacheD);
         
         
-        ProjetTest.calculerDateAuPlusTot();
-        ProjetTest.calculerDateAuPlusTotFinDeProjet();
-        ProjetTest.calculerDateAuPlusTard();
+        ProjetTest.ordonnancement();
         
         ok = AssertionTest.assurerEgaliteDouble(0.0, tacheA.getDateAuPlusTard());
         ok &= AssertionTest.assurerEgaliteDouble(2.0, tacheB.getDateAuPlusTard());
@@ -432,10 +427,7 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
         tacheE.ajouterTachePrealable(tacheB);
         tacheE.ajouterTachePrealable(tacheD);
         
-        
-        ProjetTest.calculerDateAuPlusTot();
-        ProjetTest.calculerDateAuPlusTotFinDeProjet();
-        ProjetTest.calculerDateAuPlusTard();
+        ProjetTest.ordonnancement();
     
         ok &= AssertionTest.assurerEgaliteDouble(55.5, ProjetTest.getDateAuPlusTotProjet());
         ok &= AssertionTest.assurerEgaliteDouble(55.5, ProjetTest.getDateAuPlusTardProjet());
@@ -473,11 +465,6 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
         ok = ProjetTest.aUnCircuit(tacheA);
         
         
-        tacheB.enleverTachePrealable(tacheA);
-        tacheC.enleverTachePrealable(tacheA);
-        tacheD.enleverTachePrealable(tacheC);
-        tacheE.enleverTachePrealable(tacheB);
-        tacheA.enleverTachePrealable(tacheE);
         Projet ProjetTest1 = new Projet("Projet B", "Projet automatique", Projet.UNITE_TEMPS[2]);
         
         Tache tacheF = new Tache("Tache F", "Cette tache consiste à analyser le besoin", 2.0);
@@ -604,4 +591,5 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
         return ok;
     }
     
+        
 }
