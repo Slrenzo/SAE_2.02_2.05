@@ -272,8 +272,8 @@ public class Menu {
                                                 .equals(nomDeTache);
                             }
                             if (ok) {
-                                Tache tacheAEnlever = tacheSelect.getTachesPrealables()
-                                                                 .get(index - 1);
+                                Tache tacheAEnlever = tacheSelect
+                                                .avoirTachePrealable(index - 1);
                                 try {
                                     tacheSelect.enleverTachePrealable(tacheAEnlever);
                                 } catch (IllegalArgumentException erreurDeSaisie) {

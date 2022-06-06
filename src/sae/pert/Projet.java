@@ -187,6 +187,12 @@ public class Projet {
             throw new IllegalArgumentException("Cette tache n'est pas dans "
                             + "le projet");
         }
+        if (tacheAEnlever.nombreTachesSuccesseurs() != 0) {
+            throw new IllegalArgumentException("Cette tache est une contrainte"
+                                               + " d'une autre tache, veuillez "
+                                               + "enlever ces containtes avant "
+                                               + "de supprimer cette tache");
+        }
         this.taches.remove(tacheAEnlever);
     }
 
