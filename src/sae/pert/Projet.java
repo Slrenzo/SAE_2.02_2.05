@@ -420,7 +420,7 @@ public class Projet {
      */
     public void sauvegarder(String chemin) {
      
-        File file = new File(chemin);
+        File file = new File(chemin + ".txt");
         FileWriter fichier;
         
         try {
@@ -435,7 +435,8 @@ public class Projet {
 
             fichier.close();
         } catch (IOException erreur) {
-            System.err.println("Erreur lors de la sauvegarde");
+            System.err.println("Erreur lors de la sauvegarde"
+                               + " (erreur dans le chemin)");
         }
     }
 
