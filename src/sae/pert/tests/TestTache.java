@@ -12,7 +12,7 @@ import sae.pert.Tache;
 import test.outillage.AssertionTest;
 
 /** 
- * Serie de test de la classe tache permettant de faire avancer un projet.
+ * Série de test de la classe tâche permettant de faire avancer un projet.
  * @author Thomas Nalix
  * @author Lorentin Nicolas
  * @author Emilien Restoueix
@@ -21,10 +21,10 @@ import test.outillage.AssertionTest;
 public class TestTache {
     
     /**
-     * Jeux de tests unitaires qui servira a tester des m�thodes
+     * Jeux de tests unitaires qui servira a tester des méthodes
      */
     private static Tache[] aTester = {
-        new Tache("Tache A", "Cette tache consiste à analyser le besoin", 2.0),
+        new Tache("Tache A", "Cette tâche consiste à analyser le besoin", 2.0),
         new Tache("Tache B", "Mise en place des méthodes de travail", 5.0),
         new Tache("Tache C", "Répartition du travail", 3.5),
         new Tache("Tache D", "Réalisation de l'application", 30.0)
@@ -64,9 +64,9 @@ public class TestTache {
         ok &= testEstTacheCritique();
         
         if(ok) {
-            System.out.println("Test reussis");
+            System.out.println("Test réussis");
         } else {
-            System.out.println("Test echoue");
+            System.out.println("Test échoué");
         }
     }
 
@@ -167,7 +167,7 @@ public class TestTache {
     
     /**
      * Test unitaires de getNom
-     * @return true si test reussis sinon false
+     * @return true si test réussis sinon false
      */
     private static boolean testGetNom() {
         
@@ -184,12 +184,12 @@ public class TestTache {
     
     /**
      * Test unitaires de getDescription
-     * @return true si test reussis sinon false
+     * @return true si test réussis sinon false
      */
     private static boolean testGetDescription() {
         
         String[] descriptionAttendus = {
-            "Cette tache consiste à analyser le besoin",
+            "Cette tâche consiste à analyser le besoin",
             "Mise en place des méthodes de travail",
             "Répartition du travail",
             "Réalisation de l'application"
@@ -208,7 +208,7 @@ public class TestTache {
     
     /**
      * Tests unitaires de getDescription
-     * @return true si test reussis sinon false
+     * @return true si test réussis sinon false
      */
     private static boolean testGetDuree() {
         
@@ -224,17 +224,20 @@ public class TestTache {
     }
     
     /** Tests unitaires de setDescription
-     * @return true si test reussis sinon false 
+     * @return true si test réussis sinon false 
      */
     private static boolean testSetDescription() {
         
         boolean ok;
         
-        /** Tache de test */
+        /** Tâche de test */
         Tache test = new Tache("Tache A", "Répartition du travail", 30.5);
-        String[] testDescription = {"Fin de projet","Réalisation-de-l'application", "Fin_de_projet", "    "};
+        String[] testDescription = {"Fin de projet",
+                        "Réalisation-de-l'application", "Fin_de_projet", "    "};
         
-        String[] descriptionAttendus = {"Fin de projet", "Réalisation-de-l'application", "Fin_de_projet", "Répartition du travail"};
+        String[] descriptionAttendus = {"Fin de projet", 
+                        "Réalisation-de-l'application", "Fin_de_projet",
+                        "Répartition du travail"};
         
         ok = true;
         for (int noTest = 0; ok && noTest < testDescription.length; noTest++) {
@@ -249,13 +252,13 @@ public class TestTache {
     }
     
     /** Tests unitaires de setDuree
-     * @return true si test reussis sinon false 
+     * @return true si test réussis sinon false 
      */
     private static boolean testSetDuree() {
         
         boolean ok;
         
-        /** Tache de test */
+        /** Tâche de test */
         Tache test = new Tache("testNom", "testDescription", 30.5);
         double[] testDuree = {78, 0.0, -5};
         
@@ -276,14 +279,14 @@ public class TestTache {
 
     /** 
      * Tests unitaires de ajouterTachePrealable
-     * @return true si test réussi, sinon false
+     * @return true si test réussis, sinon false
      */
     private static boolean testAjouterTachePrealable() {
         boolean ok = true;
         
-        Tache tacheAAjouter = new Tache("tache à ajouter", "description de la "
-                                        + "tache à ajouter", 20.0);
-        Tache tacheDeTest = new Tache("tache de test", "description de test"
+        Tache tacheAAjouter = new Tache("tâche à ajouter", "description de la "
+                                        + "tâche à ajouter", 20.0);
+        Tache tacheDeTest = new Tache("tâche de test", "description de test"
                                       , 10.0);
         ArrayList<Tache> tachesPrealablesAttendues = new ArrayList<Tache>();
         tachesPrealablesAttendues.add(tacheAAjouter);
@@ -309,18 +312,18 @@ public class TestTache {
     
     /** 
      * Tests unitaires de enleverTachePrealable
-     * @return true si test réussi, sinon false
+     * @return true si test réussis, sinon false
      */
     private static boolean testEnleverTachePrealable() {
         boolean ok = true;
         
-        Tache tacheAAjouter1 = new Tache("tache à ajouter 1", "description de "
-                                         + "la tache à ajouter", 20.0);
-        Tache tacheAAjouter2 = new Tache("tache à ajouter 2", "description de "
-                                         + "la tache à ajouter", 20.0);
-        Tache tacheAAjouter3 = new Tache("tache à ajouter 3", "description de "
-                                         + "la tache à ajouter", 20.0);
-        Tache tacheDeTest = new Tache("tache de test", "description de test"
+        Tache tacheAAjouter1 = new Tache("tâche à ajouter 1", "description de "
+                                         + "la tâche à ajouter", 20.0);
+        Tache tacheAAjouter2 = new Tache("tâche à ajouter 2", "description de "
+                                         + "la tâche à ajouter", 20.0);
+        Tache tacheAAjouter3 = new Tache("tâche à ajouter 3", "description de "
+                                         + "la tâche à ajouter", 20.0);
+        Tache tacheDeTest = new Tache("tâche de test", "description de test"
                                       , 10.0);
         tacheDeTest.ajouterTachePrealable(tacheAAjouter1);
         tacheDeTest.ajouterTachePrealable(tacheAAjouter2);
@@ -346,34 +349,34 @@ public class TestTache {
     
     /**
      * Tests unitaires de toString
-     * @return true si test r�ussi, sinon false
+     * @return true si test réussis, sinon false
      */
     private static boolean testToString() {
     	
-    	String attenduA = "Cette tache est defini par :\n  Nom : Tache A"
+    	String attenduA = "Cette tâche est défini par :\n  Nom : Tache A"
 				            + "\n  Description : Répartition du travail"
-				            + "\n  Duree : 29.0"
-				            + "\n  Date au plus tot : 0.0"
+				            + "\n  Durée : 29.0"
+				            + "\n  Date au plus tôt : 0.0"
 				            + "\n  Date au plus tard : 0.0"
-				            + "\n  Cette tache n'a pas de taches prealables"
+				            + "\n  Cette tâche n'a pas de taches préalables"
 				            + "\n  Marge libre : 0.0"
 				            + "\n  Marge totale : 0.0";
     	
-    	String attenduB =  "Cette tache est defini par :\n  Nom : Tache B"
+    	String attenduB =  "Cette tâche est défini par :\n  Nom : Tache B"
 				            + "\n  Description : Création d'une base de donnée"
-				            + "\n  Duree : 10.0"
-				            + "\n  Date au plus tot : 0.0"
+				            + "\n  Durée : 10.0"
+				            + "\n  Date au plus tôt : 0.0"
                                             + "\n  Date au plus tard : 0.0"
-				            + "\n  Taches prealables : Tache A | "
+				            + "\n  Tâches préalables : Tache A | "
 				            + "\n  Marge libre : 0.0"
                                             + "\n  Marge totale : 0.0";
     	
-    	String attenduD =  "Cette tache est defini par :\n  Nom : Tache D"
+    	String attenduD =  "Cette tâche est defini par :\n  Nom : Tache D"
 				            + "\n  Description : Developpement"
-				            + "\n  Duree : 60.0"
-				            + "\n  Date au plus tot : 0.0"
+				            + "\n  Durée : 60.0"
+				            + "\n  Date au plus tôt : 0.0"
                                             + "\n  Date au plus tard : 0.0"
-				            + "\n  Taches prealables : Tache A | Tache C | "
+				            + "\n  Tâches préalables : Tache A | Tache C | "
 				            + "\n  Marge libre : 0.0"
                                             + "\n  Marge totale : 0.0";
     	boolean ok;
@@ -442,13 +445,13 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
     }
     
     /** Tests unitaires de setDateAuPlusTot
-     * @return true si test reussis sinon false 
+     * @return true si test réussis sinon false 
      */
     private static boolean testSetDateAuPlusTot() {
         
         boolean ok;
         
-        /** Tache de test */
+        /** Tâche de test */
         Tache test = new Tache("Tache D", "Réalisation de l'application", 30.0);
         double[] testDateAuPlusTot = {0.0, 78.0, -5};
         
@@ -467,7 +470,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
     }
     
     /** Tests unitaires de setDateAuPlusTard
-     * @return true si test reussis sinon false 
+     * @return true si test réussis sinon false 
      */
     private static boolean testSetDateAuPlusTard() {
         
@@ -493,7 +496,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
     
     /**
      * tests unitaires de getTachesPrealables
-     * @return true si test reussis sinon false
+     * @return true si test réussis sinon false
      */
     private static boolean testGetTachesPrealables() {
         
@@ -516,8 +519,10 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
             tacheClone1.setDescription("test changement de description");
             tacheClone1.setDuree(20.0);
             
-            ok = AssertionTest.assurerNonEgalite(tacheClone1.getDescription(), tacheAAjouter.getDescription());
-            ok = AssertionTest.assurerNonEgaliteDouble(tacheClone1.getDuree(), tacheAAjouter.getDuree());
+            ok = AssertionTest.assurerNonEgalite(tacheClone1.getDescription(), 
+                            tacheAAjouter.getDescription());
+            ok = AssertionTest.assurerNonEgaliteDouble(tacheClone1.getDuree(), 
+                            tacheAAjouter.getDuree());
         }
         
         return ok;
@@ -525,7 +530,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
     
     /**
      * tests unitaires de NombreTachesPrealables
-     * @return true si test reussis sinon false
+     * @return true si test réussis sinon false
      */
     private static boolean testNombreTachesPrealables() {
         
@@ -542,14 +547,15 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
         tacheDeTest.ajouterTachePrealable(tacheAAjouter1);
         
         List<Tache> tachePrealables = tacheDeTest.getTachesPrealables();
-        ok = AssertionTest.assurerEgaliteDouble(tacheDeTest.nombreTachesPrealables(), tachePrealables.size());
+        ok = AssertionTest.assurerEgaliteDouble(tacheDeTest.nombreTachesPrealables(),
+                        tachePrealables.size());
         
         return ok;
     }
     
     /**
      * tests unitaires de ALaTachePrealable
-     * @return true si test reussis sinon false
+     * @return true si test réussis sinon false
      */
     private static boolean testALaTachePrealable() {
         boolean ok;
@@ -574,7 +580,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
     }
     
     /** Tests unitaires de setMargeLibre et getMargeLibre
-     * @return true si test reussis sinon false 
+     * @return true si test réussis sinon false 
      */
     private static boolean testGetSetMargeLibre() {
         
@@ -599,7 +605,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
     }
     
     /** Tests unitaires de setMargeTotale et getMargeTotale
-     * @return true si test reussis sinon false 
+     * @return true si test réussis sinon false 
      */
     private static boolean testGetSetMargeTotale() {
         
@@ -625,15 +631,15 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
     
     /**
      * Test unitaires de AjouterTacheSuccesseur
-     * @return true si test reussis sinon false
+     * @return true si test réussis sinon false
      */
     private static boolean testAjouterTacheSuccesseur() {
         boolean ok;
         ok = true;
         
-        Tache tacheAAjouter = new Tache("tache à ajouter", "description de la "
-                        + "tache à ajouter", 20.0);
-        Tache tacheDeTest = new Tache("tache de test", "description de test"
+        Tache tacheAAjouter = new Tache("tâche à ajouter", "description de la "
+                                       + "tâche à ajouter", 20.0);
+        Tache tacheDeTest = new Tache("tâche de test", "description de test"
                                         , 10.0);
         ArrayList<Tache> tachesSuccesseurAttendues = new ArrayList<Tache>();
         tachesSuccesseurAttendues.add(tacheAAjouter);
@@ -660,7 +666,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
     
     /**
      * tests unitaires de ALaTacheSuccesseur
-     * @return true si test reussis sinon false
+     * @return true si test réussis sinon false
      */
     private static boolean testALaTacheSuccesseur() {
         boolean ok;
@@ -686,18 +692,18 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
     
     /** 
      * Tests unitaires de enleverTacheSuccesseur
-     * @return true si test réussi, sinon false
+     * @return true si test réussis, sinon false
      */
     private static boolean testEnleverTacheSuccesseur() {
         boolean ok = true;
         
-        Tache tacheAAjouter1 = new Tache("tache à ajouter 1", "description de "
-                                         + "la tache à ajouter", 20.0);
-        Tache tacheAAjouter2 = new Tache("tache à ajouter 2", "description de "
-                                         + "la tache à ajouter", 20.0);
-        Tache tacheAAjouter3 = new Tache("tache à ajouter 3", "description de "
-                                         + "la tache à ajouter", 20.0);
-        Tache tacheDeTest = new Tache("tache de test", "description de test"
+        Tache tacheAAjouter1 = new Tache("tâche à ajouter 1", "description de "
+                                         + "la tâche à ajouter", 20.0);
+        Tache tacheAAjouter2 = new Tache("tâche à ajouter 2", "description de "
+                                         + "la tâche à ajouter", 20.0);
+        Tache tacheAAjouter3 = new Tache("tâche à ajouter 3", "description de "
+                                         + "la tâche à ajouter", 20.0);
+        Tache tacheDeTest = new Tache("tâche de test", "description de test"
                                       , 10.0);
         tacheDeTest.ajouterTacheSuccesseur(tacheAAjouter1);
         tacheDeTest.ajouterTacheSuccesseur(tacheAAjouter2);
@@ -723,7 +729,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
     
     /**
      * tests unitaires de getTachesSuccesseurs
-     * @return true si test reussis sinon false
+     * @return true si test réussis sinon false
      */
     private static boolean testGetTachesSuccesseurs() {
         
@@ -746,8 +752,10 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
             tacheClone1.setDescription("test changement de description");
             tacheClone1.setDuree(20.0);
             
-            ok = AssertionTest.assurerNonEgalite(tacheClone1.getDescription(), tacheAAjouter.getDescription());
-            ok = AssertionTest.assurerNonEgaliteDouble(tacheClone1.getDuree(), tacheAAjouter.getDuree());
+            ok = AssertionTest.assurerNonEgalite(tacheClone1.getDescription(), 
+                            tacheAAjouter.getDescription());
+            ok = AssertionTest.assurerNonEgaliteDouble(tacheClone1.getDuree(),
+                            tacheAAjouter.getDuree());
         }
         
         return ok;
@@ -755,7 +763,7 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
     
     /**
      * tests unitaires de NombreTachesSuccesseurs
-     * @return true si test reussis sinon false
+     * @return true si test réussis sinon false
      */
     private static boolean testNombreTachesSuccesseurs() {
         
@@ -772,14 +780,15 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
         tacheDeTest.ajouterTacheSuccesseur(tacheAAjouter1);
         
         List<Tache> tachesSuccesseurs = tacheDeTest.getTachesSuccesseurs();
-        ok = AssertionTest.assurerEgaliteDouble(tacheDeTest.nombreTachesSuccesseurs(), tachesSuccesseurs.size());
+        ok = AssertionTest.assurerEgaliteDouble(tacheDeTest.nombreTachesSuccesseurs(), 
+                        tachesSuccesseurs.size());
         
         return ok;
     }
     
     /**
      * test unitaire de la méthode estTacheCritique
-     * @return true si test reussis, sinon false
+     * @return true si test réussis, sinon false
      */
     private static boolean testEstTacheCritique() {
         boolean ok;
