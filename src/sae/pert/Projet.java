@@ -298,7 +298,7 @@ public class Projet {
             if (this.taches.get(i).nombreTachesSuccesseurs() == 0) {
                 dernieresTaches.add(this.taches.get(i));
             }
-            this.taches.get(i).setDateAuPlusTard(Double.NaN);
+            this.taches.get(i).setDateAuPlusTard(Double.POSITIVE_INFINITY);
         }
         return dernieresTaches;
     }
@@ -316,14 +316,17 @@ public class Projet {
                                 - tachesATester.get(i).getDuree());
         }
         for (int i = 0; i < tachesATester.size(); i++) {
+            List<Tache> tachesPrealables = new ArrayList<Tache>();
             for (int j = 0; j < tachesATester.get(i).nombreTachesPrealables()
                  ; j++) {
                 tacheTest = tachesATester.get(i).avoirTachePrealable(j);
-                calculerDateAuPLusTardTache(tacheTest);
                 tachesATester.add(tacheTest);
+                tachesPrealables.add(tacheTest);
             }
             if (tachesATester.get(i).nombreTachesPrealables() == 0) {
                 tachesATester.get(i).setDateAuPlusTard(0.0);
+            } else {
+                calculerDateAuPLusTardTache(tachesPrealables);
             }
         }
     }
@@ -333,25 +336,43 @@ public class Projet {
      * @param tacheTest tache dont l'on calcul la date au plus tard des
      *        successeurs
      */
-    private static void calculerDateAuPLusTardTache(Tache tacheTest) {
+    private static void calculerDateAuPLusTardTache(List<Tache> tachesPrealables) {
         double dateAuPlusTard = Double.POSITIVE_INFINITY;
-        for (int i = 0; i < tacheTest.nombreTachesSuccesseurs(); i++) {
-            if (tacheTest.avoirTacheSuccesseur(i).getDateAuPlusTard()
-                < dateAuPlusTard) {
-                dateAuPlusTard = tacheTest.avoirTacheSuccesseur(i)
-                                 .getDateAuPlusTard();
+        boolean ok;
+        List<Tache> tachesAModifier = new ArrayList<Tache>();
+        for (int i = 0; i < tachesPrealables.get(0).nombreTachesSuccesseurs()
+             ; i++) {
+            Tache tacheTest = tachesPrealables.get(0).avoirTacheSuccesseur(i);
+            ok = tacheTest.nombreTachesPrealables()
+                 == tachesPrealables.size();
+            for (int j = 0; ok && j < tachesPrealables.size(); j++) {
+                ok = tacheTest.aLaTachePrealable(tachesPrealables.get(j));
+            }
+            if (ok) {
+                tachesAModifier.add(tacheTest);
+                if (tacheTest.getDateAuPlusTard()< dateAuPlusTard) {
+                    dateAuPlusTard = tacheTest.getDateAuPlusTard();
+                }
+           }
+        }
+        for (int i = 0; i < tachesAModifier.size(); i++) {
+            tachesAModifier.get(i).setDateAuPlusTard(dateAuPlusTard);
+        }
+        for (int i = 0; i < tachesPrealables.size(); i++) {
+            if (tachesPrealables.get(i).getDateAuPlusTard()
+                > dateAuPlusTard - tachesPrealables.get(i).getDuree()) {
+                tachesPrealables.get(i)
+                                .setDateAuPlusTard(dateAuPlusTard 
+                                - tachesPrealables.get(i).getDuree());
             }
         }
-        for (int i = 0; i < tacheTest.nombreTachesSuccesseurs(); i++) {
-            tacheTest.avoirTacheSuccesseur(i).setDateAuPlusTard(dateAuPlusTard);
-        }
-        tacheTest.setDateAuPlusTard(dateAuPlusTard - tacheTest.getDuree());
     }
     
     /** 
      * Determine les taches critiques de ce projet
      */
     public void determinerTachesCritiques() {
+        this.tachesCritiques.clear();
          Tache tacheTest;
          for (int i = 0; i < this.taches.size(); i++) {
              tacheTest = this.taches.get(i);
