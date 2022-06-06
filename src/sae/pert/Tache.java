@@ -284,7 +284,7 @@ public class Tache {
     
     /**
      * Enleve une tache aux taches prealables de cette tache
-     * @param tache tache que l'on souhaite ajouter aux taches prealables
+     * @param tache tache que l'on souhaite retirer aux taches prealables
      * @throws IllegalArgumentException tache ne fait pas partie des taches 
      *         prealables de cette tache
      */
@@ -298,6 +298,7 @@ public class Tache {
                                                + "tache prealable");
         }
         this.tachesPrealables.remove(tache);
+        System.out.println(tachesPrealables);
     }
     
     /**

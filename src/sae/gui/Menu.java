@@ -155,9 +155,9 @@ public class Menu {
 
     /**
      * Menu de modification des taches
-     * @param projet
-     * @param entree
-     * @param tacheSelect
+     * @param projet projet sur lequel on travail
+     * @param entree analyseur de l'entree texte
+     * @param tacheSelect tache pour laquelle on affiche le menu
      */
     public static void menuTache(Projet projet, Scanner entree, Tache tacheSelect) {
         int choix = 0;
@@ -167,11 +167,11 @@ public class Menu {
             System.out.println("\n---------- Menu de " + tacheSelect.getNom() 
                                + " ----------\n");
             System.out.println("1 - Modifier la tache\n"
-                            + "2 - Supprimer la tache\n"
-                            + "3 - Ajouter une tache préalable\n"
-                            + "4 - Enlever une tache préalable\n"
-                            + "5 - Retourner au menu et valider\n"
-                            );
+                               + "2 - Supprimer la tache\n"
+                               + "3 - Ajouter une tache préalable\n"
+                               + "4 - Enlever une tache préalable\n"
+                               + "5 - Retourner au menu et valider\n"
+                               );
             System.out.print("Entrez le chiffre de votre choix : ");
             choix = entree.hasNextInt() ? entree.nextInt() : 0;
             entree.nextLine();
@@ -360,20 +360,42 @@ public class Menu {
      */
     public static Tache creerTache() {
         Scanner entree = new Scanner(System.in);
-        String nom;
-        String description;
-        double duree;
+        String nom = "";         //Valeur invalide
+        String description = ""; //Valeur invalide
+        double duree = -1.0;     //Valeur invalide
         Tache tache = null;
-        boolean saisieOk= false;
+        boolean saisieOk = false;
+        System.out.println("\n---------- Création d'une tache ----------\n");
         while (!saisieOk) {
-            System.out.println("\n---------- Création d'une tache ----------\n");
             System.out.print("Veuillez entrer le nom de la tache : ");
             nom = entree.nextLine();
+            if (nom.isEmpty()) {
+                System.out.println("Le nom est vide. Veuillez recommencer");
+            }else {
+                saisieOk = true;
+            }
+        }
+        saisieOk = false;
+        while (!saisieOk) {
             System.out.print("Veuillez entrer la description de la tache : ");
             description = entree.nextLine();
+            if (description.isEmpty()) {
+                System.out.println("Le nom est vide. Veuillez recommencer");
+            }else {
+                saisieOk = true;
+            }
+        }
+        saisieOk = false;
+        while (!saisieOk) {
             System.out.print("Veuillez entrer la duree de la tache : ");
-            duree = entree.hasNextDouble() ? entree.nextDouble() : -1.0; 
+            duree = entree.hasNextDouble() ? entree.nextDouble() : -1.0;
+            if (duree == -1.0) {
+                System.out.println("La durée est invalide. Veuillez recommencer");
+            }else {
+                saisieOk = true;
+            }
             entree.nextLine();
+        }
             try {
                 tache = new Tache(nom, description, duree);
                 saisieOk = true;
@@ -381,7 +403,6 @@ public class Menu {
                 System.out.println(erreurConstructeur.getMessage());
                 System.out.println("Veuillez recommencer");
             }
-        }
         return tache;
     }
 
