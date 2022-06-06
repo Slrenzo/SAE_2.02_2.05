@@ -54,7 +54,7 @@ public class Menu {
                 while (choix != 0) {
                     System.out.println("\n---------- Importation ----------\n");
                     System.out.println("Entrez le chemin du fichier "
-                                       + "ou taper 0 pour retoruner au menu"
+                                       + "ou tapez 0 pour retourner au menu"
                                        + "\n chemin du fichier : ");
                     String lien = entree.nextLine();
                     if (!lien.equals("0")) {
@@ -128,7 +128,7 @@ public class Menu {
                         System.out.println("------Choix de la tache a modifier ------");
                         int indexTache = afficheTaches(projet, entree);
                         if (indexTache != -1) {
-                            menuTache(projet, entree, Projet.tacheProjet(projet,indexTache));
+                            menuTache(projet, entree, projet.avoirTache(indexTache));
                             choix = 0;
                             repet = false;
                         } else {
@@ -214,8 +214,7 @@ public class Menu {
                         int indexTache = afficheTaches(projet, entree);
                         if (indexTache != -1) {
                             try {
-                                tacheSelect.ajouterTachePrealable(Projet.tacheProjet(projet,
-                                                indexTache));
+                                tacheSelect.ajouterTachePrealable(projet.avoirTache(indexTache));
                                 if (projet.aUnCircuit(tacheSelect)) {
                                     System.out.println("Cette tache ne peut pas "
                                                     + "etre ajouter aux taches "
@@ -223,8 +222,7 @@ public class Menu {
                                                     + tacheSelect.getNom()
                                                     + " car il y aura des "
                                                     + "circuits");
-                                    tacheSelect.enleverTachePrealable(Projet.tacheProjet(projet,
-                                                    indexTache));
+                                    tacheSelect.enleverTachePrealable(projet.avoirTache(indexTache));
                                 } else {
                                     System.out.println("Cette tache à été ajouté");
                                     choix = 0;
@@ -454,9 +452,9 @@ public class Menu {
         String nomDeTache;
         System.out.println("Voici les taches de ce projet :");
         for (int i = 0; i < Projet.nombreTaches(projet); i++) {
-            System.out.println("\nnom : " +Projet.tacheProjet(projet,i).getNom() 
+            System.out.println("\nnom : " + projet.avoirTache(i).getNom() 
                                + " | description : "
-                               + Projet.tacheProjet(projet,i).getDescription());
+                               + projet.avoirTache(i).getDescription());
         }
         System.out.print("\nVeuillez entrer le nom de la tache"
                         + " à selectionner : ");               
@@ -465,7 +463,7 @@ public class Menu {
         boolean ok = false;
         int index;
         for (index = 0; !ok && index < Projet.nombreTaches(projet); index++) {
-            ok = Projet.tacheProjet(projet,index).getNom().equals(nomDeTache);
+            ok = projet.avoirTache(index).getNom().equals(nomDeTache);
         }
 
         return ok ? index - 1 : -1;
