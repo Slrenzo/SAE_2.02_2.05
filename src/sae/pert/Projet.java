@@ -614,12 +614,11 @@ public class Projet {
     
     /**
      * Renvoi une tache à un index donné
-     * @param projet
-     * @param index
-     * @return la tache
+     * @param index index dans la liste des tache du projet
+     * @return la tache de l'index donné
      */
-    public static Tache tacheProjet(Projet projet, int index) {
-        return projet.taches.get(index);
+    public Tache avoirTache(int index) {
+        return taches.get(index);
     }
     
     @Override
