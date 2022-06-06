@@ -17,57 +17,60 @@ import java.util.List;
  */
 public class Tache {
     
-    /* Nom attribue a la tache */
+    /* Nom attribué a la tache */
     private String nom;
     
-    /* Description synthetique de la tache */
+    /* Description synthétique de la tache */
     private String description;
     
     /* 
-     * Duree que la tache prendra a etre realisee
-     * (L'unite de temps sera defini dans le projet ou est utilise la tache)
+     * Durée que la tache prendra a être réalisée
+     * (L'unité de temps sera défini dans le projet ou est utilise la tâche)
      */
     private double duree;
     
     /*
-     * Date au plus tot de cette tache defini par un projet
+     * Date au plus tôt de cette tâche défini par un projet
      */
     private double dateAuPlusTot;
     
     
     /*
-     * Date au plus tard de cette tache defini par un projet
+     * Date au plus tard de cette tâche défini par un projet
      */
     private double dateAuPlusTard;
     
     /*
-     * Liste des taches a realiser avant de realiser cette tache
+     * Liste des tâches a réaliser avant de réaliser cette tâche
      */
     private List<Tache> tachesPrealables;
     
     /*
-     * Liste des taches successeurs de cette tache
+     * Liste des tâches successeurs de cette tâche
      */
     private List<Tache> tachesSuccesseurs;
     
     /*
-     * Marge libre de cette tache defini par un projet
+     * Marge libre de cette tâche défini par un projet
      */
     private double margeLibre;
     
     /*
-     * Marge totale de cette tache defini par un projet
+     * Marge totale de cette tâche défini par un projet
      */
     private double margeTotale;
     
     /**
-     * Definition d'une tache ayant une duree de realisation
-     * @param nom nom ni vide ni null de la tache
-     * @param description description ni vide ni null de la tache
-     * @param duree duree de la tache superieur a 0.0
-     * @throws IllegalArgumentException nom est vide
-     * @throws IllegalArgumentException description est vide
-     * @throws IllegalArgumentException duree inferieur ou egal a 0.0
+     * Definition d'une tâche ayant une durée de réalisation
+     * @param nom nom ni vide ni null de la tâche
+     * @param description description ni vide ni null de la tâche
+     * @param duree durée de la tâche supérieur a 0.0
+     * @throws IllegalArgumentException 
+     *                  <ul>
+     *                      <li>nom est vide</li>
+     *                      <li>description est vide</li>
+     *                      <li>durée inférieur ou égal a 0.0</li>
+     *                  </ul>
      */
     public Tache(String nom, String description, double duree) {
         if (nom.isBlank()) {
@@ -77,7 +80,7 @@ public class Tache {
             throw new IllegalArgumentException("Le description est vide");
         }
         if (duree < 0.0) {
-            throw new IllegalArgumentException("La duree est negative");
+            throw new IllegalArgumentException("La durée est négative");
         }
         this.nom = nom;
         this.description = description;
@@ -91,7 +94,7 @@ public class Tache {
     }
 
     /**
-     * Affiche le nom de la tache
+     * Affiche le nom de la tâche
      * @return nom
      */
     public String getNom() {
@@ -99,7 +102,7 @@ public class Tache {
     }
 
     /**
-     * Affiche la description de la tache
+     * Affiche la description de la tâche
      * @return description
      */
     public String getDescription() {
@@ -107,7 +110,7 @@ public class Tache {
     }
 
     /**
-     * Modifie la description de la tache
+     * Modifie la description de la tâche
      * @param description description a modifier
      * @throws IllegalArgumentException description est vide
      */
@@ -119,7 +122,7 @@ public class Tache {
     }
 
     /**
-     * Affiche la duree de la tache
+     * Affiche la durée de la tache
      * @return duree
      */
     public double getDuree() {
@@ -127,50 +130,52 @@ public class Tache {
     }
 
     /**
-     * Modifie la duree de la tache
-     * @param duree duree a modifier
-     * @throws IllegalArgumentException duree inferieur ou egal a 0.0
+     * Modifie la durée de la tache
+     * @param duree durée a modifier
+     * @throws IllegalArgumentException durée inférieur ou égal a 0.0
      */
     public void setDuree(double duree) {
         if (duree <= 0.0) {
-            throw new IllegalArgumentException("La dur�e est nulle "
-                                               + "ou n�gative");
+            throw new IllegalArgumentException("La durée est nulle "
+                                               + "ou négative");
         }
         this.duree = duree;
     }
     
     /**
-     * @return dateAuPlusTot de cette tache
+     * @return dateAuPlusTot de cette tâche
      */
     public double getDateAuPlusTot() {
         return dateAuPlusTot;
     }
 
     /**
-     * @param dateAuPlusTot modifie la date au plus tot de cette tache
-     * @throws IllegalArgumentException si la date au plus tot est negative
+     * Modifie la date au plus tôt d'une tâche
+     * @param dateAuPlusTot modifie la date au plus tôt de cette tâche
+     * @throws IllegalArgumentException si la date au plus tôt est négative
      */
     public void setDateAuPlusTot(double dateAuPlusTot) {
         if (dateAuPlusTot < 0.0) {
-            throw new IllegalArgumentException("La date est negative");
+            throw new IllegalArgumentException("La date est négative");
         }
         this.dateAuPlusTot = dateAuPlusTot;
     }
 
     /**
-     * @return dateAuPlusTard de cette tache
+     * @return dateAuPlusTard de cette tâche
      */
     public double getDateAuPlusTard() {
         return dateAuPlusTard;
     }
 
     /**
-     * @param dateAuPlusTard modifie la date au plus tard de cette tache
-     * @throws IllegalArgumentException si la date au plus tard est negative
+     * Modifie la date au plus tard d'une tâche
+     * @param dateAuPlusTard modifie la date au plus tard de cette tâche
+     * @throws IllegalArgumentException si la date au plus tard est négative
      */
     public void setDateAuPlusTard(double dateAuPlusTard) {
         if (dateAuPlusTard < 0.0) {
-            throw new IllegalArgumentException("La date est negative");
+            throw new IllegalArgumentException("La date est négative");
         }
         this.dateAuPlusTard = dateAuPlusTard;
     }
@@ -214,7 +219,7 @@ public class Tache {
     }
 
     /**
-     * @return tachesPrealables les taches prealables de cette tache
+     * @return tachesPrealables les tâches préalables de cette tâche
      */
     public List<Tache> getTachesPrealables() {
         List<Tache> cloneTachesPrealables = new ArrayList<Tache>(0);
@@ -235,19 +240,19 @@ public class Tache {
     }
     
     /** 
-     * @return nombre de taches prealables de cette tache
+     * @return nombre de tâches préalables de cette tâche
      */
     public int nombreTachesPrealables() {
         return this.tachesPrealables.size();
     }
 
     /**
-     * Ajoute une tache aux taches prealables de cette tache
-     * @param tache tache que l'on souhaite ajouter aux taches prealables
-     * @throws IllegalArgumentException tache est deja une tache prealable 
-     *         de cette tache
-     * @throws IllegalArgumentException la tache que l'on ajoute est la meme
-     *         que cette tache
+     * Ajoute une tâche aux tâches préalables de cette tâche
+     * @param tache tâche que l'on souhaite ajouter aux tâches préalables
+     * @throws IllegalArgumentException tâche est déjà une tâche préalable 
+     *         de cette tâche
+     * @throws IllegalArgumentException la tâche que l'on ajoute est la même
+     *         que cette tâche
      */
     public void ajouterTachePrealable(Tache tache) {
         boolean estPresent = false;
@@ -255,38 +260,39 @@ public class Tache {
             estPresent = this.tachesPrealables.get(i).nom == tache.nom;
         }
         if (estPresent) {
-            throw new IllegalArgumentException("Cette tache est deja une "
-                                               + "tache prealable");
+            throw new IllegalArgumentException("Cette tâche est déjà une "
+                                               + "tâche prealable");
         }
         if (this.nom == tache.nom) {
-            throw new IllegalArgumentException("Cette tache et la tache que"
+            throw new IllegalArgumentException("Cette tâche et la tâche que"
                                                + " vous souhaitez ajouter"
-                                               + " sont les meme");
+                                               + " sont les mêmes");
         }
         this.tachesPrealables.add(tache);
     }
     
     /**
-     * @param tacheATester tache que l'on test si elle est une tache prealable
-     * @return true si tacheATester est une tache prealable
+     * @param tacheATester tâche que l'on test si elle est une tâche préalable
+     * @return true si tacheATester est une tâche préalable
      */
     public boolean aLaTachePrealable(Tache tacheATester) {
         return this.tachesPrealables.contains(tacheATester);
     }
     
     /** 
-     * @param i l'index de la tache que l'on veut recuperer
-     * @return la tache a l'index i
+     * Récupère une tâche a l'indice donné
+     * @param i l'index de la tâche que l'on veut récupérer
+     * @return la tâche a l'index i
      */
     public Tache avoirTachePrealable(int i) {
         return this.tachesPrealables.get(i);
     }
     
     /**
-     * Enleve une tache aux taches prealables de cette tache
-     * @param tache tache que l'on souhaite retirer aux taches prealables
-     * @throws IllegalArgumentException tache ne fait pas partie des taches 
-     *         prealables de cette tache
+     * Enlève une tache aux tâches préalables de cette tâche
+     * @param tache tâche que l'on souhaite retirer aux tâches préalables
+     * @throws IllegalArgumentException tâche ne fait pas partie des tâches 
+     *         Préalables de cette tache
      */
     public void enleverTachePrealable(Tache tache) {
         boolean estPresent = false;
@@ -294,14 +300,15 @@ public class Tache {
             estPresent = this.tachesPrealables.get(i).nom == tache.nom;
         }
         if (!estPresent) {
-            throw new IllegalArgumentException("Cette tache n'est pas une "
-                                               + "tache prealable");
+            throw new IllegalArgumentException("Cette tâche n'est pas une "
+                                               + "tâche prealable");
         }
         this.tachesPrealables.remove(tache);
     }
     
     /**
-     * @return tachesPrealables les taches successeurs de cette tache
+     * Récupère une tâche successrice
+     * @return tachesPrealables les tâches successrices de cette tâche
      */
     public List<Tache> getTachesSuccesseurs() {
         List<Tache> cloneTachesSuccesseurs = new ArrayList<Tache>(0);
@@ -323,12 +330,12 @@ public class Tache {
     }
     
     /**
-     * Ajoute une tache aux taches successeurs de cette tache
-     * @param tache tache que l'on souhaite ajouter aux taches successeurs
-     * @throws IllegalArgumentException tache est deja une tache successeur 
-     *         de cette tache
-     * @throws IllegalArgumentException la tache que l'on ajoute est la meme
-     *         que cette tache
+     * Ajoute une tâche aux tâches successrices de cette tâche
+     * @param tache tâche que l'on souhaite ajouter aux tâches successrices
+     * @throws IllegalArgumentException tâche est déjà une tâche successrice 
+     *         de cette tâche
+     * @throws IllegalArgumentException la tâche que l'on ajoute est la même
+     *         que cette tâche
      */
     public void ajouterTacheSuccesseur(Tache tache) {
         boolean estPresent = false;
@@ -336,53 +343,53 @@ public class Tache {
             estPresent = this.tachesSuccesseurs.get(i).nom == tache.nom;
         }
         if (estPresent) {
-            throw new IllegalArgumentException("Cette tache est deja une "
-                                               + "tache successeur");
+            throw new IllegalArgumentException("Cette tâche est déjà une "
+                                               + "tâche successrice");
         }
         if (this.nom == tache.nom) {
-            throw new IllegalArgumentException("Cette tache et la tache que"
+            throw new IllegalArgumentException("Cette tâche et la tâche que"
                                                + " vous souhaitez ajouter"
-                                               + " sont les meme");
+                                               + " sont les memes");
         }
         this.tachesSuccesseurs.add(tache);
     }
     
     /** 
-     * @return nombre de taches successeurs de cette tache
+     * @return nombre de tâches successrices de cette tâche
      */
     public int nombreTachesSuccesseurs() {
         return this.tachesSuccesseurs.size();
     }
     
     /**
-     * Ajoute une liste de taches aux taches successeurs de cette tache
-     * @param taches taches que l'on souhaite ajouter aux taches successeurs
+     * Ajoute une liste de tâches aux tâches successrice de cette tâche
+     * @param taches tâches que l'on souhaite ajouter aux tâches successrices
      */
     public void setTachesSuccesseurs(List<Tache> taches) {
         tachesSuccesseurs = taches;
     }
     
     /**
-     * @param tacheATester tache que l'on test si elle est une tache successeur
-     * @return true si tacheATester est une tache successeur
+     * @param tacheATester tâche que l'on test si elle est une tâche successrices
+     * @return true si tacheATester est une tâche successrices
      */
     public boolean aLaTacheSuccesseur(Tache tacheATester) {
         return this.tachesSuccesseurs.contains(tacheATester);
     }
     
     /** 
-     * @param i l'index de la tache que l'on veut recuperer
-     * @return la tache a l'index i
+     * @param i l'index de la tâche que l'on veut récupérer
+     * @return la tâche a l'index i
      */
     public Tache avoirTacheSuccesseur(int i) {
         return this.tachesSuccesseurs.get(i);
     }
     
     /**
-     * Enleve une tache aux taches successeurs de cette tache
-     * @param tache tache que l'on souhaite ajouter aux taches successeurs
-     * @throws IllegalArgumentException tache ne fait pas partie des taches 
-     *         successeurs de cette tache
+     * Enlève une tâche aux tâches successrices de cette tâche
+     * @param tache tache que l'on souhaite ajouter aux tâches successrices
+     * @throws IllegalArgumentException tâche ne fait pas partie des tâches 
+     *         successrices de cette tâche
      */
     public void enleverTacheSuccesseur(Tache tache) {
         boolean estPresent = false;
@@ -397,8 +404,8 @@ public class Tache {
     }
     
     /** 
-     * Test si la tache est critique
-     * @return true si cette tache est une tache critique
+     * Test si la tâche est critique
+     * @return true si cette tâche est une tâche critique
      */
     public boolean estTacheCritique() {
         return dateAuPlusTard == dateAuPlusTot;
@@ -407,16 +414,16 @@ public class Tache {
     @Override
     public String toString() {
         String tachesPrealables = this.tachesPrealables.size() != 0 
-                                  ? "\n  Taches prealables : "
-                                  : "\n  Cette tache n'a pas de taches "
-                                  + "prealables";
+                                  ? "\n  Tâches préalables : "
+                                  : "\n  Cette tâche n'a pas de tâches "
+                                  + "préalables";
         for (int i = 0; i < this.tachesPrealables.size(); i++) {
             tachesPrealables += this.tachesPrealables.get(i).nom + " | ";
         }
-        return "Cette tache est defini par :\n  Nom : " + this.nom 
+        return "Cette tâche est défini par :\n  Nom : " + this.nom 
                + "\n  Description : " + this.description
-               + "\n  Duree : " + this.duree
-               + "\n  Date au plus tot : " + this.dateAuPlusTot
+               + "\n  Durée : " + this.duree
+               + "\n  Date au plus tôt : " + this.dateAuPlusTot
                + "\n  Date au plus tard : " + this.dateAuPlusTard
                + tachesPrealables
                + "\n  Marge libre : " + margeLibre
@@ -424,7 +431,7 @@ public class Tache {
     }
 
     /** 
-     * Calcul la marge de cette tache 
+     * Calcul la marge de cette tâche 
      */
     public void calculMarges() {
         double dateAuPlusTotMin = Double.POSITIVE_INFINITY;
