@@ -298,7 +298,6 @@ public class Tache {
                                                + "tache prealable");
         }
         this.tachesPrealables.remove(tache);
-        System.out.println(tachesPrealables);
     }
     
     /**
