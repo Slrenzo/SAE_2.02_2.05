@@ -43,13 +43,17 @@ public class TestProjet {
         ok &= testGetUniteTemps();
         ok &= testAjouterTacheProjet();
         ok &= testEnleverTacheProjet();
-        //ok &= testToString();
+        ok &= testToString();
         ok &= testGetTaches();
         ok &= testCalculDateAuPlusTot();
         ok &= testCalculDateAuPlusTard();
         ok &= testCalculDateAuPlusTotDeFinDeProjet();
         ok &= testGetDateAuPlusTotetTardProjet();
         ok &= testAUnCircuit();
+        ok &= testDeterminerLesSuccesseurs();
+        ok &= testDeterminerTachesCritiques();
+        ok &= testDeterminerMarges();
+        
         if (ok) {
             System.out.println("Test reussis");
         } else {
@@ -501,9 +505,9 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
         boolean ok;
         ok = true;
         
-        String attenduA = "Ce projet est nomme : Projet A\n" 
+        String attenduA = "Ce projet est nomme : Projet A\n"
                         + "Sa description est : Projet automatique\n"
-                        + "Son unite de temps est : Jour(s)\n" 
+                        + "Son unite de temps est : Jour(s)\n"
                         + "Ses taches sont : \n"
                         + "Cette tache est defini par :\n"
                         + "  Nom : Tache A\n"
@@ -512,19 +516,25 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
                         + "  Date au plus tot : 0.0\n"
                         + "  Date au plus tard : 0.0\n"
                         + "  Cette tache n'a pas de taches prealables\n"
+                        + "  Marge libre : 0.0\n"
+                        + "  Marge totale : 0.0\n"
                         + "Cette tache est defini par :\n"
                         + "  Nom : Tache B\n"
                         + "  Description : Réalisation de l'application\n"
                         + "  Duree : 3.5\n"
                         + "  Date au plus tot : 0.0\n"
                         + "  Date au plus tard : 0.0\n"
-                        + "  Taches prealables : Tache A | Tache C | \n\n"
-                        + "Sa date au plus tot est : 0.0\n" 
-                        + "Sa date au plus tard est : 0.0";
+                        + "  Taches prealables : Tache A | Tache C | \n"
+                        + "  Marge libre : 0.0\n"
+                        + "  Marge totale : 0.0\n"
+                        + "\n"
+                        + "Sa date au plus tot est : 0.0\n"
+                        + "Sa date au plus tard est : 0.0\n"
+                        + "Ce projet ne contient pas encore de tache critique";
         
-        String attenduB = "Ce projet est nomme : Projet B\n" 
+        String attenduB = "Ce projet est nomme : Projet B\n"
                         + "Sa description est : Projet calculant un cout\n"
-                        + "Son unite de temps est : Heure(s)\n" 
+                        + "Son unite de temps est : Heure(s)\n"
                         + "Ses taches sont : \n"
                         + "Cette tache est defini par :\n"
                         + "  Nom : Tache C\n"
@@ -533,15 +543,21 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
                         + "  Date au plus tot : 0.0\n"
                         + "  Date au plus tard : 0.0\n"
                         + "  Taches prealables : Tache B | \n"
+                        + "  Marge libre : 0.0\n"
+                        + "  Marge totale : 0.0\n"
                         + "Cette tache est defini par :\n"
                         + "  Nom : Tache A\n"
                         + "  Description : Répartition du travail\n"
                         + "  Duree : 30.5\n"
                         + "  Date au plus tot : 0.0\n"
                         + "  Date au plus tard : 0.0\n"
-                        + "  Cette tache n'a pas de taches prealables\n\n"
-                        + "Sa date au plus tot est : 0.0\n" 
-                        + "Sa date au plus tard est : 0.0";
+                        + "  Cette tache n'a pas de taches prealables\n"
+                        + "  Marge libre : 0.0\n"
+                        + "  Marge totale : 0.0\n"
+                        + "\n"
+                        + "Sa date au plus tot est : 0.0\n"
+                        + "Sa date au plus tard est : 0.0\n"
+                        + "Ce projet ne contient pas encore de tache critique";
         
         String attenduC = "Ce projet est nomme : Projet C\n"
                         + "Sa description est : Projet automatique\n"
@@ -554,15 +570,21 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
                         + "  Date au plus tot : 0.0\n"
                         + "  Date au plus tard : 0.0\n"
                         + "  Taches prealables : Tache A | Tache C | \n"
+                        + "  Marge libre : 0.0\n"
+                        + "  Marge totale : 0.0\n"
                         + "Cette tache est defini par :\n"
                         + "  Nom : Tache C\n"
                         + "  Description : Réalisation des tests\n"
                         + "  Duree : 20.0\n"
                         + "  Date au plus tot : 0.0\n"
                         + "  Date au plus tard : 0.0\n"
-                        + "  Taches prealables : Tache B | \n\n"
+                        + "  Taches prealables : Tache B | \n"
+                        + "  Marge libre : 0.0\n"
+                        + "  Marge totale : 0.0\n"
+                        + "\n"
                         + "Sa date au plus tot est : 0.0\n"
-                        + "Sa date au plus tard est : 0.0";
+                        + "Sa date au plus tard est : 0.0\n"
+                        + "Ce projet ne contient pas encore de tache critique";
         
         
         
@@ -591,5 +613,126 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
         return ok;
     }
     
+    /**
+     * tests unitaires de la methode determinerLesSuccesseurs
+     * @return true si reussis, sinon false
+     */
+    private static boolean testDeterminerLesSuccesseurs() {
+        boolean ok;
+        ok = true;
         
+        Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TEMPS[2]);
+        
+        Tache tacheA = new Tache("Tache A", "Cette tache consiste à analyser le besoin", 2.0);
+        Tache tacheB = new Tache("Tache B", "Mise en place des méthodes de travail", 5.0);
+        Tache tacheC = new Tache("Tache C", "Répartition du travail", 3.5);
+        Tache tacheE = new Tache("Tache E", "Réalisation de l'application", 30.0);
+        Tache tacheD = new Tache("Tache D", "Réalisation des tests", 20.0);
+        
+        ProjetTest.ajouterTache(tacheA);
+        ProjetTest.ajouterTache(tacheB);
+        ProjetTest.ajouterTache(tacheC);
+        ProjetTest.ajouterTache(tacheD);
+        ProjetTest.ajouterTache(tacheE);
+        
+        tacheB.ajouterTachePrealable(tacheA);
+        tacheC.ajouterTachePrealable(tacheA);
+        tacheD.ajouterTachePrealable(tacheC);
+        tacheE.ajouterTachePrealable(tacheB);
+        tacheE.ajouterTachePrealable(tacheD);
+        
+        ProjetTest.determinerLesSuccesseurs();
+        ok = tacheA.aLaTacheSuccesseur(tacheB);
+        ok &= tacheA.aLaTacheSuccesseur(tacheC);
+        ok &= tacheC.aLaTacheSuccesseur(tacheD);
+        ok &= tacheD.aLaTacheSuccesseur(tacheE);
+        ok &= tacheB.aLaTacheSuccesseur(tacheE);
+        
+        return ok;
+    }
+    
+    /**
+     * tests unitaires de la méthode determinerTachesCritiques
+     * @return true si test reussis, sinon false
+     */
+    private static boolean testDeterminerTachesCritiques() {
+        boolean ok;
+        ok = true;
+        
+        Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TEMPS[2]);
+        
+        Tache tacheA = new Tache("Tache A", "Cette tache consiste à analyser le besoin", 2.0);
+        Tache tacheB = new Tache("Tache B", "Mise en place des méthodes de travail", 5.0);
+        Tache tacheC = new Tache("Tache C", "Répartition du travail", 3.5);
+        Tache tacheE = new Tache("Tache E", "Réalisation de l'application", 30.0);
+        Tache tacheD = new Tache("Tache D", "Réalisation des tests", 20.0);
+        
+        ProjetTest.ajouterTache(tacheA);
+        ProjetTest.ajouterTache(tacheB);
+        ProjetTest.ajouterTache(tacheC);
+        ProjetTest.ajouterTache(tacheD);
+        ProjetTest.ajouterTache(tacheE);
+        
+        tacheB.ajouterTachePrealable(tacheA);
+        tacheC.ajouterTachePrealable(tacheA);
+        tacheD.ajouterTachePrealable(tacheC);
+        tacheE.ajouterTachePrealable(tacheB);
+        tacheE.ajouterTachePrealable(tacheD);
+        
+        ProjetTest.ordonnancement();
+        
+        ok = tacheA.estTacheCritique();
+        ok &= tacheB.estTacheCritique();
+        ok &= tacheC.estTacheCritique();
+        ok &= tacheD.estTacheCritique();
+        ok &= tacheE.estTacheCritique();
+        
+        return ok;
+    }
+    
+    /**
+     * tests unitaires de la méthode determinerMarges
+     * @return true si test reussis, sinon false
+     */
+    private static boolean testDeterminerMarges() {
+        boolean ok;
+        ok = true;
+        
+        Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TEMPS[2]);
+        
+        Tache tacheA = new Tache("Tache A", "Cette tache consiste à analyser le besoin", 2.0);
+        Tache tacheB = new Tache("Tache B", "Mise en place des méthodes de travail", 5.0);
+        Tache tacheC = new Tache("Tache C", "Répartition du travail", 3.5);
+        Tache tacheE = new Tache("Tache E", "Réalisation de l'application", 30.0);
+        Tache tacheD = new Tache("Tache D", "Réalisation des tests", 20.0);
+        
+        ProjetTest.ajouterTache(tacheA);
+        ProjetTest.ajouterTache(tacheB);
+        ProjetTest.ajouterTache(tacheC);
+        ProjetTest.ajouterTache(tacheD);
+        ProjetTest.ajouterTache(tacheE);
+        
+        tacheB.ajouterTachePrealable(tacheA);
+        tacheC.ajouterTachePrealable(tacheA);
+        tacheD.ajouterTachePrealable(tacheC);
+        tacheE.ajouterTachePrealable(tacheB);
+        tacheE.ajouterTachePrealable(tacheD);
+        
+        ProjetTest.ordonnancement();
+        
+        ok = AssertionTest.assurerEgaliteDouble(0.0, tacheA.getMargeLibre());
+        ok &= AssertionTest.assurerEgaliteDouble(0.0, tacheB.getMargeLibre());
+        ok &= AssertionTest.assurerEgaliteDouble(0.0, tacheC.getMargeLibre());
+        ok &= AssertionTest.assurerEgaliteDouble(0.0, tacheD.getMargeLibre());
+        ok &= AssertionTest.assurerEgaliteDouble(0.0, tacheE.getMargeLibre());
+        
+        ok &= AssertionTest.assurerEgaliteDouble(0.0, tacheA.getMargeTotale());
+        ok &= AssertionTest.assurerEgaliteDouble(0.0, tacheB.getMargeTotale());
+        ok &= AssertionTest.assurerEgaliteDouble(0.0, tacheC.getMargeTotale());
+        ok &= AssertionTest.assurerEgaliteDouble(0.0, tacheD.getMargeTotale());
+        ok &= AssertionTest.assurerEgaliteDouble(0.0, tacheE.getMargeTotale());
+        
+        return ok;
+    }
+    
 }
