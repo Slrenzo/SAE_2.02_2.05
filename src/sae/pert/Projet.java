@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** 
- * Un projet est un ensemble de taches que l'on doit ordonnee pour arriver a
+ * Un projet est un ensemble de tâches que l'on doit ordonnée pour arriver a
  * un objectif.
  * @author Thomas Nalix
  * @author Lorentin Nicolas
@@ -28,16 +28,16 @@ public class Projet {
     /* Description du projet */
     private String description;
 
-    /* Listes des taches a effectuer dans pour ce projet */
+    /* Listes des tâches à effectuer dans pour ce projet */
     private List<Tache> taches;
     
     /* Listes des taches critiques de ce projet */
     private List<Tache> tachesCritiques;
 
-    /* Unite de temps utilise pour parler des durees des taches */
+    /* Unité de temps utilisé pour parler des durées des tâches */
     private String uniteTemps;
 
-    /* Date au plus tot du projet */
+    /* Date au plus tôt du projet */
     private double dateAuPlusTotProjet;
 
     /* Date au plus tard du projet */
@@ -45,7 +45,7 @@ public class Projet {
 
 
     /**
-     * Tableau d'unite de temps possible 
+     * Tableau d'unités de temps possibles
      */
     public final static String[] UNITE_TEMPS = { 
                     "Minute(s)",
@@ -58,13 +58,16 @@ public class Projet {
     
     /**
      * Définition d'un projet qui possède un nom 
-     * et qui possede une unite de temps
+     * et qui possède une unité de temps
      * @param nom le nom du projet
      * @param description description du projet
-     * @param uniteTemps l'unite de temps d fini pour ce projet
-     * @throws IllegalArgumentException si le nom est vide
-     * @throws IllegalArgumentException si la description est vide
-     * @throws IllegalArgumentException si l'unite de temps est invalide
+     * @param uniteTemps l'unité de temps défini pour ce projet
+     * @throws IllegalArgumentException 
+     *         <ul>
+     *             <li>si le nom est vide</li>
+     *             <li>si la description est vide</li>
+     *             <li>si l'unité de temps est invalide</li>
+     *         </ul>
      */
     public Projet(String nom, String description, String uniteTemps) {
         if (nom.isBlank()) {
@@ -78,7 +81,7 @@ public class Projet {
             uniteTempsOk = uniteTemps.equals(UNITE_TEMPS[i]);
         }
         if (!uniteTempsOk) {
-            throw new IllegalArgumentException("L'unite de temps est invalide");
+            throw new IllegalArgumentException("L'unité de temps est invalide");
         }
         this.nom = nom;
         this.description = description;
@@ -115,7 +118,7 @@ public class Projet {
     }
 
     /**
-     * @return uniteTemps du projet 
+     * @return uniteTemps du projet
      */
     public String getUniteTemps() {
         return uniteTemps;
@@ -136,7 +139,7 @@ public class Projet {
     }
 
     /**
-     * @return taches les taches de ce projet
+     * @return taches les tâches de ce projet
      */
     public List<Tache> getTaches() {
         List<Tache> cloneTaches = new ArrayList<Tache>(0);
@@ -159,24 +162,24 @@ public class Projet {
     }
     
     /** 
-     * Ajoute une tache a ce projet
-     * @param tacheAAjouter la tache a ajouter au projet
-     * @throws IllegalArgumentException si la tache est deja dans le projet
+     * Ajoute une tâche a ce projet
+     * @param tacheAAjouter la tâche a ajouter au projet
+     * @throws IllegalArgumentException si la tâche est déjà dans le projet
      */
     public void ajouterTache(Tache tacheAAjouter) {
         for (int i = 0; i < this.taches.size(); i++) {
             if (tacheAAjouter.getNom().equals(this.taches.get(i).getNom())) {
-                throw new IllegalArgumentException("Cette tache est deja "
-                                + "presente");
+                throw new IllegalArgumentException("Cette tâche est déjà "
+                                                   + "présente");
             }
         }
         this.taches.add(tacheAAjouter);
     }
 
     /** 
-     * Enleve une tache a ce projet
-     * @param tacheAEnlever la tache a enlever au projet
-     * @throws IllegalArgumentException si la tache n'est pas dans le projet
+     * Enlève une tâche a ce projet
+     * @param tacheAEnlever la tâche a enlever au projet
+     * @throws IllegalArgumentException si la tâche n'est pas dans le projet
      */
     public void enleverTache(Tache tacheAEnlever) {
         boolean estPresent = false;
@@ -184,22 +187,22 @@ public class Projet {
             estPresent = this.taches.get(i).equals(tacheAEnlever);
         }
         if (!estPresent) {
-            throw new IllegalArgumentException("Cette tache n'est pas dans "
-                            + "le projet");
+            throw new IllegalArgumentException("Cette tâche n'est pas dans "
+                                               + "le projet");
         }
         if (tacheAEnlever.nombreTachesSuccesseurs() != 0) {
-            throw new IllegalArgumentException("Cette tache est une contrainte"
-                                               + " d'une autre tache, veuillez "
+            throw new IllegalArgumentException("Cette tâche est une contrainte"
+                                               + " d'une autre tâche, veuillez "
                                                + "enlever ces containtes avant "
-                                               + "de supprimer cette tache");
+                                               + "de supprimer cette tâche");
         }
         this.taches.remove(tacheAEnlever);
     }
 
     /** 
-     * teste si le projet possede un circuit ayant la tache tacheModifiee
-     * @param tacheModifiee derniere tache modifier
-     * @return true s'il y a un circuit  ayant la tache tacheModifiee
+     * Teste si le projet possède un circuit ayant la tâche tacheModifiee
+     * @param tacheModifiee dernière tâche modifier
+     * @return true s'il y a un circuit ayant la tâche tacheModifiee
      */
     public boolean aUnCircuit(Tache tacheModifiee) {
         List<Tache> tacheATester = new ArrayList<Tache>();
@@ -220,7 +223,7 @@ public class Projet {
     }
     
     /** 
-     * Determine les successeurs de chaque tache du projet
+     * Détermine les successeurs de chaque tâche du projet
      */
     public void determinerLesSuccesseurs() {
         List<Tache> successeurs;
@@ -237,8 +240,8 @@ public class Projet {
     
     
     /**
-     * Algorithme trouvant les premieres taches du projet
-     * @return la liste des premieres taches du projet
+     * Algorithme trouvant les premières tâches du projet
+     * @return la liste des premières tâches du projet
      */
     public List<Tache> premieresTaches() {
         List<Tache> taches = new ArrayList<Tache>();
@@ -252,8 +255,8 @@ public class Projet {
     }
     
     /** 
-     * Algorithme calculant la date au plus tot de chaque tache
-     * et la date au plus tot de fin de projet
+     * Algorithme calculant la date au plus tôt de chaque tâche
+     * et la date au plus tôt de fin de projet
      */
     public void calculerDateAuPlusTot() {
         List<Tache> tachesTester = this.premieresTaches();
@@ -274,7 +277,7 @@ public class Projet {
     }
     
     /**
-     * Algorithme calculant la date au plus tot de fin de projet
+     * Algorithme calculant la date au plus tôt de fin de projet
      */
     public void calculerDateAuPlusTotFinDeProjet() {
         double dateAuPlusTotDeFinDeProjet;
@@ -292,8 +295,8 @@ public class Projet {
     }
     
     /**
-     * Algorithme trouvant les dernieres taches du projet
-     * @return la liste des dernieres taches du projet
+     * Algorithme trouvant les dernières tâches du projet
+     * @return la liste des dernières tâches du projet
      */
     public List<Tache> dernieresTaches() {
         List<Tache> dernieresTaches = new ArrayList<Tache>();
@@ -310,7 +313,7 @@ public class Projet {
     }
     
     /** 
-     * Algorithme calculant la date au plus tard de chaque tache
+     * Algorithme calculant la date au plus tard de chaque tâche
      * et la date au plus tard de fin de projet
      */
     public void calculerDateAuPlusTard() {
@@ -338,9 +341,9 @@ public class Projet {
     }
     
     /** 
-     * Calcule les dates au plus tard des successeurs et de la tache tacheTest
-     * @param tacheTest tache dont l'on calcul la date au plus tard des
-     *        successeurs
+     * Calcule les dates au plus tard des successeurs et de la tâche tacheTest
+     * @param tacheTest tâche dont l'on calcul la date au plus tard des
+     *                  successeurs
      */
     private static void calculerDateAuPLusTardTache(List<Tache> tachesPrealables) {
         double dateAuPlusTard = Double.POSITIVE_INFINITY;
@@ -375,7 +378,7 @@ public class Projet {
     }
     
     /** 
-     * Determine les taches critiques de ce projet
+     * Détermine les tâches critiques de ce projet
      */
     public void determinerTachesCritiques() {
         this.tachesCritiques.clear();
@@ -389,7 +392,7 @@ public class Projet {
     }
     
     /** 
-     * Determine les marges de chaque tache de ce projet 
+     * Détermine les marges de chaque tâche de ce projet 
      */
     public void determinerMarges() {
         for (int i = 0; i < taches.size(); i++) {
@@ -403,7 +406,7 @@ public class Projet {
     }
     
     /**
-     * Lance les methodes d'ordonnancement
+     * Lance les méthodes d'ordonnancement
      */
     public void ordonnancement() {
         this.determinerLesSuccesseurs();
@@ -415,8 +418,8 @@ public class Projet {
     }
 
     /**
-     * Sauvegarde dans un fichier les informations du projet
-     * @param chemin du fichier
+     * Sauvegarde dans un fichier texte les informations du projet
+     * @param chemin chemin du fichier
      */
     public void sauvegarder(String chemin) {
      
@@ -441,8 +444,8 @@ public class Projet {
     }
 
     /** 
-     *  Récupere le nom des taches préalables aux differentes taches du projet
-     *  @return toutes les taches préalable
+     *  Récupère le nom des tâches préalables aux différentes tâches du projet
+     *  @return toutes les tâches préalables
      */
     private String tachePrealableToString() {
         String nomTachesPrealable = "";
@@ -463,8 +466,8 @@ public class Projet {
     }
     
     /**
-     * Récupere toutes les informations d'une tâche et les mets en forme
-     * @return toutes les taches 
+     * Récupère toutes les informations d'une tâche et les mets en forme
+     * @return toutes les tâches 
      */
     private String tacheToString() {
         String listeTaches = "";
@@ -477,8 +480,8 @@ public class Projet {
     }
     
     /**
-     * Importer à partir d'un fichier les informations du projet
-     * @param chemin
+     * Importer à partir d'un fichier texte les informations du projet
+     * @param chemin chemin du fichier
      * @return le projet
      */
     public static Projet importer(String chemin) {
@@ -505,7 +508,7 @@ public class Projet {
     
     /** 
      * Ajoute au projet les informations (nom, description, dates...)
-     * @param lecteur du fichier
+     * @param lecteur lecteur du fichier
      * @return le projet
      */
     public static Projet infoProjet(BufferedReader lecteur) {
@@ -515,7 +518,7 @@ public class Projet {
         
         try {
             String line = lecteur.readLine();
-            /* info du projet */
+            /* informations du projet */
             for (int index = 0; index < projetInfo.length; index++) {
                 projetInfo[index] = line;
                 line = lecteur.readLine();
@@ -528,10 +531,10 @@ public class Projet {
     }
     
     /** 
-     * Ajoute les taches au projet lors de l'importation
-     * @param lecteur du fichier
-     * @param projetActuel
-     * @param nbTache total du projet
+     * Ajoute les tâches au projet lors de l'importation
+     * @param lecteur lecteur du fichier
+     * @param projetActuel projet en cours
+     * @param nbTache le nombre de tâches total du projet
      * @return le projet actualisé
      */
     public static Projet projetTaches(BufferedReader lecteur, 
@@ -554,10 +557,10 @@ public class Projet {
     }
     
     /** 
-     * Ajoute les taches préalable au projet lors de l'importation
-     * @param lecteur du fichier
-     * @param projetActuel 
-     * @param nbTache total du projet
+     * Ajoute les tâches préalable au projet lors de l'importation
+     * @param lecteur lecteur du fichier
+     * @param projetActuel projet en cours
+     * @param nbTache le nombre de tâches total du projet
      * @return le projet actualisé
      */
     public static Projet projetTachesPrealables(BufferedReader lecteur, 
@@ -574,7 +577,7 @@ public class Projet {
         
         try {
             for (int i = 0; i < nbTache; i++) {
-                // Tache à ajouter les prealables
+                // Tâche à ajouter les préalables
                 nomTache = lecteur.readLine();
     
                 trouve = false;
@@ -605,8 +608,8 @@ public class Projet {
         return projet;
     }
     /**
-     * Renvoi le nombre de taches d'un projet donnée
-     * @param projet dont on veut connaitre le nombre de taches
+     * Renvoi le nombre de tâches d'un projet donnée
+     * @param projet projet dont on veut connaître le nombre de taches
      * @return le nombre de tache du projet
      */
     public static int nombreTaches(Projet projet) {
@@ -614,8 +617,8 @@ public class Projet {
     }
     
     /**
-     * Renvoi une tache à un index donné
-     * @param index index dans la liste des tache du projet
+     * Renvoi une tâche à un index donné
+     * @param index index dans la liste des tâches du projet
      * @return la tache de l'index donné
      */
     public Tache avoirTache(int index) {
@@ -625,23 +628,24 @@ public class Projet {
     @Override
     public String toString() {
         String taches = this.taches.size() == 0 ? "Ce projet ne contient pas "
-                        + "encore de tache" : "Ses taches sont : \n";
+                        + "encore de tâche" : "Ses tâches sont : \n";
         String tachesCritiques = this.tachesCritiques.size() == 0 ? "Ce projet "
-                                 + "ne contient pas encore de tache critique" 
-                                 : "Ses taches critiques sont : \n";
+                                 + "ne contient pas encore de tâche critique" 
+                                 : "Ses tâches critiques sont : \n";
         for (int i = 0; i < this.taches.size(); i++) {
             taches += this.taches.get(i) + "\n";
         }
         for (int i = 0; i < this.tachesCritiques.size(); i++) {
             tachesCritiques += this.tachesCritiques.get(i).getNom() + "\n";
         }
-        return "Ce projet est nomme : " + this.nom + "\n" 
-        + "Sa description est : " + this.description + "\n"
-        + "Son unite de temps est : " + this.uniteTemps + "\n" 
-        + taches + "\n"
-        + "Sa date au plus tot est : " + this.dateAuPlusTotProjet + "\n" 
-        + "Sa date au plus tard est : " + this.dateAuPlusTardProjet + "\n"
-        + tachesCritiques;
+        return "Ce projet est nommé : " + this.nom + "\n" 
+                + "Sa description est : " + this.description + "\n"
+                + "Son unité de temps est : " + this.uniteTemps + "\n" 
+                + taches + "\n"
+                + "Sa date au plus tôt est : " + this.dateAuPlusTotProjet + "\n" 
+                + "Sa date au plus tard est : " 
+                + this.dateAuPlusTardProjet + "\n"
+                + tachesCritiques;
     }
 
 }
