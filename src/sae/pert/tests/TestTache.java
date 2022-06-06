@@ -61,8 +61,7 @@ public class TestTache {
         ok &= testEnleverTacheSuccesseur();
         ok &= testGetTachesSuccesseurs();
         ok &= testNombreTachesSuccesseurs();
-        //ok &= testAvoirTacheSuccesseur(); probleme d'egalite
-        //ok &= testAvoirTachePréalable(); probleme d'egalite
+        ok &= testEstTacheCritique();
         
         if(ok) {
             System.out.println("Test reussis");
@@ -779,94 +778,30 @@ Tache test = new Tache("Tache A", "Répartition du travail", 30.0);
     }
     
     /**
-     * test unitaires de la classe avoirTacheSuccesseur
-     * @return true si test reussis 
+     * test unitaire de la méthode estTacheCritique
+     * @return true si test reussis, sinon false
      */
-    private static boolean testAvoirTacheSuccesseur() {
+    private static boolean testEstTacheCritique() {
         boolean ok;
         ok = true;
         
-        String[] tachesSucceseursAttendus = {
-                        "Cette tache est defini par :\n"
-                        + "  Nom : Tache A\n"
-                        + "  Description : Repartition du travail\n"
-                        + "  Duree : 30.5\n"
-                        + "  Date au plus tot : 0.0\n"
-                        + "  Date au plus tard : 0.0\n"
-                        + "  Cette tache n'a pas de taches prealables\n"
-                        + "  Marge libre : 0.0\n"
-                        + "  Marge totale : 0.0",
-                        "Cette tache est defini par :\n"
-                        + "  Nom : Tache B\n"
-                        + "  Description : Realisation de l'application\n"
-                        + "  Duree : 2.0\n"
-                        + "  Date au plus tot : 0.0\n"
-                        + "  Date au plus tard : 0.0\n"
-                        + "  Cette tache n'a pas de taches prealables\n"
-                        + "  Marge libre : 0.0\n"
-                        + "  Marge totale : 0.0"
-        };
-        
         Tache tacheDeTest = new Tache("Tache D", "Test", 30.0);
+        tacheDeTest.setDateAuPlusTot(0.0);
+        tacheDeTest.setDateAuPlusTard(0.0);
+        ok = tacheDeTest.estTacheCritique();
         
-        Tache tacheAAjouter = new Tache("Tache A", "Repartition du travail", 30.5);
-        
-        Tache tacheAAjouter1 = new Tache("Tache B", "Realisation de l'application", 2.0);
-        
-        tacheDeTest.ajouterTacheSuccesseur(tacheAAjouter);
-        tacheDeTest.ajouterTacheSuccesseur(tacheAAjouter1);
-        
-        for (int noTest = 0; ok && noTest < tachesSucceseursAttendus.length; noTest++) {
-            ok = tachesSucceseursAttendus[noTest].equals(tacheDeTest.avoirTacheSuccesseur(noTest));
-            
+        Tache tacheDeTest1 = new Tache("Tache A", "Test", 10.0);
+        tacheDeTest1.setDateAuPlusTot(1.0);
+        tacheDeTest1.setDateAuPlusTard(0.0);
+        if (tacheDeTest1.estTacheCritique() != true) {
+            ok &= true;
         }
-            
-        return ok;
-    }
-    
-    /**
-     * test unitaires de la classe avoirTacheSuccesseur
-     * @return true si test reussis 
-     */
-    private static boolean testAvoirTachePréalable() {
-        boolean ok;
-        ok = true;
         
-        String[] tachesPrealablesAttendus = {
-                        "Cette tache est defini par :\n"
-                        + "  Nom : Tache A\n"
-                        + "  Description : Repartition du travail\n"
-                        + "  Duree : 30.5\n"
-                        + "  Date au plus tot : 0.0\n"
-                        + "  Date au plus tard : 0.0\n"
-                        + "  Cette tache n'a pas de taches prealables\n"
-                        + "  Marge libre : 0.0\n"
-                        + "  Marge totale : 0.0",
-                        "Cette tache est defini par :\n"
-                        + "  Nom : Tache B\n"
-                        + "  Description : Realisation de l'application\n"
-                        + "  Duree : 2.0\n"
-                        + "  Date au plus tot : 0.0\n"
-                        + "  Date au plus tard : 0.0\n"
-                        + "  Cette tache n'a pas de taches prealables\n"
-                        + "  Marge libre : 0.0\n"
-                        + "  Marge totale : 0.0"
-        };
+        Tache tacheDeTest2 = new Tache("Tache B", "Test", 2.0);
+        tacheDeTest2.setDateAuPlusTot(5.0);
+        tacheDeTest2.setDateAuPlusTard(5.0);
+        ok &= tacheDeTest2.estTacheCritique();
         
-        Tache tacheDeTest = new Tache("Tache D", "Test", 30.0);
-        
-        Tache tacheAAjouter = new Tache("Tache A", "Repartition du travail", 30.5);
-        
-        Tache tacheAAjouter1 = new Tache("Tache B", "Realisation de l'application", 2.0);
-        
-        tacheDeTest.ajouterTachePrealable(tacheAAjouter);
-        tacheDeTest.ajouterTachePrealable(tacheAAjouter1);
-        
-        for (int noTest = 0; ok && noTest < tachesPrealablesAttendus.length; noTest++) {
-            ok = tachesPrealablesAttendus[noTest].equals(tacheDeTest.avoirTachePrealable(noTest));
-             
-        }
-            
         return ok;
     }
 }
