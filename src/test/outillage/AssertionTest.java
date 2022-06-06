@@ -4,7 +4,7 @@
  */
 package test.outillage;
 
-/** Assertions permettant de tester diff�rentes m�thodes
+/** Assertions permettant de tester différentes méthodes
  * @author Thomas Nalix
  * @author Lorentin Nicolas
  * @author Emilien Restoueix
@@ -13,19 +13,19 @@ package test.outillage;
 public class AssertionTest {
     
     
-    /** m�thodes qui va tester si les arguments de type String sont égaux
+    /** méthodes qui va tester si les arguments de type String sont égaux
      * @param attendu
      * @param obtenu
-     * @return true si obtenu �quivalent � attendu, false sinon.
+     * @return true si obtenu équivalent == attendu, false sinon.
      */
     public static boolean assurerEgalite(String attendu, String obtenu) {
         return attendu.equals(obtenu);
     }
     
-    /** m�thodes qui va tester si les arguments de type double sont �gaux
-     * @param attendu
-     * @param obtenu
-     * @return true si obtenu �quivalent � attendu, false sinon.
+    /** méthodes qui va tester si les arguments de type double sont égaux
+     * @param attendu valeur attendu
+     * @param obtenu valeur obtenu
+     * @return true si obtenu équivalent == attendu, false sinon.
      */
     public static boolean assurerEgaliteDouble(double attendu, double obtenu) {
         if(attendu == obtenu) {
@@ -36,10 +36,10 @@ public class AssertionTest {
     }
     
     /**
-     * méthodes qui va tester si les argument de type String ne sont pas égaux
-     * @param attendu
-     * @param obtenu
-     * @return true si obtenu différents d'attendu, false sinon
+     * méthodes qui va tester si les arguments de type String ne sont pas égaux
+     * @param attendu valeur attendu
+     * @param obtenu valeur obtenu
+     * @return true si obtenu différent d'attendu, false sinon
      */
     public static boolean assurerNonEgalite(String attendu, String obtenu) {
         if(attendu != obtenu) {
@@ -51,10 +51,10 @@ public class AssertionTest {
     }
     
     /**
-     * méthodes qui va tester si les argument de type double ne sont pas égaux
-     * @param attendu
-     * @param obtenu
-     * @return true si obtenu différents d'attendu, false sinon
+     * méthodes qui va tester si les arguments de type Double ne sont pas égaux
+     * @param attendu valeur attendu
+     * @param obtenu valeur obtenu
+     * @return true si obtenu différent d'attendu, false sinon
      */
     public static boolean assurerNonEgaliteDouble(double attendu, double obtenu) {
         if(attendu != obtenu) {
