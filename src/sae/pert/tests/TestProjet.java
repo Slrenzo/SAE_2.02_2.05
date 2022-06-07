@@ -157,7 +157,7 @@ public class TestProjet {
         String[] testDescription = {"Projet réalisant une expertise",
                         "Réalisation-du_projet", "Fin_de_projet", "    "};
         
-        String[] descriptionAttendus = {"Projet realisant une expertise", 
+        String[] descriptionAttendus = {"Projet réalisant une expertise", 
                         "Réalisation-du_projet", "Fin_de_projet", "Projet automatique"};
         
         ok = true;
@@ -559,7 +559,8 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
                         + "  Marge libre : 0.0\n"
                         + "  Marge totale : 0.0\n"
                         + "\n"
-                        + "Sa date au plus ôt est : 0.0\n"
+                        + "Sa date au plus tôt est : 0.0\n"
+
                         + "Sa date au plus tard est : 0.0\n"
                         + "Ce projet ne contient pas encore de tâche critique";
         
@@ -571,7 +572,8 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
                         + "  Nom : Tache B\n"
                         + "  Description : Réalisation de l'application\n"
                         + "  Durée : 3.5\n"
-                        + "  Date au plus ôt : 0.0\n"
+                        + "  Date au plus tôt : 0.0\n"
+
                         + "  Date au plus tard : 0.0\n"
                         + "  Tâches préalables : Tache A | Tache C | \n"
                         + "  Marge libre : 0.0\n"
@@ -586,7 +588,8 @@ Projet ProjetTest = new Projet("Projet A", "Projet automatique", Projet.UNITE_TE
                         + "  Marge libre : 0.0\n"
                         + "  Marge totale : 0.0\n"
                         + "\n"
-                        + "Sa date au plus ôt est : 0.0\n"
+                        + "Sa date au plus tôt est : 0.0\n"
+
                         + "Sa date au plus tard est : 0.0\n"
                         + "Ce projet ne contient pas encore de tâche critique";
         
