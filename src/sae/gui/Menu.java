@@ -285,6 +285,7 @@ public class Menu {
                                                 .avoirTachePrealable(index - 1);
                                 try {
                                     tacheSelect.enleverTachePrealable(tacheAEnlever);
+                                    choix = 0;
                                 } catch (IllegalArgumentException erreurDeSaisie) {
                                     System.out.println(erreurDeSaisie.getMessage());
                                 }
