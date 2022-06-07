@@ -4,11 +4,8 @@
  */
 package sae.gui;
 
-import static sae.pert.Projet.UNITE_TEMPS;
-
 import java.util.Scanner;
 
-import sae.pert.Projet;
 
 /** 
  * Lance une application

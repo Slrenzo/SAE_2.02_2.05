@@ -46,7 +46,7 @@ public class Menu {
             entree.nextLine();
             switch (choix) {
             case 1: 
-                projet = creerProjet();
+                projet = creerProjet(entree);
                 menu(projet, entree);
                 repet = false;
                 break;
@@ -76,6 +76,7 @@ public class Menu {
             case 3:
                 System.out.println("\nAu revoir");
                 repet = false;
+                entree.close();
                 break;
             default:
                 System.out.println("\nVeuillez choisir un nombre entre "
@@ -114,14 +115,14 @@ public class Menu {
                 break;
             case 2:
                 try {
-                    projet.ajouterTache(creerTache());
+                    projet.ajouterTache(creerTache(entree));
                     projet.ordonnancement();
                 } catch (IllegalArgumentException erreurDeSaisie) {
                     System.out.println(erreurDeSaisie.getMessage());
                 }
                 break;
             case 3:
-                if (projet.nombreTaches(projet) < 1) {
+                if (Projet.nombreTaches(projet) < 1) {
                     System.out.println("Ce projet n'a pas de tâche");
                 }else {
                     while  ( choix != 0) {
@@ -199,7 +200,7 @@ public class Menu {
                 break;
             case 3:
                 System.out.println("------ Ajout de tâche Préalable -----");
-                if (projet.nombreTaches(projet) < 2) {
+                if (Projet.nombreTaches(projet) < 2) {
                     System.out.println("Ce projet n'a pas assez de tâche");
                 }else {
                     while (choix != 0) {
@@ -317,8 +318,7 @@ public class Menu {
      * Permet en interrogeant l'utilisateur de créer un projet
      * @return projet Projet que l'on créer
      */
-    public static Projet creerProjet() {
-        Scanner entree = new Scanner(System.in);
+    public static Projet creerProjet(Scanner entree) {
         String nom;
         String description;
         String uniteTemps;
@@ -371,8 +371,7 @@ public class Menu {
      * Permet de créer une tache en interrogeant l'utilisateur
      * @return tache que l'on créer
      */
-    public static Tache creerTache() {
-        Scanner entree = new Scanner(System.in);
+    public static Tache creerTache(Scanner entree) {
         String nom = "";         //Valeur invalide
         String description = ""; //Valeur invalide
         double duree = -1.0;     //Valeur invalide

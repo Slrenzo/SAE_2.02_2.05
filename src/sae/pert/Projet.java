@@ -542,7 +542,6 @@ public class Projet {
                                       int nbTache) {
 
         Projet projet = projetActuel;
-        String[] projetInfo = new String[5];
         
         try {
             for (int i = 0; i < nbTache; i++) {
@@ -572,7 +571,6 @@ public class Projet {
         int nbTachesPrealable = 0;
         boolean trouve;  
         Projet projet = projetActuel;
-        String[] projetInfo = new String[5];
         Tache tache = new Tache("nom","desc",2.0);
         
         try {
