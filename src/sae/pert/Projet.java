@@ -192,8 +192,8 @@ public class Projet {
         }
         if (tacheAEnlever.nombreTachesSuccesseurs() != 0) {
             throw new IllegalArgumentException("Cette tâche est une contrainte"
-                                               + " d'une autre tâche, veuillez "
-                                               + "enlever ces containtes avant "
+                                               + " d'une autre tâche. \nVeuillez "
+                                               + "enlever ses containtes avant "
                                                + "de la supprimer.");
         }
         this.taches.remove(tacheAEnlever);

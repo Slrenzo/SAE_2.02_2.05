@@ -64,6 +64,7 @@ public class Menu {
                             projet = Projet.importer(lien);
                             projet.ordonnancement();
                             menu(projet, entree);
+                            repet = false;
                             choix = 0;
                         } catch (IllegalArgumentException erreurFichier) {
                             effacerConsole();
@@ -78,10 +79,9 @@ public class Menu {
                 }
                 break;
             case 3:
-                entree.close();
                 effacerConsole();
                 System.out.println("\nAu revoir");
-                repet = false;         
+                repet = false;       
                 break;
             default:
                 effacerConsole();
@@ -222,8 +222,10 @@ public class Menu {
                     System.out.print("\nAppuyer sur entrée pour continuer");
                     entree.nextLine();
                     } catch (IllegalArgumentException erreur) {
-                    System.err.println("\nERREUR : Cette tâche n'a pas pu être supprimée : "
+                    System.out.println("\nERREUR : Cette tâche n'a pas pu être supprimée : "
                                        + erreur.getMessage() + "\n");
+                    System.out.print("\nAppuyer sur entrée pour continuer");
+                    entree.nextLine();
                 }
                 if (Projet.nombreTaches(projet) > 0) {
                     projet.ordonnancement();
@@ -300,7 +302,7 @@ public class Menu {
                     while (choix != 0) {
                         System.out.println("Voici les tâches préalables "
                                            + "de la tâche "
-                                           + tacheSelect.getNom() + "\n");
+                                           + tacheSelect.getNom());
                         for (int index = 0; 
                                         index < tacheSelect.nombreTachesPrealables(); 
                                         index++) {
@@ -308,7 +310,7 @@ public class Menu {
                                                         .get(index).getNom() 
                                              + " | ");
                         }
-                        System.out.print("\nVeuillez entrer le nom de la tâche"
+                        System.out.print("\n\nVeuillez entrer le nom de la tâche"
                                         + " à supprimer : ");               
                         nomDeTache = entree.nextLine();
                         
@@ -332,11 +334,13 @@ public class Menu {
                                 try {
                                     tacheSelect.enleverTachePrealable(tacheAEnlever);
                                     effacerConsole();
+                                    System.out.print("Tâche supprimée avec succés\n");
                                     choix = 0;
                                 } catch (IllegalArgumentException erreurDeSaisie) {
                                     System.out.println(erreurDeSaisie.getMessage());
                                 }
                             } else {
+                                effacerConsole();
                                 System.out.println("\nERREUR : Ceci n'est pas une"
                                                    + " tâche préalable\n");
                             }
