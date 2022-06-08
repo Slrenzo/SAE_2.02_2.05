@@ -169,8 +169,8 @@ public class Projet {
     public void ajouterTache(Tache tacheAAjouter) {
         for (int i = 0; i < this.taches.size(); i++) {
             if (tacheAAjouter.getNom().equals(this.taches.get(i).getNom())) {
-                throw new IllegalArgumentException("Cette tâche est déjà "
-                                                   + "présente");
+                throw new IllegalArgumentException("ERREUR : Cette tâche est déjà "
+                                                   + "présente.");
             }
         }
         this.taches.add(tacheAAjouter);

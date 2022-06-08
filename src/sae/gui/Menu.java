@@ -4,7 +4,6 @@
  */
 package sae.gui;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import sae.pert.Projet;
@@ -139,8 +138,8 @@ public class Menu {
                 }else {
                     effacerConsole();
                     while  ( choix != 0) {
-                        System.out.println("\n------Choix de la tâche"
-                                           + " a modifier ------\n"
+                        System.out.println("\n------ Choix de la tâche"
+                                           + " à modifier ------\n"
                                            + "\nTapez 0 pour retourner en arrière\n");
                         int indexTache = afficheTaches(projet, entree);
                         if (indexTache != -1 && indexTache != -2) {
@@ -258,17 +257,18 @@ public class Menu {
                                 tacheSelect.ajouterTachePrealable(
                                                 projet.avoirTache(indexTache));
                                 if (projet.aUnCircuit(tacheSelect)) {
-                                    System.out.println("\nERREUR :Cette tache ne peut pas "
-                                                       + "etre ajouter aux taches "
-                                                       + "prealables de " 
+                                    effacerConsole();
+                                    System.out.println("\nERREUR : Cette tâche ne peut pas "
+                                                       + "être ajouter aux tâches "
+                                                       + "préalables de " 
                                                        + tacheSelect.getNom()
-                                                       + " car il y aura des "
-                                                       + "circuits\n");
+                                                       + " ,car il y aura des "
+                                                       + "circuits.\n");
                                     tacheSelect.enleverTachePrealable(
                                                     projet.avoirTache(indexTache));
                                 } else {
                                     effacerConsole();
-                                    System.out.println("Cette tâche à été ajoutée");
+                                    System.out.println("Cette tâche à été ajoutée.");
                                     choix = 0;
                                 }
                             } catch (IllegalArgumentException erreurDeSaisie) {
@@ -281,7 +281,8 @@ public class Menu {
                             effacerConsole();
                             choix = 0;
                         }else {
-                            System.out.println("\nERREUR : La tâche que vous"
+                            effacerConsole();
+                            System.out.println("\nERREUR : La tâche que vous "
                                                + "avez renseignée "
                                                + "n'existe pas\n");
                         }
@@ -441,7 +442,7 @@ public class Menu {
             System.out.print("Veuillez entrer la description de la tache : ");
             description = entree.nextLine();
             if (description.isEmpty()) {
-                System.out.println("\nERREUR : Le nom est vide. "
+                System.out.println("\nERREUR : La description est vide. "
                                    + "Veuillez recommencer\n");
             }else {
                 saisieOk = true;

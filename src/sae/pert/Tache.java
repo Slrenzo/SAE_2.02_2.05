@@ -116,7 +116,7 @@ public class Tache {
      */
     public void setDescription(String description) {
         if (description.isBlank()) {
-            throw new IllegalArgumentException("Le description est vide");
+            throw new IllegalArgumentException("La description est vide");
         }
         this.description = description;
     }
@@ -261,7 +261,7 @@ public class Tache {
         }
         if (estPresent) {
             throw new IllegalArgumentException("Cette tâche est déjà une "
-                                               + "tâche prealable");
+                                               + "tâche préalable");
         }
         if (this.nom == tache.nom) {
             throw new IllegalArgumentException("Cette tâche et la tâche que"
@@ -301,7 +301,7 @@ public class Tache {
         }
         if (!estPresent) {
             throw new IllegalArgumentException("Cette tâche n'est pas une "
-                                               + "tâche prealable");
+                                               + "tâche préalable");
         }
         this.tachesPrealables.remove(tache);
     }
@@ -349,7 +349,7 @@ public class Tache {
         if (this.nom == tache.nom) {
             throw new IllegalArgumentException("Cette tâche et la tâche que"
                                                + " vous souhaitez ajouter"
-                                               + " sont les memes");
+                                               + " sont les êmes");
         }
         this.tachesSuccesseurs.add(tache);
     }
@@ -397,8 +397,8 @@ public class Tache {
             estPresent = this.tachesSuccesseurs.get(i).nom == tache.nom;
         }
         if (!estPresent) {
-            throw new IllegalArgumentException("Cette tache n'est pas une "
-                                               + "tache successeur");
+            throw new IllegalArgumentException("Cette tâche n'est pas une "
+                                               + "tâche successeur");
         }
         this.tachesSuccesseurs.remove(tache);
     }
