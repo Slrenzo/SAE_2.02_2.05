@@ -4,6 +4,7 @@
  */
 package sae.gui;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import sae.pert.Projet;
@@ -46,11 +47,13 @@ public class Menu {
             entree.nextLine();
             switch (choix) {
             case 1: 
+                effacerConsole();
                 projet = creerProjet(entree);
                 menu(projet, entree);
                 repet = false;
                 break;
             case 2:
+                effacerConsole();
                 while (choix != 0) {
                     System.out.println("\n---------- Importation ----------\n");
                     System.out.print("Entrez le chemin du fichier "
@@ -64,21 +67,25 @@ public class Menu {
                             menu(projet, entree);
                             choix = 0;
                         } catch (IllegalArgumentException erreurFichier) {
+                            effacerConsole();
                             System.out.println("\nERREUR : Le fichier n'existe pas "
                                                + "ou est corrompu\n");
                             choix = 2;
                         }
                     }else if (lien.equals("0")) {
                         choix = 0;
+                        effacerConsole();
                     }
                 }
                 break;
             case 3:
+                effacerConsole();
                 System.out.println("\nAu revoir");
                 repet = false;
                 entree.close();
                 break;
             default:
+                effacerConsole();
                 System.out.println("\nERREUR : Veuillez choisir un nombre entre "
                                    + "1 et 3\n");
                 break;
@@ -95,6 +102,7 @@ public class Menu {
 
         int choix = 0;
         boolean repet = true;
+        effacerConsole();
         while (repet) {
             System.out.println("\n---------- " + projet.getNom() 
                                + " ----------\n");
@@ -109,45 +117,68 @@ public class Menu {
             entree.nextLine();
             switch (choix) {
             case 1: 
+                effacerConsole();
                 System.out.println("\n-------- Affichage du projet -------- \n\n" 
                                    + projet.toString() + "\n");
                 break;
             case 2:
                 try {
+                    effacerConsole();
                     projet.ajouterTache(creerTache(entree));
                     projet.ordonnancement();
+                    effacerConsole();
                 } catch (IllegalArgumentException erreurDeSaisie) {
+                    effacerConsole();
                     System.out.println(erreurDeSaisie.getMessage());
                 }
                 break;
             case 3:
                 if (Projet.nombreTaches(projet) < 1) {
+                    effacerConsole();
                     System.out.println("\nERREUR : Ce projet n'a pas de tâche\n");
                 }else {
+                    effacerConsole();
                     while  ( choix != 0) {
-                        System.out.println("------Choix de la tâche"
-                                           + " a modifier ------\n");
+                        System.out.println("\n------Choix de la tâche"
+                                           + " a modifier ------\n"
+                                           + "\nTapez 0 pour retourner en arrière\n");
                         int indexTache = afficheTaches(projet, entree);
-                        if (indexTache != -1) {
+                        if (indexTache != -1 && indexTache != -2) {
                             menuTache(projet, entree, projet.avoirTache(indexTache));
                             choix = 0;
                             repet = false;
-                        } else {
+                        } else if (indexTache == -2) {
+                            effacerConsole();
+                            choix = 0;
+                        }else {
+                            effacerConsole();
                             System.out.println("\nERREUR : La tâche que vous avez "
                                                + "renseignée n'existe pas.\n");
                         }
+                        
                     }
                 }
                 break;
             case 4:
-                System.out.print("Choisissez un chemin de sauvegarde : ");
-                projet.sauvegarder(entree.nextLine());
+                effacerConsole();
+                System.out.print("Tapez 0 pour revenir en arriére."
+                                 + "\nChoisissez un chemin de sauvegarde : ");
+                String chemin = entree.nextLine();
+                if (chemin.equals("0")) {
+                    choix = 0;
+                    effacerConsole();
+                }else {
+                    projet.sauvegarder(chemin);
+                    effacerConsole();
+                }
                 break;
             case 5:
+                effacerConsole();
                 menuPrincipal(entree);
                 repet = false;
                 break;
             default:
+                effacerConsole();
                 System.out.println("\nERREUR : Veuillez choisir un nombre entre "
                                    + "1 et 5\n");
                 break;
@@ -164,7 +195,7 @@ public class Menu {
     public static void menuTache(Projet projet, Scanner entree, Tache tacheSelect) {
         int choix = 0;
         boolean repet = true;
-
+        effacerConsole();
         while (repet) {
             System.out.println("\n---------- Menu de " + tacheSelect.getNom() 
                                + " ----------\n");
@@ -180,14 +211,18 @@ public class Menu {
 
             switch (choix) {
             case 1:
+                effacerConsole();
                 modifTache(projet, tacheSelect, entree);
                 repet = false;
                 break;
             case 2:
+                effacerConsole();
                 try {
                     projet.enleverTache(tacheSelect);
-                    System.out.println("Cette tâche a été supprimée");
-                } catch (IllegalArgumentException erreur) {
+                    System.out.println("Cette tâche a été supprimée avec succés");
+                    System.out.print("\nAppuyer sur entrée pour continuer");
+                    entree.nextLine();
+                    } catch (IllegalArgumentException erreur) {
                     System.err.println("\nERREUR : Cette tâche n'a pas pu être supprimée : "
                                        + erreur.getMessage() + "\n");
                 }
@@ -198,7 +233,8 @@ public class Menu {
                 menu(projet, entree);
                 break;
             case 3:
-                System.out.println("------ Ajout de tâche Préalable -----");
+                effacerConsole();
+                System.out.println("\n------ Ajout de tâche Préalable -----");
                 if (Projet.nombreTaches(projet) < 2) {
                     System.out.println("\nERREUR : Ce projet n'a pas "
                                        + "assez de tâche.\n");
@@ -222,7 +258,7 @@ public class Menu {
                                 tacheSelect.ajouterTachePrealable(
                                                 projet.avoirTache(indexTache));
                                 if (projet.aUnCircuit(tacheSelect)) {
-                                    System.out.println("\n ERREUR :Cette tache ne peut pas "
+                                    System.out.println("\nERREUR :Cette tache ne peut pas "
                                                        + "etre ajouter aux taches "
                                                        + "prealables de " 
                                                        + tacheSelect.getNom()
@@ -231,6 +267,7 @@ public class Menu {
                                     tacheSelect.enleverTachePrealable(
                                                     projet.avoirTache(indexTache));
                                 } else {
+                                    effacerConsole();
                                     System.out.println("Cette tâche à été ajoutée");
                                     choix = 0;
                                 }
@@ -241,6 +278,7 @@ public class Menu {
                             }
         
                         } else if (indexTache == -2){
+                            effacerConsole();
                             choix = 0;
                         }else {
                             System.out.println("\nERREUR : La tâche que vous"
@@ -252,7 +290,8 @@ public class Menu {
                 break;
             case 4:
                 String nomDeTache;
-                System.out.println("------ Retrait de tache Prealable -----");
+                effacerConsole();
+                System.out.println("\n------ Retrait de tache Prealable -----");
                 if (tacheSelect.nombreTachesPrealables() < 1) {
                     System.out.println("\nERREUR : Cette tâche n'a "
                                        + "pas de tâche préalable\n");
@@ -273,6 +312,7 @@ public class Menu {
                         nomDeTache = entree.nextLine();
                         
                         if (nomDeTache.equals("0")) {
+                            effacerConsole();
                             choix = 0;
                         }else {
         
@@ -290,6 +330,7 @@ public class Menu {
                                                 .avoirTachePrealable(index - 1);
                                 try {
                                     tacheSelect.enleverTachePrealable(tacheAEnlever);
+                                    effacerConsole();
                                     choix = 0;
                                 } catch (IllegalArgumentException erreurDeSaisie) {
                                     System.out.println(erreurDeSaisie.getMessage());
@@ -306,6 +347,7 @@ public class Menu {
                 if (Projet.nombreTaches(projet) > 0) {
                     projet.ordonnancement();
                 }
+                effacerConsole();
                 menu(projet, entree);
                 repet = false;
                 break;
@@ -355,7 +397,7 @@ public class Menu {
                     uniteTempsChoisieFaux = true;
                 }
                 if (uniteTempsChoisieFaux) {
-                    System.out.println("\n ERREUR : Veuillez entrer un nombre "
+                    System.out.println("\nERREUR : Veuillez entrer un nombre "
                                        + "entre un 1 et 6 : \n");
                 }
                 entree.nextLine();
@@ -439,6 +481,7 @@ public class Menu {
         boolean repet = true;
 
         while (repet) {
+            effacerConsole();
             System.out.println("\n---------- Modification de tache "
                                + "----------\n");
             System.out.println("---------- " + tache.getNom() 
@@ -452,27 +495,45 @@ public class Menu {
 
             switch (choix) {
             case 1:
-                System.out.println("------ Modification de la description "
-                                   + "-----");
-                System.out.print("\nVeuillez entrer la description "
-                                 + "de la tâche : ");
-                if (entree.hasNextLine()) {
-                    tache.setDescription(entree.nextLine());
-                } else {
-                    System.out.println("\nERREUR : Il y a eu une erreur lors "
-                                       + "de la saisie\n");
+                effacerConsole();
+                while (choix != 0) {
+                    System.out.println("\n------ Modification de la description "
+                                       + "-----");
+                    System.out.print("\nVeuillez entrer la description "
+                                     + "de la tâche : ");
+                    if (entree.hasNextLine()) {
+                        try {
+                            tache.setDescription(entree.nextLine());
+                            choix = 0;
+                        }catch (IllegalArgumentException descVide) {
+                            System.out.println("\nERREUR : Il y a eu une erreur lors "
+                                               + "de la saisie\n");
+                        }
+                    } else {
+                        System.out.println("\nERREUR : Il y a eu une erreur lors "
+                                           + "de la saisie\n");
+                    }
                 }
                 break;
             case 2:
-                System.out.println("------ Modification de la durée -----");
-                System.out.print("\nVeuillez entrer la durée de la tache : ");
-                if (entree.hasNextDouble()) {
-                    tache.setDuree(entree.nextDouble());
-                } else {
-                    System.out.println("\nERREUR : Il y a eu une erreur "
-                                       + "lors de la saisie\n");
+                effacerConsole();
+                while ( choix != 0) {
+                    System.out.println("\n------ Modification de la durée -----");
+                    System.out.print("\nVeuillez entrer la durée de la tache : ");
+                    if (entree.hasNextDouble()) {
+                        try {
+                            tache.setDuree(entree.nextDouble());
+                            choix = 0;
+                        }catch (IllegalArgumentException dureeInvalide) {
+                            System.out.println("\nERREUR : Il y a eu une erreur "
+                                            + "lors de la saisie\n");
+                        }
+                    } else {
+                        System.out.println("\nERREUR : Il y a eu une erreur "
+                                           + "lors de la saisie\n");
+                    }
+                    entree.nextLine();
                 }
-                entree.nextLine();
                 break;
             case 3:
                 menuTache(projet, entree, tache);
@@ -499,7 +560,7 @@ public class Menu {
         String nomDeTache;
         System.out.println("Voici les taches de ce projet :");
         for (int i = 0; i < Projet.nombreTaches(projet); i++) {
-            System.out.println("\nNom : " + projet.avoirTache(i).getNom() 
+            System.out.println("Nom : " + projet.avoirTache(i).getNom() 
                                + " | Description : "
                                + projet.avoirTache(i).getDescription());
         }
@@ -519,6 +580,24 @@ public class Menu {
         return ok ? index - 1 : nomDeTache.equals("0") ? -2 : -1;
     }
 
+    /**
+     * Efface la console
+     */
+    private static void effacerConsole() {
+        try{
+            String systemExploitation = System.getProperty("os.name");
+              
+            if(systemExploitation.contains("Windows")){        
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO()
+                                                      .start()
+                                                      .waitFor();
+            } else {
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            } 
+        }catch(Exception erreurEffacer){
+            System.out.println(erreurEffacer);
+        }
+    }
 }
 
 
