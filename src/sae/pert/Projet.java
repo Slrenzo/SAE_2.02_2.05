@@ -194,7 +194,7 @@ public class Projet {
             throw new IllegalArgumentException("Cette tâche est une contrainte"
                                                + " d'une autre tâche, veuillez "
                                                + "enlever ces containtes avant "
-                                               + "de supprimer cette tâche");
+                                               + "de la supprimer.");
         }
         this.taches.remove(tacheAEnlever);
     }
@@ -438,7 +438,7 @@ public class Projet {
 
             fichier.close();
         } catch (IOException erreur) {
-            System.err.println("Erreur lors de la sauvegarde"
+            System.out.println("Erreur lors de la sauvegarde"
                                + " (erreur dans le chemin)");
         }
     }
@@ -501,7 +501,6 @@ public class Projet {
 
             lecteur.close();
         } catch (IOException e) {
-            System.err.println("Erreur lors de l'importation");
         }
         return projet;
     }
