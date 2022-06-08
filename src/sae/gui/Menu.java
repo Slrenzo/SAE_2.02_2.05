@@ -316,6 +316,7 @@ public class Menu {
 
     /** 
      * Permet en interrogeant l'utilisateur de créer un projet
+     * @param entree analyseur de l'entree texte
      * @return projet Projet que l'on créer
      */
     public static Projet creerProjet(Scanner entree) {
@@ -369,6 +370,7 @@ public class Menu {
 
     /** 
      * Permet de créer une tache en interrogeant l'utilisateur
+     * @param entree analyseur de l'entree texte
      * @return tache que l'on créer
      */
     public static Tache creerTache(Scanner entree) {
