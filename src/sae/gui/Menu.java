@@ -259,7 +259,7 @@ public class Menu {
                                 if (projet.aUnCircuit(tacheSelect)) {
                                     effacerConsole();
                                     System.out.println("\nERREUR : Cette tâche ne peut pas "
-                                                       + "être ajouter aux tâches "
+                                                       + "être ajoutée aux tâches "
                                                        + "préalables de " 
                                                        + tacheSelect.getNom()
                                                        + " ,car il y aura des "
@@ -272,7 +272,7 @@ public class Menu {
                                     choix = 0;
                                 }
                             } catch (IllegalArgumentException erreurDeSaisie) {
-                                System.out.println("\n ERREUR :" 
+                                System.out.println("\nERREUR :" 
                                                    + erreurDeSaisie.getMessage()
                                                    + "\n");
                             }
