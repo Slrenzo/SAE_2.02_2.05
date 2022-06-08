@@ -37,7 +37,7 @@ public class Menu {
 
         while (repet) {
             System.out.println("\n---------- Menu principal ----------\n");
-            System.out.println("Choix : \n");
+            System.out.println("Choix : ");
             System.out.println("1 - Créer un projet\n"
                                + "2 - Importer un projet\n"
                                + "3 - Quitter le logiciel\n");
@@ -274,7 +274,8 @@ public class Menu {
                                     choix = 0;
                                 }
                             } catch (IllegalArgumentException erreurDeSaisie) {
-                                System.out.println("\nERREUR :" 
+                                effacerConsole();
+                                System.out.println("\nERREUR : " 
                                                    + erreurDeSaisie.getMessage()
                                                    + "\n");
                             }
@@ -302,7 +303,8 @@ public class Menu {
                     while (choix != 0) {
                         System.out.println("Voici les tâches préalables "
                                            + "de la tâche "
-                                           + tacheSelect.getNom());
+                                           + tacheSelect.getNom()
+                                           + "tapez 0 pour revenir en arrière");
                         for (int index = 0; 
                                         index < tacheSelect.nombreTachesPrealables(); 
                                         index++) {
@@ -357,6 +359,7 @@ public class Menu {
                 repet = false;
                 break;
             default:
+                effacerConsole();
                 System.out.println("\nERREUR : Veuillez choisir un nombre entre "
                                    + "1 et 5\n");
                 break;
