@@ -78,10 +78,10 @@ public class Menu {
                 }
                 break;
             case 3:
+                entree.close();
                 effacerConsole();
                 System.out.println("\nAu revoir");
-                repet = false;
-                entree.close();
+                repet = false;         
                 break;
             default:
                 effacerConsole();
